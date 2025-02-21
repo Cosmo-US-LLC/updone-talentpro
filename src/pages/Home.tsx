@@ -11,7 +11,7 @@ function Home() {
   const dispatch: AppDispatch = useDispatch();
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center gap-x-4">
+    <div className="h-full w-full flex items-center justify-center gap-x-4">
       <button
         onClick={() => dispatch(decrement())}
         disabled={count === 0}
