@@ -130,7 +130,7 @@ const UpcomingEventsDesktop = () => {
                                     <div
                                         onClick={() => {
                                             setLoadingEventId(event.id);
-                                            router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${event.id}`);
+                                            router.push(`/staff/job-detail/${event.id}`);
                                         }}
                                         className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
                                     >

@@ -40,7 +40,7 @@ const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
                 {isAssignedToMe && (
                     <div 
                         className=" bg-[#350ABC] text-white px-4 py-2 rounded-sm cursor-pointer ml-auto"
-                        onClick={() => router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/talent/events/upcoming`)}
+                        onClick={() => router.push(`/upcoming`)}
                     >
                         View Upcoming Events
                     </div>

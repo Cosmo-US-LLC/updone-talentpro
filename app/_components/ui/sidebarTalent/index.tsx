@@ -21,11 +21,11 @@ import { MdMiscellaneousServices } from "react-icons/md";
 
 // Define an array of link objects
 const links = [
-    { name: 'My Events', icon: FaRegCalendarCheck, path: '/talent/events' },
-    { name: 'Upcoming', icon: TbCalendarUp, path: '/talent/events/upcoming' },
-    { name: 'Personal details ', icon: CgProfile, path: '/talent/events/personaldetails' },
-    { name: 'Login details', icon: TbLogin2, path: '/talent/events/logindetails' },
-    { name: 'Services', icon: MdMiscellaneousServices, path: '/talent/events/services' },
+    { name: 'My Events', icon: FaRegCalendarCheck, path: '/' },
+    { name: 'Upcoming', icon: TbCalendarUp, path: '/upcoming' },
+    { name: 'Personal details ', icon: CgProfile, path: '/personaldetails' },
+    { name: 'Login details', icon: TbLogin2, path: '/logindetails' },
+    { name: 'Services', icon: MdMiscellaneousServices, path: '/services' },
 ];
 
 const bottomLinks = [
@@ -42,8 +42,9 @@ const SideBarTalent = () => {
 
     useEffect(() => {
         const authData = Cookies.get("authData");
+        const authToken = Cookies.get("authToken");
         if (authData) {
-            dispatch(setAuth(JSON.parse(authData)));
+          dispatch(setAuth(({ token: authToken, user: JSON.parse(authData) })));
         }
     }, [dispatch, router]);
 

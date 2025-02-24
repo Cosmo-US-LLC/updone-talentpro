@@ -75,7 +75,7 @@ const Logout = () => {
             onClick={() => {
               setIsButtonLoading(true);
               router.push(
-                `${process.env.NEXT_PUBLIC_TALENTPRO_URL}/talent/events`
+                `/`
               );
             }}
             className="bg-[#350ABC] rounded-full w-[50%] py-4 self-center"

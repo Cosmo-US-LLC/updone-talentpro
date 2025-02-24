@@ -17,7 +17,7 @@ import { setEmpty as setStaffEmpty } from "@/app/lib/store/features/staffSlice";
 
 // Define an array of link objects
 const links = [
-  { name: "My Events", icon: SlLocationPin, path: "/events" },
+  { name: "My Events", icon: SlLocationPin, path: "/" },
   { name: "Payment", icon: PiCurrencyDollar, path: "/payments" },
   { name: "Settlements", icon: PiUsersThree, path: "/settlements" },
   { name: "Reviews", icon: IoIosStarOutline, path: "/reviews" },

@@ -1,4 +1,10 @@
 import { BASE_URL } from "../constants";
+import store from "../store/store";
+import { clearAuth, selectAuth, setEmpty as setAuthEmpty } from "@/app/lib/store/features/authSlice";
+import { setEmpty as setBookingEmpty } from "@/app/lib/store/features/bookingSlice";
+import { setEmpty as setJobEmpty } from "@/app/lib/store/features/jobCreateSlice";
+import { setEmpty as setStaffEmpty } from "@/app/lib/store/features/staffSlice";
+import Cookies from "js-cookie";
 
 interface RequestOptions<T> {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE'; // Adjust as per your API needs
@@ -42,6 +48,19 @@ export async function apiRequest<T>(
             getResetMessage?.(data.message)
         }
 
+        if (data?.message == "Unauthenticated.") {
+            console.log("Error here")
+            console.log(data)
+            store.dispatch(clearAuth());
+            store.dispatch(setStaffEmpty());
+            store.dispatch(setBookingEmpty());
+            store.dispatch(setJobEmpty());
+            store.dispatch(setAuthEmpty());
+            Cookies.remove("authToken");
+            Cookies.remove("authData");
+            window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=401`
+            return;
+        }
         return data.data; // Return data for successful response
     } catch (error) {
         const errorMessage = (error as Error).message || 'Failed to fetch data';

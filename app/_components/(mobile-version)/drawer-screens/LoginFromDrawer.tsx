@@ -120,7 +120,7 @@ const LoginFromDrawer = ({ setCurrentScreen }: any) => {
         });
         setTimeout(() => {
           // if (newData?.user?.role_id === 3) {
-          //   router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/talent/events`)
+          //   router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/`)
           // } else {
           location.reload();
           // }

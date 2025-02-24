@@ -210,7 +210,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                                 <p className="text-start text-[18px] font-bold">{truncatedTitle}</p>
                                 {event.title.length > MAX_TITLE_LENGTH && (
                                     <button
-                                        onClick={() => handleButtonClick(event.id, `${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${event.id}`)}
+                                        onClick={() => handleButtonClick(event.id, `/staff/job-detail/${event.id}`)}
                                         className="text-[14px] text-[#0076E6] underline mt-2"
                                     >
                                         View More
@@ -279,7 +279,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                             {/* <div className="flex w-full items-start justify-end mt-8"> */}
                             <div className="flex flex-row w-full items-start justify-end mt-1">
                                 <div
-                                    onClick={() => handleButtonClick(event.id, `${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${event.id}?tab=${activeTab}`)}
+                                    onClick={() => handleButtonClick(event.id, `/staff/job-detail/${event.id}?tab=${activeTab}`)}
                                     className="bg-[#350ABC] rounded-sm w-[50%] py-2 mr-4 self-center"
                                 >
                                     <p className="flex items-center justify-center text-center text-[white] font-[500] text-[14px] leading-[24px]">

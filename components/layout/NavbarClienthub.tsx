@@ -39,8 +39,9 @@ function NavbarClienthub() {
 
   useEffect(() => {
     const authData = Cookies.get("authData");
+    const authToken = Cookies.get("authToken");
     if (authData) {
-      dispatch(setAuth(JSON.parse(authData)));
+      dispatch(setAuth(({ token: authToken, user: JSON.parse(authData) })));
     } else {
       dispatch(clearAuth());
       dispatch(setStaffEmpty());
@@ -140,7 +141,7 @@ function NavbarClienthub() {
               // !scrollBackground && pathName === "/"
               `max-md:hidden mr-2 bg-white hover:text-[#5d0abc] underline underline-offset-2 rounded-full text-black !normal-case text-[14px] font-[400] transition-colors duration-50 `
               // `!ml-[22px] bg-[#EBE6FF] hover:bg-[#d7cefc] rounded-full text-[#5d0abc] !normal-case px-[20px] py-[8px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
-            }`}
+              }`}
           >
             <div>Go To Updone</div>
           </Link>
@@ -150,7 +151,7 @@ function NavbarClienthub() {
               // !scrollBackground && pathName === "/"
               // `!ml-[22px] bg-white hover:bg-[#EBE6FF] rounded-full  text-black  !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
               `max-md:hidden bg-[#EBE6FF] hover:bg-[#d7cefc] rounded-full text-[#5d0abc] !normal-case px-[20px] py-[12px] text-[14px] font-[600] transition-colors duration-300`
-            }`}
+              }`}
           >
             <div>Book a Talent Now</div>
           </Link>
@@ -162,9 +163,8 @@ function NavbarClienthub() {
                   <Avatar>
                     <AvatarImage src={storedData?.user?.image} />
                     <AvatarFallback>{`
-                      ${storedData?.user?.name?.split(" ")[0][0]}${
-                      storedData?.user?.name?.split(" ")?.length > 1 ? storedData?.user?.name?.split(" ")[1][0] : ''
-                    }
+                      ${storedData?.user?.name?.split(" ")[0][0]}${storedData?.user?.name?.split(" ")?.length > 1 ? storedData?.user?.name?.split(" ")[1][0] : ''
+                      }
                     `}</AvatarFallback>
                   </Avatar>
                 </>
@@ -183,11 +183,10 @@ function NavbarClienthub() {
                       <Avatar>
                         <AvatarImage src={storedData?.user?.image} />
                         <AvatarFallback>{`
-                          ${storedData?.user?.name?.split(" ")[0][0]}${
-                          storedData?.user?.name?.split(" ").length > 1
+                          ${storedData?.user?.name?.split(" ")[0][0]}${storedData?.user?.name?.split(" ").length > 1
                             ? storedData?.user?.name?.split(" ")[1][0]
                             : ""
-                        }`}</AvatarFallback>
+                          }`}</AvatarFallback>
                       </Avatar>
                     </>
                   ) : (

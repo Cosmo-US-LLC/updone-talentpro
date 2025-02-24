@@ -6,12 +6,11 @@ import SideBarTalent from "../_components/ui/sidebarTalent";
 const RootLayout = ({ children }: RootLayoutProps) => {
     return (
         <>
-       
-            <div className="lg:hidden">
+            <div className="lg:hidden w-full border border-red-500">
                 {children}
             </div>
             <div className="max-lg:hidden">
-                <div className="flex flex-col h-[100vh] w-[100]">
+                <div className="flex flex-col h-[100vh] w-[100%]">
                     <NavbarTalentPro />
                     <div className="md:hidden">{children}</div>
                     <div className="overflow-y-auto hidden md:flex px-4 py-4 min-h-[calc(100vh-70px)] w-[100%] bg-[#F6F9FC] relative">

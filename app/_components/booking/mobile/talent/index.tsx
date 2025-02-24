@@ -192,7 +192,7 @@ const TalentMobile = ({ jobId }: { jobId: number }) => {
           <MobileNavbar />
           <div
             onClick={() => {
-              router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/talent/events?tab=${activeTab}`)
+              router.push(`/?tab=${activeTab}`)
             }}
             className="flex flex-row items-center justify-start gap-1 mt-20 mb-4 mx-4">
             <Image

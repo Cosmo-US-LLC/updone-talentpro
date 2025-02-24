@@ -128,7 +128,7 @@ const handleButtonClick = (eventId: number, url: string) => {
                 <p className="text-start text-[18px] font-bold">{truncatedTitle}</p>
                 {event.title.length > MAX_TITLE_LENGTH && (
                   <button
-                    onClick={() => handleButtonClick(event.id, `${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${event.id}`)}
+                    onClick={() => handleButtonClick(event.id, `/staff/job-detail/${event.id}`)}
                     className="text-[14px] text-[#0076E6] underline mt-2"
                   >
                     View More
@@ -198,7 +198,7 @@ const handleButtonClick = (eventId: number, url: string) => {
                             <div className="flex flex-row w-full items-start justify-end mt-1 ">
                             <div
   onClick={() => {
-    const url = `${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${event.id}?tab=${activeTab}`;
+    const url = `/staff/job-detail/${event.id}?tab=${activeTab}`;
     handleButtonClick(event.id, url);
   }}
   className="w-[50%] py-[10px] self-center"

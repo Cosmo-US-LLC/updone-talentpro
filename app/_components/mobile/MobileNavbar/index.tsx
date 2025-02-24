@@ -88,7 +88,7 @@ const MobileNavbar = ({ ...props }) => {
     // Check if the current URL path is the job detail page
     if (pathname.includes("/job-detail")) {
       // Redirect to the events page with the correct tab
-      router.push(`/talent/events?tab=upcoming`);
+      router.push(`/?tab=upcoming`);
     } else {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("upcoming");
@@ -98,7 +98,7 @@ const MobileNavbar = ({ ...props }) => {
     // Check if the current URL path is the job detail page
     if (pathname.includes("/job-detail")) {
       // Redirect to the events page with the correct tab
-      router.push(`/talent/events?tab=myevents`);
+      router.push(`/?tab=myevents`);
     } else {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("myevents");
@@ -109,7 +109,7 @@ const MobileNavbar = ({ ...props }) => {
     // Check if the current URL path is the job detail page
     if (pathname.includes("/job-detail")) {
       // Redirect to the events page with the correct tab
-      router.push(`/talent/events?tab=personaldetails`);
+      router.push(`/?tab=personaldetails`);
     } else {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("personaldetails");
@@ -120,7 +120,7 @@ const MobileNavbar = ({ ...props }) => {
     // Check if the current URL path is the job detail page
     if (pathname.includes("/job-detail")) {
       // Redirect to the events page with the correct tab
-      router.push(`/talent/events?tab=logindetails`);
+      router.push(`/?tab=logindetails`);
     } else {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("logindetails");
@@ -131,7 +131,7 @@ const MobileNavbar = ({ ...props }) => {
     // Check if the current URL path is the job detail page
     if (pathname.includes("/job-detail")) {
       // Redirect to the events page with the correct tab
-      router.push(`/talent/events?tab=services`);
+      router.push(`/?tab=services`);
     } else {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("services");
@@ -142,7 +142,7 @@ const MobileNavbar = ({ ...props }) => {
     // Check if the current URL path is the job detail page
     if (pathname.includes("/job-detail")) {
       // Redirect to the events page with the correct tab
-      router.push(`/talent/events?tab=paymentmethod`);
+      router.push(`/?tab=paymentmethod`);
     } else {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("paymentmethod");
@@ -387,7 +387,7 @@ const MobileNavbar = ({ ...props }) => {
                   {!isTalentProPage && (
                     <div className="">
                       {storedData?.user && storedData?.user?.role_id == "3" ? (
-                        <Link href={`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/talent/events`}>
+                        <Link href={`/`}>
                           <button className="bg-[#350abc] text-white rounded-full px-4 py-2 font-semibold">
                             Go to TalentPro
                           </button>

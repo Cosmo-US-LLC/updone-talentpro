@@ -18,7 +18,7 @@ const LoginToUnlock = ({ isClient = false }) => {
     });
 
     // Redirect to the sign-in page
-    router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/signin?from=unlock`);
+    router.push(`/signin?from=unlock`);
   };
 
   return (

@@ -121,18 +121,16 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
 
   return (
     <header
-      className={`${styles.header} ${
-        !scrollBackground && pathName === "/"
-          ? "!bg-[rgba(0,0,0,0.1)] !shadow-none transition ease-in-out delay-150"
-          : "bg-[#FFF] !shadow-sm transition ease-in-out delay-150"
-      }`}
+      className={`${styles.header} ${!scrollBackground && pathName === "/"
+        ? "!bg-[rgba(0,0,0,0.1)] !shadow-none transition ease-in-out delay-150"
+        : "bg-[#FFF] !shadow-sm transition ease-in-out delay-150"
+        }`}
     >
       <nav
-        className={`border-gray-200 h-auto flex justify-between items-center py-[15px] w-full mx-auto min-w-[1024px] max-w-[1280px] px-6 ${
-          !scrollBackground && pathName === "/"
-            ? "bg-transparent !shadow-none transition ease-in-out delay-150"
-            : "!bg-[#FFF] transition ease-in-out delay-150"
-        }`}
+        className={`border-gray-200 h-auto flex justify-between items-center py-[15px] w-full mx-auto min-w-[1024px] max-w-[1280px] px-6 ${!scrollBackground && pathName === "/"
+          ? "bg-transparent !shadow-none transition ease-in-out delay-150"
+          : "!bg-[#FFF] transition ease-in-out delay-150"
+          }`}
       >
         <div
           className="justify-between items-center relative flex"
@@ -165,10 +163,9 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                   href="/about"
                   className={`relative text-[14px] font-[400] leading-[150%] capitalize cursor-pointer py-1 px-4
                     transition-colors duration-300 delay-150 group
-                    ${
-                      !scrollBackground && pathName === "/"
-                        ? "text-white hover:text-white"
-                        : "text-[#0B0B0B] hover:text-[#350ABC]"
+                    ${!scrollBackground && pathName === "/"
+                      ? "text-white hover:text-white"
+                      : "text-[#0B0B0B] hover:text-[#350ABC]"
                     }
                   `}
                 >
@@ -186,11 +183,10 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                         `${process.env.NEXT_PUBLIC_BASE_URL}/add-job?step=event-location`
                       )
                     }
-                    className={`${
-                      !scrollBackground && pathName === "/"
-                        ? `!ml-[22px] bg-white hover:bg-[#EBE6FF] rounded-full  text-black  !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
-                        : `!ml-[22px] bg-[#EBE6FF] hover:bg-[#d7cefc] rounded-full text-[#5d0abc] !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
-                    }`}
+                    className={`${!scrollBackground && pathName === "/"
+                      ? `!ml-[22px] bg-white hover:bg-[#EBE6FF] rounded-full  text-black  !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
+                      : `!ml-[22px] bg-[#EBE6FF] hover:bg-[#d7cefc] rounded-full text-[#5d0abc] !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
+                      }`}
                   >
                     <div>Book a Talent Now</div>
                   </li>
@@ -204,11 +200,10 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                           <Avatar>
                             <AvatarImage src={storedData?.user?.image} />
                             <AvatarFallback>{`
-                              ${storedData?.user?.name?.split(" ")[0][0]}${
-                              storedData?.user?.name?.split(" ").length > 1
+                              ${storedData?.user?.name?.split(" ")[0][0]}${storedData?.user?.name?.split(" ").length > 1
                                 ? storedData?.user?.name?.split(" ")[1][0]
                                 : ""
-                            }
+                              }
                             `}</AvatarFallback>
                           </Avatar>
                         </>
@@ -237,14 +232,12 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                                 <Avatar>
                                   <AvatarImage src={storedData?.user?.image} />
                                   <AvatarFallback>{`
-                                    ${
-                                      storedData?.user?.name?.split(" ")[0][0]
-                                    }${
-                                    storedData?.user?.name?.split(" ").length >
-                                    1
+                                    ${storedData?.user?.name?.split(" ")[0][0]
+                                    }${storedData?.user?.name?.split(" ").length >
+                                      1
                                       ? storedData?.user?.name?.split(" ")[1][0]
                                       : ""
-                                  }
+                                    }
                                   `}</AvatarFallback>
                                 </Avatar>
                               </>
@@ -271,16 +264,11 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                             onClick={() => {
                               if (storedData?.user?.role_id === 4) {
                                 router.push(
-                                  `${
-                                    process.env.NEXT_PUBLIC_CLIENTHUB_URL ?? ""
+                                  `${process.env.NEXT_PUBLIC_CLIENTHUB_URL ?? ""
                                   }/events`
                                 );
                               } else if (storedData?.user?.role_id === 3) {
-                                router.push(
-                                  `${
-                                    process.env.NEXT_PUBLIC_TALENTPRO_URL ?? ""
-                                  }/talent/events`
-                                );
+                                router.push(`/`);
                               }
                             }}
                             className="flex hover-state-color border-b-[1px] px-[20px] border-[#EBEBEB] hover:!bg-[#F1EEFF] group"
@@ -319,11 +307,10 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                       href="/signup"
                       className={`relative text-[14px] font-[400] leading-[150%] capitalize cursor-pointer py-1 px-4
                     transition-colors duration-300 delay-150 group
-                    ${
-                      !scrollBackground && pathName === "/"
-                        ? "text-white hover:text-white"
-                        : "text-[#0B0B0B] hover:text-[#350ABC]"
-                    }
+                    ${!scrollBackground && pathName === "/"
+                          ? "text-white hover:text-white"
+                          : "text-[#0B0B0B] hover:text-[#350ABC]"
+                        }
                   `}
                     >
                       Sign up
@@ -337,11 +324,10 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                       href="/signin"
                       className={`relative text-[14px] font-[400] leading-[150%] capitalize cursor-pointer py-1 px-4
                     transition-colors duration-300 delay-150 group
-                    ${
-                      !scrollBackground && pathName === "/"
-                        ? "text-white hover:text-white"
-                        : "text-[#0B0B0B] hover:text-[#350ABC]"
-                    }
+                    ${!scrollBackground && pathName === "/"
+                          ? "text-white hover:text-white"
+                          : "text-[#0B0B0B] hover:text-[#350ABC]"
+                        }
                   `}
                     >
                       Log in
@@ -401,11 +387,10 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                   </li> */}
                   <li
                     onClick={() => router.push("/add-job?step=event-location")}
-                    className={`${
-                      !scrollBackground && pathName === "/"
-                        ? `!ml-[22px] bg-white hover:bg-[#EBE6FF] rounded-full text-black !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
-                        : `!ml-[22px] bg-[#EBE6FF] hover:bg-[#d7cefc] rounded-full text-[#5d0abc] !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
-                    }`}
+                    className={`${!scrollBackground && pathName === "/"
+                      ? `!ml-[22px] bg-white hover:bg-[#EBE6FF] rounded-full text-black !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
+                      : `!ml-[22px] bg-[#EBE6FF] hover:bg-[#d7cefc] rounded-full text-[#5d0abc] !normal-case px-[20px] py-[12px] text-[14px] font-[600] leading-[150%] transition-colors duration-300 delay-150 `
+                      }`}
                   >
                     <span>Book a Talent Now</span>
                   </li>

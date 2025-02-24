@@ -66,9 +66,9 @@ const MyEventsDesktop = () => {
             }
             {
                 events?.length > 0 &&
-                events.map((event: any) => {
+                events.map((event: any, id) => {
                     return (
-                        <div className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">
+                        <div key={id} className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">
                             <div className={`${event.status === "assigned" ? "bg-[#EAFDE7]" : "bg-[#FDE7E7]"}  py-2 px-4 w-fit rounded-full`}>
                                 <p className={`${event.status === "assigned" ? "text-[#0C9000]" : "text-[#E60000]"} text-center  font-[500]`}>
                                     {event.status}
@@ -131,7 +131,7 @@ const MyEventsDesktop = () => {
                                     <div
                                         onClick={() => {
                                             setLoadingEventId(event.id);
-                                            router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${event.id}`);
+                                            router.push(`/staff/job-detail/${event.id}`);
                                         }}
                                         className="cursor-pointer bg-[#350ABC] rounded-full w-[50%] py-4 self-center"
                                     >

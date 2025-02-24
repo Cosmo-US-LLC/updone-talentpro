@@ -152,7 +152,7 @@ const TalentCard = ({
             <div className="flex items-center ">
               <p
                 className={`leading-[24px] ${isSelected ? "text-white" : "text-[#989898]"
-                  } text-[!14px] font-normal inline-flex items-center whitespace-nowrap overflow-hidden text-ellipsis text-sm`}
+                  } text-[14px] font-normal inline-flex items-center whitespace-nowrap overflow-hidden text-ellipsis text-sm`}
               >
                 <span className="mr-2 flex-shrink-0">
                   <svg
