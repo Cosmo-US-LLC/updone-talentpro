@@ -1,0 +1,21 @@
+
+.accordion-content {
+    max-height: 0;
+    /* transition:  .4s ease-out !important; */
+  }
+  
+  /* Styles for open state */
+  .open .accordion-content {
+    max-height: 460px; /* Adjust as per your content height */
+    /* transition:  .4s ease-out !important; */
+  }
+  /* Example CSS */
+.defaultsearch::placeholder {
+  color:  #9F9F9F;  
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 171.429% */
+  letter-spacing: -0.28px;
+}
+

@@ -1,0 +1,50 @@
+.breadcrumbs {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  bottom: 30px;
+}
+
+.breadcrumbs span {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs  {
+  text-decoration: none;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20.4px;
+  padding: 0 6px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  bottom: 30px;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs span.active a {
+  color: #6B6B6B;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20.4px; /* 170% */
+  letter-spacing: -0.24px;
+}
+
+.breadcrumbs span.active a:hover {
+  text-decoration: none; /* No underline on hover for active breadcrumb */
+}
+
+.breadcrumbs .home-icon::before {
+  font-family: "FontAwesome";
+  margin-right: 5px;
+}

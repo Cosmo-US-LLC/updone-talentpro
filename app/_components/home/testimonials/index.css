@@ -1,0 +1,65 @@
+.swiper-button-prev::after{
+  visibility: hidden;
+}
+.swiper-button-next::after{
+visibility: hidden;
+}
+.swiper-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+  }
+  
+  .swiper-slide:not(:last-child) {
+    margin-right: 32px; /* Adjust the spacing between slides as needed */
+  }
+  
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #93859c;
+    opacity: 1;
+    border-radius: none;
+  }
+  .swiper-pagination-bullet-active {
+    background: #6138E1 !important;
+    width: 25px;
+    border-radius: 4px;
+  }
+  .testiHeading {
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 73.14px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: black;
+    margin-bottom: .8rem;
+}
+
+.testiDesc {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.38px;
+    text-align: center;
+    color: #6B6B6B;
+}
+.swiper-pagination-bullets.swiper-pagination-horizontal{
+  position: relative;
+  bottom: 1.5rem;
+}
+.testiminial_styles{
+  display: flex;
+  justify-content: space-between;
+width: 413px;
+align-items: flex-start;
+gap: 28px;
+border-radius: 4px;
+border: 1px solid #F9F9F9;
+background: rgba(255, 255, 255, 0.16);
+backdrop-filter: blur(12px);
+}

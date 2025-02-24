@@ -1,21 +1,847 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth !important;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+.hero-section-bg {
+  background-image: url(../public/images/hero/hero-bg.webp);
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 75vh;
+}
+
+.element-with-clip-path {
+  width: 300px;
+  /* Adjust dimensions as needed */
+  height: 200px;
+  /* Adjust dimensions as needed */
+  background-color: #f0f0f0;
+  /* Example background color */
+  clip-path: polygon(5.2% 19%, 94.8% 7.2%, 94.8% 52.2%, 94.6% 100%, 5.4% 100%);
+  border-radius: 50px;
+  /* Round the corners */
+}
+
+
+
+
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+  select,
+  textarea,
+  input {
+    font-size: 16px !important;
+  }
+}
+
+.main-layout {
+  display: block;
+}
+
+.style-card {
+  position: relative;
+  bottom: 74px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+    0 6px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.service-text {
+  font-weight: 700;
+  line-height: 58.14px;
+  font-size: 54px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+
+/* Mapbox hover styling */
+
+.no-x-overflow {
+  overflow-x: hidden;
+}
+
+.my-custom-shadown-for-filter {
+  box-shadow: '0px -1px 10px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+}
+
+@media (min-width: 1600px) {
+  .hero-filters {
+    height: 100px;
+    left: 7.5px;
+  }
+}
+
+@media screen and (max-width:380px) {
+  .circle-btn {
+    height: 4rem;
+    width: 4rem;
+  }
+}
+
+@media screen and (min-width: 380px) and (max-width: 410px) {
+  .circle-btn {
+    height: 4.3rem;
+    width: 4.3rem;
+    position: relative;
+    right: 36px;
+  }
+}
+
+@media screen and (min-width: 410px) and (max-width: 430px) {
+  .circle-btn {
+    height: 4.7rem;
+    width: 4.7rem;
+    position: relative;
+    right: 38.5px;
+  }
+}
+
+@media screen and (min-width: 430px) and (max-width: 440px) {
+  .circle-btn {
+    height: 4.8rem;
+    width: 4.8rem;
+    position: relative;
+    right: 39px;
+  }
+}
+
+@media screen and (min-width: 440px) and (max-width: 460px) {
+  .circle-btn {
+    height: 4.9rem;
+    width: 4.9rem;
+    position: relative;
+    right: 40px;
+  }
+}
+
+@media screen and (min-width: 460px) and (max-width: 490px) {
+  .circle-btn {
+    height: 5.4rem;
+    width: 5.4rem;
+    position: relative;
+    right: 44.5px;
+  }
+}
+
+@media screen and (min-width: 490px) and (max-width: 500px) {
+  .circle-btn {
+    height: 5.6rem;
+    width: 5.6rem;
+    position: relative;
+    right: 46px;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 512px) {
+  .circle-btn {
+    height: 6rem;
+    width: 6rem;
+    position: relative;
+    right: 49px;
+  }
+}
+
+@media screen and (min-width: 512px) and (max-width: 530px) {
+  .circle-btn {
+    height: 6.2rem;
+    width: 6.2rem;
+    position: relative;
+    right: 51px;
+  }
+}
+
+@media screen and (min-width: 530px) and (max-width: 555px) {
+  .circle-btn {
+    height: 6.4rem;
+    width: 6.4rem;
+    position: relative;
+    right: 52.5px;
+  }
+}
+
+@media screen and (min-width: 555px) and (max-width: 580px) {
+  .circle-btn {
+    height: 6.7rem;
+    width: 6.7rem;
+    position: relative;
+    right: 55px;
+  }
+}
+
+@media screen and (min-width: 580px) and (max-width: 600px) {
+  .circle-btn {
+    height: 6.9rem;
+    width: 6.9rem;
+    position: relative;
+    right: 56.5px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 620px) {
+  .circle-btn {
+    height: 7.4rem;
+    width: 7.4rem;
+    position: relative;
+    right: 61.5px;
+  }
+}
+
+@media screen and (min-width: 620px) and (max-width: 650px) {
+  .circle-btn {
+    height: 7.7rem;
+    width: 7.7rem;
+    position: relative;
+    right: 62.8px;
+  }
+}
+
+@media screen and (min-width: 650px) and (max-width: 675px) {
+  .circle-btn {
+    height: 8.3rem;
+    width: 8.3rem;
+    position: relative;
+    right: 68px;
+  }
+}
+
+@media screen and (min-width: 675px) and (max-width: 700px) {
+  .circle-btn {
+    height: 8.6rem;
+    width: 8.6rem;
+    position: relative;
+    right: 70px;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 768px) {
+  .circle-btn {
+    height: 9rem;
+    width: 9rem;
+    position: relative;
+    right: 74px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Ensure the basic styles for the button */
+  button {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: background-color 0.4s ease-out;
+    transition: all;
+    transition-duration: 200ms;
+  }
+
+  /* Hover effect to show red color overlay */
+  button:hover {
+    background-color: #774DFD;
+    /* Change background color to red on hover */
+    color: #fff;
+    /* Optionally change text color to white */
+
+  }
+
+  .hover-state-color:hover {
+    background-color: #774DFD !important;
+    /* Change background color to red on hover */
+    color: #fff !important;
+    /* Optionally change text color to white */
+  }
+
+  /* Remove all other effects from ::after pseudo-element */
+  button::after {
+    content: "";
+    display: none;
+    /* Hide any potential ::after content */
+  }
+}
+
+/* Styles specific to mobile devices */
+@media (max-width: 767px) {
+  button {
+    /* Retain only the basic styles for mobile */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+}
+
+/* Example CSS */
+.defaultsearch::placeholder {
+  color: #9F9F9F;
+  /* Small Body */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 171.429% */
+  letter-spacing: -0.28px;
+  position: relative;
+  left: 8px;
+
+}
+
+.custom-search-box [class*="Suggestion"]:first-child {
+  background-color: rgba(128, 128, 128, 0.079);
+  color: #000;
+}
+
+/* .button:hover,
+.button:focus {
+  box-shadow: 
+    inset 0em 0 0 0 #00008B, 
+    inset 0em 0 0 0 #00008B !important;  
+   
+}
+
+.button {  
+  color: var(--color);
+  transition: 0.4s;
+  box-shadow: 
+      inset -8.8em 0 0 0 #00008B, 
+      inset 8.8em 0 0 0 #00008B !important;  
+  color: #ffffff;
+
+} */
+
+/* register */
+.react-international-phone-country-selector-button {
+  border: none !important;
+  background-color: transparent !important;
+
+}
+
+.react-international-phone-input {
+  border: none !important;
+  width: 100% !important;
+  background-color: transparent !important;
+}
+
+.react-international-phone-input-container {
+  display: flex;
+  align-items: center !important;
+}
+
+.number-input .react-international-phone-flag-emoji {
+  height: 18px !important;
+  width: 18px !important;
+}
+
+/*  */
+
+.footer-image {
+  background-image: url("../public/UPDONE (1).png");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.trusted-text {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 34.13px;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #2C2240;
+  padding: 80px 0 0 0;
+}
+
+.staff-text {
+  color: #D3D3D3;
+  -webkit-text-stroke-width: 1 !important;
+  -webkit-text-stroke-color: #D0C9E3 !important;
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 58px;
+  letter-spacing: -1.84px;
+  text-transform: uppercase;
+}
+
+/* security */
+.security-bg {
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.security-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  /* Left half */
+  z-index: 1;
+}
+
+.security-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -30px;
+  width: 243%;
+  height: 90vh;
+  background-color: #2C2240;
+  z-index: 1;
+  transform: rotate(-3deg);
+  overflow: hidden;
+}
+
+.why-choose {
+  font-size: 75px;
+  font-weight: 700;
+  line-height: 96px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: white;
+}
+
+.security-head {
+  color: #FFF;
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+
+  letter-spacing: -0.2px;
+  margin: 0px;
+}
+
+.security-body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.faq-head {
+  font-size: 56px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #000000;
+}
+
+.faq-body {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.38px;
+  text-align: left;
+  color: #6B6B6B;
+}
+
+.shadow-whiteeee {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 4%), 0 6px 20px 0 rgb(0 0 0 / 0%);
+}
+
+.time-scroll {
+  scrollbar-width: none !important;
+  /* Firefox */
+  -ms-overflow-style: none !important;
+  /* IE and Edge */
+}
+
+.montserrat-font {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#phone-input {
+  border-width: 1px 1px 1px 0;
+  border-style: solid;
+  border-radius: 0 4px 4px 0px;
+}
+
+#dropdown-phone-button {
+  border-width: 1px 0px 1px 1px;
+
+}
+
+.login_backgorund {
+  background-color: rgba(243, 240, 255, 0.5);
+}
+
+.custom-search-box input::placeholder {
+  position: relative !important;
+  right: 0px !important;
+}
+
+.focus\:outline-blue-200:focus {
+  background-color: white;
+}
+
+.swiper-pagination-bullet {
+  border-radius: 0px !important;
+}
+
+.swiper-pagination-bullet-active {
+  border-radius: 8px !important;
+  width: 43.5px !important;
+}
+
+.shadowed-div {
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.75),
+    0px -5px 5px -5px rgba(0, 0, 0, 0.75);
+}
+
+.loader_hero {
+  height: 2px;
+  width: 100%;
+  --c: no-repeat linear-gradient(#6100ee 0 0);
+  background: var(--c), var(--c), #d7b8fc;
+  background-size: 60% 100%;
+  animation: l16 3s infinite;
+}
+
+/* Add this to your global CSS or module CSS file */
+.custom-search-box svg {
+  display: none !important;
+  /* Hide the SVG */
+}
+
+
+@keyframes l16 {
+  0% {
+    background-position: -150% 0, -150% 0
+  }
+
+  66% {
+    background-position: 250% 0, -150% 0
+  }
+
+  100% {
+    background-position: 250% 0, 250% 0
+  }
+}
+
+.filter-section {
+  position: relative;
+  border-radius: 8px 8px 0px 0px;
+  border-bottom: 1px solid #FFF;
+  background: "linear-gradient(91deg, rgba(255, 255, 255, 0.19) 0%, rgba(255, 255, 255, 0.00) 100%)" !important;
+  box-shadow: 0px 8px 26px 0px rgba(0, 0, 0, 0.05);
+  z-index: 50;
+  transition: all 1.5s linear;
+  /* Apply transition on transform */
+}
+
+.filter-section.scrolled {
+  transform: translateY(0%);
+  transition: all 1.5s linear;
+  /* Apply transition on transform */
+}
+
+.inner-filter-section {
+  transition: all 1.5s linear;
+  /* Example of transitioning background color */
+  /* Other styles */
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+.show-jobs-shadow {
+  box-shadow: 0px -6px 26px 0px #0000001A;
+}
+
+/* Firefox */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 10px;
+  background-color: #00000024;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #350ABC;
+  border-radius: 10px;
+}
+
+::-moz-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #00000024;
+}
+
+::-moz-scrollbar-thumb {
+  background-color: #350ABC;
+  border-radius: 10px;
+}
+
+::-ms-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #00000024;
+}
+
+::-ms-scrollbar-thumb {
+  background-color: #350ABC;
+  border-radius: 10px;
+}
+
+/* ::scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #00000024;
+}
+
+::scrollbar-thumb {
+  background-color: #350ABC;
+  border-radius: 10px;
+} */
+
+.staff-filter-style {
+  color: #2C2240;
+  text-align: start;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: -0.32px;
+}
+
+.menuBox {
+  position: absolute;
+  right: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  z-index: 1000;
+  max-width: 400px;
+  overflow: hidden;
+  bottom: 90px;
+  right: 60px;
+}
+
+.public-login-menu-box {
+  position: absolute;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  z-index: 1000;
+  max-width: 475px;
+  overflow: hidden;
+  bottom: -27px;
+  right: 296px;
+}
+
+.loader_login {
+  width: 50px;
+  aspect-ratio: 4;
+  height: 55px;
+  background: radial-gradient(circle closest-side, #b199ff 90%, #63616100) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+
+.loader_payment_button {
+  width: 50px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #a389f7 90%, #63616100) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+
+input {
+  height: 56px !important;
+  border-radius: 4px !important;
+}
+
+.custom-search-box .search-icon {
+  position: absolute !important;
+  left: 14px !important;
+}
+
+/* Your existing combobox styles */
+input[role="combobox"] {
+  color: #6B6B6B !important;
+  /* Small Body Text */
+  font-size: 14px !important;
+  outline: none !important;
+  border: none !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: 24px !important;
+  /* 171.429% */
+}
+
+.input-shadow-time {
+  box-shadow: 0px 4px 24px 0px rgba(147, 147, 147, 0.05) !important;
+}
+
+.card-how-work {
+  transition: background 0.3s ease;
+  /* Smooth transition for hover */
+}
+
+.carousel-indicators {
+  position: absolute !important;
+}
+
+.card-how-work:hover {
+  background: linear-gradient(90deg, #EBE6FF 0%, transparent 100%);
+}
+
+.card-how-work.selected-how-work {
+  background: linear-gradient(90deg, #EBE6FF 0%, transparent 100%);
+}
+
+/* Add a class to apply red background color */
+.input-error {
+  background-color: #FFF4F4 !important;
+}
+
+
+
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0)
+  }
+}
+
+.mobile-image {
+  display: none !important;
+}
+
+
+
+/* Custom styles for carousel */
+.carousel-item {
+  display: none;
+  position: relative;
+  width: 100%;
+  /* transition: transform 0.1s ease-in-out; */
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.custom-disabled-button:disabled,
+.custom-disabled-button:disabled:hover {
+  background-color: "gray-400" !important;
+  /* Disabled background */
+  cursor: not-allowed !important;
+  /* Disabled cursor */
+  opacity: 1 !important;
+  /* Disabled opacity */
+  color: #fff !important;
+  /* Text color */
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.react-international-phone-country-selector-dropdown {
+  position: relative;
+  z-index: 1000 !important;
+  outline: none;
 }

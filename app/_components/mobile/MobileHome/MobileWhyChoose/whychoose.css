@@ -1,0 +1,15 @@
+.whychoose {
+    position: relative;
+}
+
+.whychoose::before {
+    content: "";
+    position: absolute;
+    height: 200px;
+    width: 100%;
+    background-color: brown;
+    top: 0;
+}
+.ckeck{
+    color: red !important;
+}

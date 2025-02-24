@@ -1,0 +1,53 @@
+.swiper-container {
+  position: relative;
+}
+.swiper-slide:not(:last-child) {
+  margin-right: 0px !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #3E2392; 
+  top: 72% !important; 
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0); 
+}
+
+.swiper-button-next {
+  right: -5px !important;
+  font-size: 20px !important;
+}
+
+.swiper-button-prev {
+  font-size: 20px !important;
+  left: -5px !important;
+}
+.swiper-button-next::after, .swiper-rtl .swiper-button-prev::after {
+  content: "next";
+  font-size: 18px !important;
+  color: black !important;
+}
+.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after {
+  content: 'prev';
+  font-size: 18px !important;
+  color: black !important;
+
+}
+
+.swiper-progress {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  background-color: #e6e6e6;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  background-color: #3E2392;
+}
