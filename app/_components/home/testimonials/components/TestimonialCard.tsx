@@ -29,9 +29,9 @@ interface TestimonialCardProps {
                   <img className="w-12 h-12 rounded-full" onLoad={handleImageLoad} src={avatarSrc} alt="Neil image" />
                 </div>
                 <div className="flex-1 min-w-0 ms-4 text-left">
-                  <p className="text-[20px] leading-[24px] tracking-[-0.4px] font-[600] xs:font-[400] text-[#2C2240]  ">
+                  <h3 className="text-[20px] leading-[24px] tracking-[-0.4px] font-[600] xs:font-[400] text-[#2C2240]  ">
                     {name}
-                  </p>
+                  </h3>
                 </div>
               </div>
   
@@ -60,9 +60,9 @@ interface TestimonialCardProps {
   
                 </div>
                 <div className="flex-1 min-w-0 ms-4 text-left">
-                  <p className="text-[20px] leading-[24px] tracking-[-0.4px]  font-[500] xs:font-[400] xs:text-[#2C2240] text-[#2C2240]  ">
+                  <h3 className="text-[20px] leading-[24px] tracking-[-0.4px]  font-[500] xs:font-[400] xs:text-[#2C2240] text-[#2C2240]  ">
                     {name}
-                  </p>
+                  </h3>
  
                 </div>
               </div>

@@ -1,10 +1,12 @@
+// import React from "react";
 import Image from "next/image";
-import React from "react";
 import loadable from "../../ui/lazy-load";
 import { FIRST_SECTION_ITEMS, SECOND_SECTION_ITEMS } from "@/app/lib/constants";
+
 const SecurityItemListLazy = loadable(
   () => import("./componets/SecurityItemList")
 );
+
 const Security = () => {
   return (
     <div className="security-bg  bg-white">

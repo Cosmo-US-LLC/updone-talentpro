@@ -1,6 +1,7 @@
-import React from 'react';
-import MobileWhyChooseCard from './MobileWhyChooseCard/MobileWhyChooseCard';
+// import React from 'react';
 import "../MobileWhyChoose/whychoose.css";
+import MobileWhyChooseCard from './MobileWhyChooseCard/MobileWhyChooseCard';
+
 const MobileWhyChoose = () => {
   return (
     <div className='bg-[#2C2240] relative mb-[4rem] '>

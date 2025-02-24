@@ -150,11 +150,11 @@ const BottomBar: React.FC<BottomBarProps> = ({
               </span>
             </div>
             <div className="ml-4">
-              <p className="text-[20px] font-medium">
+              <h3 className="text-[20px] font-medium">
                 {selectedTalentsLocal.length === 1
                   ? "1 talent will be sent an invitation."
                   : `${selectedTalentsLocal.length} talents will be sent invitations.`}
-              </p>
+              </h3>
               <p className="text-[14px] font-normal leading-[20px] text-[#2C2240]  lg:min-w-[40%] max-w-[90%] sm:max-w-[80%] lg:max-w-[60%]">
                 You can post a job without inviting anyone, but we recommend
                 inviting many to get the best offers.

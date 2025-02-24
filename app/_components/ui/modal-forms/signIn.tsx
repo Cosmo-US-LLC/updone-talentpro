@@ -66,8 +66,16 @@ const SignIn: React.FC<signInProps> = ({
 
       if (response?.token) {
         // ✅ Save token in Cookies
-        Cookies.set("authToken", response.token);
-        Cookies.set("authData", JSON.stringify(response));
+        Cookies.set("token", response.token, {
+          expires: 30,
+          path: "/",
+          ...(isUpdoneDomain && { domain: ".updone.com" }),
+        });
+        Cookies.set("authData", JSON.stringify(response), {
+          expires: 30,
+          path: "/",
+          ...(isUpdoneDomain && { domain: ".updone.com" }),
+        });
 
         // ✅ Save user data in Redux store
         dispatch(setAuth(response));
@@ -91,7 +99,11 @@ const SignIn: React.FC<signInProps> = ({
     console.log(pathname + window.location.search);
     if (process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK) {
       console.log("Redirecting...");
-      Cookies.set("callbackUrl", pathname + window?.location?.search || "");
+      Cookies.set("callbackUrl", pathname + window?.location?.search || "", {
+        expires: 30,
+        path: "/",
+        ...(isUpdoneDomain && { domain: ".updone.com" }),
+      });
       router.push(process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK || "");
     } else {
       console.error("Unable to redirect to google auth due to missing url");

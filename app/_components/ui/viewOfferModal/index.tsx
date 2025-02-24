@@ -47,7 +47,8 @@ const ViewOfferModal = ({ closeModal, hoursRequired, ratePerHour, totalPrice, of
                     <button onClick={() => {
                         router.push(`/events/payment/${offerId}`);
                     }}
-                        className='justify-center gap-2 text-[14px] font-[400] py-[10px] px-[60px] flex items-center m-0 text-[#fff] rounded-[4px] bg-[#774DFD] transition-transform duration-150 ease-in-out transform active:scale-95 hover:scale-105'>
+                        className='justify-center gap-2 text-[14px] font-[400] py-[10px] px-[60px] flex items-center m-0 text-[#fff] rounded-[4px] bg-[#774DFD] 
+                    transition-transform duration-150 ease-in-out transform active:scale-95 hover:scale-105'>
                       <LiaLongArrowAltRightSolid size={20}/>  Hire Now
                     </button>
                 </div>

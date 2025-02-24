@@ -88,7 +88,11 @@ const BottomBarMobile = ({
     } else {
       if (!storedData || !storedData.token) {
         const isUpdoneDomain = window.location.hostname.includes("updone");
-        Cookies.set("callbackUrl", pathname + window?.location?.search || "");
+        Cookies.set("callbackUrl", pathname + window?.location?.search || "", {
+          expires: 2,
+          path: "/",
+          ...(isUpdoneDomain && { domain: ".updone.com" }),
+        });
         router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/signin`)
       } else {
         updateQueryParam(4);
@@ -175,6 +179,32 @@ const BottomBarMobile = ({
                   : "Invite More Talents"
                 : "Post Your Event"}
             </button>
+            {/* {loading ? (
+              <button
+                disabled={true}
+                className="flex h-[48px] px-[32px] py-[16px] justify-center items-center gap-[12px] flex-1 rounded-[4px] border border-[#774DFD] bg-[#350ABC] text-white min-w-[300px]"
+                // onTouchEnd={handleOpenModal}
+              >
+                {isInviteMore === true
+                  ? loading
+                    ? "Inviting More Talents"
+                    : "Invite More Talents"
+                  : "Post Your Event"}
+              </button>
+            ) : (
+              <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/signin`}>
+                <button
+                  className="flex h-[48px] px-[32px] py-[16px] justify-center items-center gap-[12px] flex-1 rounded-[4px] border border-[#774DFD] bg-[#350ABC] text-white min-w-[300px]"
+                  // onTouchEnd={handleOpenModal}
+                >
+                  {isInviteMore === true
+                    ? loading
+                      ? "Inviting More Talents"
+                      : "Invite More Talents"
+                    : "Post Your Event"}
+                </button>
+              </Link>
+            )} */}
           </div>
         </div>
       )}

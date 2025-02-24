@@ -82,9 +82,9 @@ const AddLocationSecondScreen = ({
       const response = await fetch(searchUrl.toString());
       const data = (await response.json());
       const formattedSuggestions = data?.suggestions
-        ?.filter((suggestion: any) => suggestion.full_address)
+        ?.filter((suggestion: any) => suggestion.full_address || suggestion.place_formatted)
         ?.map((suggestion: any) => ({
-          place_name: suggestion.full_address,
+          place_name: suggestion.feature_type === "postcode" ? suggestion.place_formatted : suggestion.full_address,
         }));
       setSuggestions(formattedSuggestions || []);
       // const response = await fetch(

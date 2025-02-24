@@ -1,6 +1,6 @@
-import React from 'react';
-import { Slide } from 'react-slideshow-image';
+// import React from 'react';
 import 'react-slideshow-image/dist/styles.css';
+import { Slide } from 'react-slideshow-image';
 import { montserrat } from '@/app/lib/Fonts';
 import loadable from '../../ui/lazy-load';
 

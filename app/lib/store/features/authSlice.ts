@@ -27,15 +27,15 @@ export const authSlice = createSlice({
       const isUpdoneDomain = window.location.hostname.includes('updone');
 
       // Remove the token cookie
-      Cookies.remove('authToken', {
+      Cookies.remove('token', {
         path: '/',
-        // ...(isUpdoneDomain && { domain: '.updone.com' }) // Add domain only if URL contains .updone.com
+        ...(isUpdoneDomain && { domain: '.updone.com' }) // Add domain only if URL contains .updone.com
       });
 
       // Remove the authData cookie
       Cookies.remove('authData', {
         path: '/',
-        // ...(isUpdoneDomain && { domain: '.updone.com' }) // Add domain only if URL contains .updone.com
+        ...(isUpdoneDomain && { domain: '.updone.com' }) // Add domain only if URL contains .updone.com
       });
 
       // Clear the auth state

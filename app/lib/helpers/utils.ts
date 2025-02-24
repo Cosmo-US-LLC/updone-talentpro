@@ -157,9 +157,17 @@ export const updateProfile = async (
       dispatch(setAuth(updatedAuth));
       const isUpdoneDomain = window.location.hostname.includes("updone");
 
-      Cookies.set("authToken", updatedAuth.token || "");
+      Cookies.set("token", updatedAuth.token || "", {
+        expires: 30,
+        path: "/",
+        ...(isUpdoneDomain && { domain: ".updone.com" }),
+      });
 
-      Cookies.set("authData", JSON.stringify(updatedAuth));
+      Cookies.set("authData", JSON.stringify(updatedAuth), {
+        expires: 30,
+        path: "/",
+        ...(isUpdoneDomain && { domain: ".updone.com" }),
+      });
     }
   } catch (error) {
     console.error("Error updating profile:", error);

@@ -108,8 +108,16 @@ const LoginFromDrawer = ({ setCurrentScreen }: any) => {
       if (newData?.token) {
         dispatch(setAuth(newData));
         setLoginSuccess(true);
-        Cookies.set("authToken", newData?.token);
-        Cookies.set("authData", JSON.stringify(newData));
+        Cookies.set("token", newData?.token, {
+          expires: 30,
+          path: "/",
+          ...(isUpdoneDomain && { domain: ".updone.com" }),
+        });
+        Cookies.set("authData", JSON.stringify(newData), {
+          expires: 30,
+          path: "/",
+          ...(isUpdoneDomain && { domain: ".updone.com" }),
+        });
         setTimeout(() => {
           // if (newData?.user?.role_id === 3) {
           //   router.push(`${process.env.NEXT_PUBLIC_TALENTPRO_URL}/talent/events`)

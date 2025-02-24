@@ -10,8 +10,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   isFilterBookingFlow?: boolean;
-  bottomPadding?: string;
-  // setIsOptionSelected?: any;
+  setIsOptionSelected?: any;
   isOptionSelected?: any;
 }
 
@@ -21,9 +20,8 @@ const Pagination: React.FC<PaginationProps> = ({
   totalCount,
   onPageChange,
   handleChange,
-  bottomPadding = 'pb-[200px]',
   isFilterBookingFlow,
-  // setIsOptionSelected,
+  setIsOptionSelected,
   isOptionSelected,
 }) => {
   const totalPages = Math.ceil(totalCount / pageSize);
@@ -86,11 +84,11 @@ const Pagination: React.FC<PaginationProps> = ({
 
     // Update the boolean state based on whether a valid option is selected
     const selectedValue = event.target.value;
-    // if (selectedValue && selectedValue !== "0") {
-    //   setIsOptionSelected(true); // If a valid option is selected, set to true
-    // } else {
-    //   setIsOptionSelected(false); // If no valid option is selected, set to false
-    // }
+    if (selectedValue && selectedValue !== "0") {
+      setIsOptionSelected(true); // If a valid option is selected, set to true
+    } else {
+      setIsOptionSelected(false); // If no valid option is selected, set to false
+    }
   };
 
   const renderPageNumbers = () => {
@@ -141,8 +139,8 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className={`flex justify-between items-center ${bottomPadding} w-[100%] pr-6`}>
-      <div className="flex cursor-pointer items-center">
+    <div className={`flex justify-between items-center pb-[200px] w-[100%] pr-6`}>
+      <div className="flex cursor-pointer">
         <p className="">Records Per Page:</p>
         
         <CommonSelect

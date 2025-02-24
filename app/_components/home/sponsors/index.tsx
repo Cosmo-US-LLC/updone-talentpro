@@ -1,5 +1,5 @@
-import React from "react";
-import Marquee from "react-fast-marquee";
+// import React from "react";
+// import Marquee from "react-fast-marquee";
 import "./sponsors.css";
 import Image from "next/image";
 

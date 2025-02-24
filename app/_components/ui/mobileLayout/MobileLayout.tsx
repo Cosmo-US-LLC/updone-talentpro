@@ -3,6 +3,7 @@
 import React from "react";
 import MobileNavbar from "../../mobile/MobileNavbar";
 import MobileFooter from "../../mobile/MobileFooter";
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 interface MobileLayoutProps {
   children: React.ReactNode;
@@ -10,9 +11,14 @@ interface MobileLayoutProps {
 
 const MobileLayout = ({ children }: MobileLayoutProps) => {
   return (
-    <div className="  flex flex-col">
+    <div className="lg:hidden flex flex-col">
       <MobileNavbar />
-
+      <ProgressBar
+        height="3px"
+        color="#350abc"
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
       <main>{children}</main>
     </div>
   );

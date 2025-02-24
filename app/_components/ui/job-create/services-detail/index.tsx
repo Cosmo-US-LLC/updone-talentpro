@@ -70,10 +70,10 @@ const ServicesADetail = ({
       </h2>
 
       <div>
-        <h2 className="mb-[10px] text-[#161616] font-[500] leading-normal text-[14px]">
+        <h3 className="mb-[10px] text-[#161616] font-[500] leading-normal text-[14px]">
           What are you hosting?
           <span className="text-[#C20000]"> *</span>
-        </h2>
+        </h3>
         <input
           type="text"
           value={title}
@@ -99,10 +99,10 @@ const ServicesADetail = ({
       </div>
 
       <div className="mt-[20px]">
-        <h2 className="mb-[10px] text-[#161616] font-[500] leading-normal text-[14px]">
+        <h3 className="mb-[10px] text-[#161616] font-[500] leading-normal text-[14px]">
           Describe your event
           <span className="text-[#C20000]"> *</span>
-        </h2>
+        </h3>
         <textarea
           placeholder="I’m expecting 30 - 40 guests at my event. Looking to hire a professional and well dressed bartender."
           value={eventDescription}
@@ -127,10 +127,10 @@ const ServicesADetail = ({
       </div>
 
       <div className="w-full mt-[36px]">
-        <h2 className="mb-[10px] text-[#161616] font-[500] leading-normal text-[14px]">
+        <h3 className="mb-[10px] text-[#161616] font-[500] leading-normal text-[14px]">
           Pick required service
           <span className="text-[#C20000]"> *</span>
-        </h2>
+        </h3>
         <div className="grid grid-cols-3 gap-4">
           {services.map((service, index) => (
             <div

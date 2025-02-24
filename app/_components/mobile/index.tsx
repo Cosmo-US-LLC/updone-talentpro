@@ -1,5 +1,5 @@
-import React from 'react';
-import MobilePageFooter from './MobilePageFooter';
+// import React from 'react';
+// import MobilePageFooter from './MobilePageFooter';
 import MobileHome from './MobileHome';
 import MobileNavbar from './MobileNavbar';
 

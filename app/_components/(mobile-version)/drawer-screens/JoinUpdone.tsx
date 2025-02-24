@@ -25,7 +25,11 @@ const JoinUpdone = ({
   const isUpdoneDomain = window.location.hostname.includes("updone");
 
   const handleClickLogin = () => {
-    Cookies.set("callbackUrl", pathname + window?.location?.search || "");
+    Cookies.set("callbackUrl", pathname + window?.location?.search || "", {
+      expires: 2,
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+    });
     // setCurrentScreen("login");
     router.push("/signin");
   };
@@ -33,7 +37,7 @@ const JoinUpdone = ({
   // const handleClickLogout = () => {
   //   const isUpdoneDomain = window?.location?.hostname?.includes("updone");
   //   dispatch(clearAuth());
-  //   Cookies.remove("authToken", {
+  //   Cookies.remove("token", {
   //     path: "/",
   //     ...(isUpdoneDomain && { domain: ".updone.com" }),
   //   });
@@ -45,7 +49,11 @@ const JoinUpdone = ({
   // };
 
   const handleClickRegister = () => {
-    Cookies.set("callbackUrl", pathname + window?.location?.search || "");
+    Cookies.set("callbackUrl", pathname + window?.location?.search || "", {
+      expires: 2,
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+    });
     // setCurrentScreen("register");
     router.push("/signup");
   };

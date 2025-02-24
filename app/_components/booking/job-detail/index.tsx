@@ -240,7 +240,7 @@ const JobDetail = ({ jobId }: { jobId?: any }) => {
   };
 
   return (
-    <div className="relative flex flex-row gap-5 bg-[#F6F9FC] h-[100%]">
+    <div className="relative flex flex-row gap-5 bg-[#F6F9FC] h-[100%] max-xl:pr-2 max-xl:overflow-y-auto">
       {/* Main Content */}
       <div className="grow h-full">
         {loading ? (
@@ -329,8 +329,8 @@ const JobDetail = ({ jobId }: { jobId?: any }) => {
                 "opacity-[50%] !text-gray-300 "
               }`}
             >
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-[14px] items-start  ">
+              <div className="flex flex-row justify-between flex-wrap gap-y-4 max-w-3xl">
+                <div className="flex flex-row gap-[14px] items-start">
                   <Image
                     className="relative"
                     width={32}
@@ -430,7 +430,7 @@ const JobDetail = ({ jobId }: { jobId?: any }) => {
             jobDetailData?.status === "completed") && (
             <>
               <TalentInfo jobDetailData={jobDetailData} />
-              <div className="flex flex-row items-center justify-center w-full cursor-pointer">
+              <div className="flex flex-row items-center justify-center w-full cursor-pointer max-xl:pb-6">
                 <div
                   className="mt-4 min-h-[10px] h-full p-4 rounded-full bg-[white] shadow-xl"
                   onClick={() => {
@@ -570,10 +570,10 @@ const JobDetail = ({ jobId }: { jobId?: any }) => {
       {/* {} */}
 
       {/* For completed job */}
-      <div className="w-[280px] flex flex-col gap-4">
+      <div className="max-2xl:w-[300px] w-[400px] flex flex-col gap-4">
         {jobData?.status === "completed" && (
           <div
-            className={`flex flex-col items-center px-4 py-5 bg-[white] h-fit border border-1 border-[#EBE6FF] rounded-[12px]`}
+            className={`max-2xl:min-w-[300px] min-w-[400px] flex flex-col items-center px-4 py-5 bg-[white] h-fit border border-1 border-[#EBE6FF] rounded-[12px]`}
           >
             <p className="text-left self-start text-[14px] font-[600]">
               Total Amount
@@ -641,7 +641,7 @@ const JobDetail = ({ jobId }: { jobId?: any }) => {
         {/* Right Text Panel */}
         <div
           className={`flex bg-white rounded-[12px] ${
-            jobData?.status === "completed" ? "overflow-y-auto" : "h-[100%]"
+            jobData?.status === "completed" ? "xl:overflow-y-auto" : "h-[100%]"
           }`}
         >
           <div className="bg-white px-3 py-8 rounded-[12px] gap-12 w-[100%] flex flex-col h-full md:overflow-hidden md:overflow-y-auto md:overflow-x-hidden">

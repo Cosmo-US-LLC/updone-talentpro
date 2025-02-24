@@ -1,3 +1,4 @@
+"use client"
 import React, { useCallback, useState } from 'react';
 import  ACCORDIAN_DATA  from './constants';
 import { montserrat } from '@/app/lib/Fonts';

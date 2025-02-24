@@ -29,7 +29,7 @@ const FaqContant: React.FC<FaqContainerProps> = ({ faqs }) => {
               }`}
               onClick={() => toggleAccordion(index)}
             >
-             <p className='w-[100%] max-w-[257px]'> {item.title}</p>
+             <h3 className='w-[100%] max-w-[257px]'> {item.title}</h3>
               <span className="icon text-[24px] leading-[24px]">
                 {isActive ? '−' : '+'}
               </span>

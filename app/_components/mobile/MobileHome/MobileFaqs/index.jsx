@@ -1,8 +1,7 @@
-import React from 'react';
-import Image from 'next/image';
+// import React from 'react';
+// import Image from 'next/image';
 import FaqContainer from './MobileFaqContant';
 import ACCORDIAN_DATA from '../../../home/faqs/constants'
-
 
 const MobileFaqs = () => {
   return (

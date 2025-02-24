@@ -350,9 +350,9 @@ const AddJobDesktop: React.FC = () => {
                 </div>
                 <hr className="w-[1px] h-[61px] bg-[#F9E1BE]" />
                 <div className="flex gap-[12px] flex-col items-start">
-                  <p className="text-[#161616] font-poppins font-medium text-[16px] leading-[8px]">
+                  <h3 className="text-[#161616] font-poppins font-medium text-[16px] leading-[8px]">
                     We’re currently available in Los Angeles.
-                  </p>
+                  </h3>
                   <p className="text-[#4C4B4B] font-poppins font-normal text-[14px] leading-[24px]">
                     If you can't find your location, then select the nearest
                     one. You'll be able to chat with the Talent later and share
@@ -541,7 +541,7 @@ const AddJobDesktop: React.FC = () => {
                   </div>
 
             
-                  <div
+                  <h3
                     // onClick={() => handleClickStep(index)}
                     className={`text-left relative bottom-[34.2px] transition-colors ml-12 !leading-[24px] font-[600] text-[16px] ${
                       index === step
@@ -550,7 +550,7 @@ const AddJobDesktop: React.FC = () => {
                     }`}
                   >
                     {stepItem.label}
-                  </div>
+                  </h3>
                 </div>
               ))}
             </div>

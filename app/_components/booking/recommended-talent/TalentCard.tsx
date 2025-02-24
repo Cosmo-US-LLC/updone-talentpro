@@ -5,6 +5,7 @@ import { montserrat } from "@/app/lib/Fonts";
 import Image from "next/image";
 import { useState } from 'react';
 import { useSelector } from "react-redux";
+import 'react-slideshow-image/dist/styles.css';
 import { RootState } from "../../../lib/store/store";
 import GalleryModal from "../../ui/gallery";
 
@@ -17,7 +18,6 @@ const TalentCard = ({
   const jobCreateState = useSelector((state: RootState) => state.jobCreate);
   const [showModal, setShowModal] = useState(false);
   const galleryImages = talent?.gallery?.length > 0 ? talent?.gallery : [talent.profile_pic];
-
   function calculateTotal(hourRate: string, amount: string) {
     const totalHours = parseFloat(amount);
     const parsedHourRate = parseFloat(hourRate);
@@ -152,7 +152,7 @@ const TalentCard = ({
             <div className="flex items-center ">
               <p
                 className={`leading-[24px] ${isSelected ? "text-white" : "text-[#989898]"
-                  } text-[14px] font-normal inline-flex items-center whitespace-nowrap overflow-hidden text-ellipsis text-sm`}
+                  } text-[!14px] font-normal inline-flex items-center whitespace-nowrap overflow-hidden text-ellipsis text-sm`}
               >
                 <span className="mr-2 flex-shrink-0">
                   <svg

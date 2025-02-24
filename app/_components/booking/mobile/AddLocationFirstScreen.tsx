@@ -177,9 +177,9 @@ const AddLocationFirstScreen = ({
           <div className="text-[#C08328] text-[22px]">
             <CiCircleInfo />
           </div>
-          <p className="text-[#161616] font-[400] leading-[24px] text-[14px]">
+          <h3 className="text-[#161616] font-[400] leading-[24px] text-[14px]">
             We’re currently available in Los Angeles.
-          </p>
+          </h3>
         </div>
         <p className="text-[#4C4B4B] font-[400] leading-[20px] text-[14px]">
           If you can't find your location, then select the nearest one. You'll

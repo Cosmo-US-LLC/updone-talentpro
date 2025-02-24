@@ -1,7 +1,8 @@
-import { CARDS_DATA_CONSTANT } from "@/app/lib/constants";
-import { montserrat } from "@/app/lib/Fonts";
+"use client"
 import Image from "next/image";
 import React, { useState } from "react";
+import { CARDS_DATA_CONSTANT } from "@/app/lib/constants";
+import { montserrat } from "@/app/lib/Fonts";
 import { Carousel } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 // import 'bootstrap/dist/css/bootstrap.min.css';

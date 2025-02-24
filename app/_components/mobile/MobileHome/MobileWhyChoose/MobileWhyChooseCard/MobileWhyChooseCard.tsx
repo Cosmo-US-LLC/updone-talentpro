@@ -48,7 +48,7 @@ const MobileWhyChooseCard = () => {
               quality={100}
             />
             <div className="ml-4">
-              <h4 className="text-[20px] font-[400] leading-[normal]">{card.title}</h4>
+              <h3 className="text-[20px] font-[400] leading-[normal]">{card.title}</h3>
               <p className="pt-[10px] text-[14px] font-[400] leading-[24px]">
                 {card.description}
               </p>

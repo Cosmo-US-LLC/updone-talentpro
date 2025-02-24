@@ -22,7 +22,6 @@ import { setEmpty as setStaffEmpty } from "@/app/lib/store/features/staffSlice";
 import { PiUserLight } from "react-icons/pi";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { apiRequest } from "@/app/lib/services";
 // import { setEmpty } from "@/app/lib/store/features/staffSlice";
 
 const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
@@ -36,11 +35,9 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
 
   useEffect(() => {
     const authData = Cookies.get("authData");
-    const authToken = Cookies.get("authToken");
     if (authData) {
-      dispatch(setAuth({ token: authToken ,user: JSON.parse(authData)}));
+      dispatch(setAuth(JSON.parse(authData)));
     } else {
-      // alert("Clearing auth from header")
       dispatch(clearAuth());
       dispatch(setStaffEmpty());
       dispatch(setBookingEmpty());
@@ -68,32 +65,54 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
     setUserMenuOpen(!userMenuOpen);
   };
 
-  const handleLogout = async () => {
-    await apiRequest("/logout", {
-      method: "POST",
-      headers: {
-        revalidate: true,
-        ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
-      },
-      body: {}
-    }).then((res)=>{
-      console.log(res)
-      // ✅ Clear Redux Authentication & Data States
-      dispatch(clearAuth());
-      dispatch(setStaffEmpty());
-      dispatch(setBookingEmpty());
-      dispatch(setJobEmpty());
-      dispatch(setAuthEmpty());
-  
-      // alert('Redux cleared')
-  
-      // ✅ Remove Authentication Cookies
-      Cookies.remove("authToken");
-      Cookies.remove("authData");
-  
-      // ✅ Redirect Based on Role
-      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
+  const handleLogout = () => {
+    const isUpdoneDomain =
+      typeof window !== "undefined" &&
+      window?.location?.hostname?.includes("updone");
+    const role = storedData?.user?.role_id;
+    const isClientHub =
+      typeof window !== "undefined" &&
+      window.location.hostname.includes("clienthub");
+
+    // ✅ Clear Redux Authentication & Data States
+    dispatch(clearAuth());
+    dispatch(setStaffEmpty());
+    dispatch(setBookingEmpty());
+    dispatch(setJobEmpty());
+    dispatch(setAuthEmpty());
+
+    // alert('Redux cleared')
+
+    // ✅ Remove Authentication Cookies
+    Cookies.remove("token", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+      ...(window.location.hostname.includes("localhost") && {
+        domain: "localhost",
+      }),
     });
+
+    Cookies.remove("authData", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+      ...(window.location.hostname.includes("localhost") && {
+        domain: "localhost",
+      }),
+    });
+
+    // ✅ Redirect Based on Role
+    if (role === 4) {
+      if (isClientHub) {
+        // If on client hub, go to base URL
+        router.push(process.env.NEXT_PUBLIC_BASE_URL || "/");
+      } else {
+        // Otherwise, reload page
+        window.location.reload();
+      }
+    } else {
+      // For other roles, simply reload the page
+      window.location.reload();
+    }
   };
 
   // if (!isClient) {

@@ -14,11 +14,10 @@ import { setEmpty as setAuthEmpty } from "@/app/lib/store/features/authSlice";
 import { setEmpty as setJobEmpty } from "@/app/lib/store/features/jobCreateSlice";
 import { setEmpty as setBookingEmpty } from "@/app/lib/store/features/bookingSlice";
 import { setEmpty as setStaffEmpty } from "@/app/lib/store/features/staffSlice";
-import { apiRequest } from "@/app/lib/services";
 
 // Define an array of link objects
 const links = [
-  { name: "My Events", icon: SlLocationPin, path: "/" },
+  { name: "My Events", icon: SlLocationPin, path: "/events" },
   { name: "Payment", icon: PiCurrencyDollar, path: "/payments" },
   { name: "Settlements", icon: PiUsersThree, path: "/settlements" },
   { name: "Reviews", icon: IoIosStarOutline, path: "/reviews" },
@@ -57,32 +56,16 @@ const SideBar = () => {
     findActiveIndex();
   }, [pathname]);
 
-  const handleLogout = async () => {
-    await apiRequest("/logout", {
-      method: "POST",
-      headers: {
-        revalidate: true,
-        ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
-      },
-      body: {}
-    }).then((res)=>{
-      console.log(res)
-      // ✅ Clear Redux Authentication & Data States
-      dispatch(clearAuth());
-      dispatch(setStaffEmpty());
-      dispatch(setBookingEmpty());
-      dispatch(setJobEmpty());
-      dispatch(setAuthEmpty());
-  
-      // alert('Redux cleared')
-  
-      // ✅ Remove Authentication Cookies
-      Cookies.remove("authToken");
-      Cookies.remove("authData");
-  
-      // ✅ Redirect Based on Role
-      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
-    });
+  const handleLogout = () => {
+    Cookies.remove("token", { path: "/" });
+    Cookies.remove("authData", { path: "/" });
+    dispatch(clearAuth());
+    dispatch(setStaffEmpty());
+    dispatch(setBookingEmpty());
+    dispatch(setJobEmpty());
+    dispatch(setAuthEmpty());
+    // router.push(process.env.NEXT_PUBLIC_BASE_URL ? process.env.NEXT_PUBLIC_BASE_URL : '/');
+    location.reload();
   };
 
   return (

@@ -20,32 +20,22 @@ const Logout = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const router = useRouter();
 
-  const handleClickLogout = async () => {
-    await apiRequest("/logout", {
-      method: "POST",
-      headers: {
-        revalidate: true,
-        ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
-      },
-      body: {}
-    }).then((res)=>{
-      console.log(res)
-      // ✅ Clear Redux Authentication & Data States
-      dispatch(clearAuth());
-      dispatch(setStaffEmpty());
-      dispatch(setBookingEmpty());
-      dispatch(setJobEmpty());
-      dispatch(setAuthEmpty());
-  
-      // alert('Redux cleared')
-  
-      // ✅ Remove Authentication Cookies
-      Cookies.remove("authToken");
-      Cookies.remove("authData");
-  
-      // ✅ Redirect Based on Role
-      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
+  const handleClickLogout = () => {
+    const isUpdoneDomain = window?.location?.hostname?.includes("updone");
+    dispatch(clearAuth());
+    dispatch(setStaffEmpty());
+    dispatch(setBookingEmpty());
+    dispatch(setJobEmpty());
+    dispatch(setAuthEmpty());
+    Cookies.remove("token", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
     });
+    Cookies.remove("authData", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+    });
+    location.reload();
   };
 
   return (

@@ -30,7 +30,6 @@ import { setEmpty as setStaffEmpty } from "@/app/lib/store/features/staffSlice";
 import { FiLogOut } from "react-icons/fi";
 import { PiUserLight } from "react-icons/pi";
 import Link from "next/link";
-import { apiRequest } from "@/app/lib/services";
 
 function NavbarClienthub() {
   const router = useRouter();
@@ -40,11 +39,9 @@ function NavbarClienthub() {
 
   useEffect(() => {
     const authData = Cookies.get("authData");
-    const authToken = Cookies.get("authToken");
     if (authData) {
-      dispatch(setAuth({ token: authToken, user: JSON.parse(authData) }));
+      dispatch(setAuth(JSON.parse(authData)));
     } else {
-      // alert("Clearing auth from navbar client hub")
       dispatch(clearAuth());
       dispatch(setStaffEmpty());
       dispatch(setBookingEmpty());
@@ -58,32 +55,54 @@ function NavbarClienthub() {
     setIsClient(true);
   }, []);
 
-  const handleLogout = async () => {
-    await apiRequest("/logout", {
-      method: "POST",
-      headers: {
-        revalidate: true,
-        ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
-      },
-      body: {}
-    }).then((res)=>{
-      console.log(res)
-      // ✅ Clear Redux Authentication & Data States
-      dispatch(clearAuth());
-      dispatch(setStaffEmpty());
-      dispatch(setBookingEmpty());
-      dispatch(setJobEmpty());
-      dispatch(setAuthEmpty());
-  
-      // alert('Redux cleared')
-  
-      // ✅ Remove Authentication Cookies
-      Cookies.remove("authToken");
-      Cookies.remove("authData");
-  
-      // ✅ Redirect Based on Role
-      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
+  const handleLogout = () => {
+    const isUpdoneDomain =
+      typeof window !== "undefined" &&
+      window?.location?.hostname?.includes("updone");
+    const role = storedData?.user?.role_id;
+    const isClientHub =
+      typeof window !== "undefined" &&
+      window.location.hostname.includes("clienthub");
+
+    // ✅ Clear Redux Authentication & Data States
+    dispatch(clearAuth());
+    dispatch(setStaffEmpty());
+    dispatch(setBookingEmpty());
+    dispatch(setJobEmpty());
+    dispatch(setAuthEmpty());
+
+    // alert('Redux cleared')
+
+    // ✅ Remove Authentication Cookies
+    Cookies.remove("token", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+      ...(window.location.hostname.includes("localhost") && {
+        domain: "localhost",
+      }),
     });
+
+    Cookies.remove("authData", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+      ...(window.location.hostname.includes("localhost") && {
+        domain: "localhost",
+      }),
+    });
+
+    // ✅ Redirect Based on Role
+    if (role === 4) {
+      if (isClientHub) {
+        // If on client hub, go to base URL
+        router.push(process.env.NEXT_PUBLIC_BASE_URL || "/");
+      } else {
+        // Otherwise, reload page
+        window.location.reload();
+      }
+    } else {
+      // For other roles, simply reload the page
+      window.location.reload();
+    }
   };
 
   return (
@@ -144,9 +163,7 @@ function NavbarClienthub() {
                     <AvatarImage src={storedData?.user?.image} />
                     <AvatarFallback>{`
                       ${storedData?.user?.name?.split(" ")[0][0]}${
-                      storedData?.user?.name?.split(" ")?.length > 1
-                        ? storedData?.user?.name?.split(" ")[1][0]
-                        : ""
+                      storedData?.user?.name?.split(" ")?.length > 1 ? storedData?.user?.name?.split(" ")[1][0] : ''
                     }
                     `}</AvatarFallback>
                   </Avatar>
@@ -192,11 +209,7 @@ function NavbarClienthub() {
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() =>
-                  router.push(
-                    `${process.env.NEXT_PUBLIC_CLIENTHUB_URL}/settings`
-                  )
-                }
+                onClick={() => router.push(`${process.env.NEXT_PUBLIC_CLIENTHUB_URL}/settings`)}
                 className="hover:!bg-[#F1EEFF] max-lg:hidden duration-0 text-[#2C2240] hover:text-[#2C2240] py-[20px] px-[40px] flex justify-start items-center !text-[14px] font-[400] leading-[24px]"
               >
                 <Settings className="mr-[12px]" size={18} />

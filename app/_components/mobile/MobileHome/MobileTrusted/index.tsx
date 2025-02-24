@@ -1,7 +1,7 @@
-import React from 'react';
-import Marquee from 'react-fast-marquee';
+// import React from 'react';
 import './mobiletrusted.css';
 import Image from 'next/image';
+import Marquee from 'react-fast-marquee';
 
 const imageSources = [
   '/images/sponsor/trut (6).svg',

@@ -52,7 +52,7 @@ const TalentInfo = ({ jobDetailData }: any) => {
 
 
     return (
-        <div className="flex flex-row items-center justify-center gap-4 mt-4">
+        <div className="flex max-xl:flex-col xl:flex-row items-center justify-center gap-4 mt-4">
             <div className="border border-1 border-[#EBE6FF] bg-[#FFEFD7] min-h-[320px] h-full w-full rounded-[12px] p-4 flex flex-col p-8">
                 <p className="font-[500] leading-[8px] text-[16px]">You are Hired!</p>
                 <div className="flex items-center mt-4">
@@ -148,11 +148,11 @@ const TalentInfo = ({ jobDetailData }: any) => {
                             width={48}
                             height={48}
                         />
-                        <div>
-                            <p className="text-[black] font-[500] text-[16px] leading-[24px]">
+                        <div className="w-full truncate">
+                            <p className="text-[black] font-[500] text-[16px] leading-[24px] max-w-[100%]">
                                 Email Address:
                             </p>
-                            <p className="text-[#4C4B4B] font-[400] text-[16px]">
+                            <p className="text-[#4C4B4B] font-[400] text-[16px] max-w-[90%] truncate">
                                 {jobDetailData?.invite?.worker?.user?.email}
                             </p>
                         </div>

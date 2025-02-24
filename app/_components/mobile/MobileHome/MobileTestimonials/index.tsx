@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect } from "react";
 import SwiperCore from "swiper";
 import "swiper/swiper-bundle.css";

@@ -22,7 +22,6 @@ import { useDispatch } from "react-redux";
 import { Skeleton } from "../ui/skeleton";
 import { useEffect, useState } from "react";
 import { FaBullseye } from "react-icons/fa";
-import { apiRequest } from "@/app/lib/services";
 
 function NavbarTalentPro() {
   const router = useRouter();
@@ -34,32 +33,34 @@ function NavbarTalentPro() {
     setClientLoad(false)
   }, [])
 
-  const handleLogout = async () => {
-    await apiRequest("/logout", {
-      method: "POST",
-      headers: {
-        revalidate: true,
-        ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
-      },
-      body: {}
-    }).then((res)=>{
-      console.log(res)
-      // ✅ Clear Redux Authentication & Data States
-      dispatch(clearAuth());
-      dispatch(setStaffEmpty());
-      dispatch(setBookingEmpty());
-      dispatch(setJobEmpty());
-      dispatch(setAuthEmpty());
-  
-      // alert('Redux cleared')
-  
-      // ✅ Remove Authentication Cookies
-      Cookies.remove("authToken");
-      Cookies.remove("authData");
-  
-      // ✅ Redirect Based on Role
-      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
+  const handleLogout = () => {
+    const isUpdoneDomain =
+      typeof window !== "undefined" &&
+      window?.location?.hostname?.includes("updone");
+
+    dispatch(clearAuth());
+    dispatch(setStaffEmpty());
+    dispatch(setBookingEmpty());
+    dispatch(setJobEmpty());
+    dispatch(setAuthEmpty());
+
+    Cookies.remove("token", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+      ...(window.location.hostname.includes("localhost") && {
+        domain: "localhost",
+      }),
     });
+
+    Cookies.remove("authData", {
+      path: "/",
+      ...(isUpdoneDomain && { domain: ".updone.com" }),
+      ...(window.location.hostname.includes("localhost") && {
+        domain: "localhost",
+      }),
+    });
+
+    router.push(process.env.NEXT_PUBLIC_BASE_URL || "/");
   };
 
   if (clientLoad) return <></>

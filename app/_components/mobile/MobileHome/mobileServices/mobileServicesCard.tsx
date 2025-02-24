@@ -1,8 +1,10 @@
+"use client"
 import { setSelectedService } from '@/app/lib/store/features/jobCreateSlice';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const mobileServicesCard = () => {
   const router = useRouter();
@@ -82,7 +84,7 @@ const mobileServicesCard = () => {
   const handleClickServiceCard = (service: any) => {
     setTimeout(() => {
       dispatch(setSelectedService(service));
-      router.push('/add-job?step=event-location');
+      // router.push('/add-job?step=event-location');
     }, 200);
   }
 
@@ -98,54 +100,55 @@ const mobileServicesCard = () => {
           //     handleClickServiceCard(card);
           //   }}
           // >
-          <motion.div
-            key={card.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2, duration: 0.5, ease: "easeOut" }}
-            className="py-3 pl-2 pr-1 rounded-lg overflow-hidden"
-            style={{ backgroundColor: card.bgColor, opacity: 0.5 }}
-            onClick={() => handleClickServiceCard(card)}
-          >
+          <Link key={card.id} href={`${process.env.NEXT_PUBLIC_BASE_URL}/add-job?step=event-location`}>
             <motion.div
-              key={card.id}
-              whileTap={{ scale: 0.9 }}
-              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.5, ease: "easeOut" }}
+              className="py-3 pl-2 pr-1 rounded-lg overflow-hidden"
+              style={{ backgroundColor: card.bgColor, opacity: 0.5 }}
+              onClick={() => handleClickServiceCard(card)}
             >
-              <h3 style={{ color: card.textColor }} className="text-[18px] mb-12 font-[500] leading-[12px]">{card.name}</h3>
-              <div className="flex items-center justify-end mt-4 relative">
-                <div
-                  className="w-[82px] absolute left-[-24px] top-[-30px] p-2 h-[82px] rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: card.iconBgColor }}
-                >
-                  <Image
-                    className="w-[auto] h-[auto] relative"
-                    style={{ left: card.iconClass, top: card.iconClassTop }}
-                    src={card.icon}
-                    alt={`${card.name} icon`}
-                    width={[2, 4, 5, 6].includes(card.id) ? 40 : 22}
-                    height={22} 
-                    quality={100}
-                    priority={true}
-                  />
+              <motion.div
+                key={card.id}
+                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <h3 style={{ color: card.textColor }} className="text-[18px] mb-12 font-[500] leading-[12px]">{card.name}</h3>
+                <div className="flex items-center justify-end mt-4 relative">
+                  <div
+                    className="w-[82px] absolute left-[-24px] top-[-30px] p-2 h-[82px] rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: card.iconBgColor }}
+                  >
+                    <Image
+                      className="w-[auto] h-[auto] relative"
+                      style={{ left: card.iconClass, top: card.iconClassTop }}
+                      src={card.icon}
+                      alt={`${card.name} icon`}
+                      width={[2, 4, 5, 6].includes(card.id) ? 40 : 22}
+                      height={22} 
+                      quality={100}
+                      priority={true}
+                    />
+                  </div>
+                  <button
+                    className="flex items-center hover:bg-[transparent]  text-[14px] leading-[24px] font-[600]"
+                    style={{ color: card.buttonColor }}
+                  >
+                    Book Now
+                    <Image
+                      src={card.arrowIcon}
+                      alt="arrow"
+                      width={24}
+                      height={24}
+                      quality={100}
+                      priority={true}
+                    />
+                  </button>
                 </div>
-                <button
-                  className="flex items-center hover:bg-[transparent]  text-[14px] leading-[24px] font-[600]"
-                  style={{ color: card.buttonColor }}
-                >
-                  Book Now
-                  <Image
-                    src={card.arrowIcon}
-                    alt="arrow"
-                    width={24}
-                    height={24}
-                    quality={100}
-                    priority={true}
-                  />
-                </button>
-              </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </Link>
           // </div>
         ))}
       </div>

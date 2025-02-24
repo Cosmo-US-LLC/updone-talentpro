@@ -18,17 +18,18 @@ const MobilePageFooter = ({
 }) => {
   const router = useRouter();
   const { auth: storedData } = useAppSelector(selectAuth);
-  const handleHireNowClick = () => {
-    router.push("/add-job?step=event-location");
-  };
+  // const handleHireNowClick = () => {
+  //   router.push("/add-job?step=event-location");
+  // };
 
   return (
     <>
       {
         <div className="pt-20">
           <div
-            className={`bg-[#2c2240] relative ${isJobDetailFooter && !storedData?.token && "mt-[80px]"
-              } ${isPrivacyPolicy && "!mt-[250px]"} mt-[80px] pb-[100px]`}
+            className={`bg-[#2c2240] relative ${
+              isJobDetailFooter && !storedData?.token && "mt-[80px]"
+            } ${isPrivacyPolicy && "!mt-[250px]"} mt-[80px] pb-[100px]`}
           >
             <div className="md:max-w-[920px] lg:max-w-[1279px] md:!px-[3rem] lg:!px-[3rem] xl:px-[0rem] 2xl:px-[0rem] xl:max-w-[1279px] mx-auto 2xl:max-w-[1440px] m-auto w-[100%]">
               <footer className="relative bg-[#2c2240] text-white pt-[150px] pb-5 footer-image">
@@ -40,9 +41,11 @@ const MobilePageFooter = ({
                           ? "0px 6px 26px 0px rgba(0, 0, 0, 0.07)"
                           : "",
                       }}
-                      className={`bg-[#F6F9FC] ${isJobDetailFooter || isContactUs ? "!bg-[#FFFFFF]" : ""
-                        } ${isContactUs && "mt-[30px]"
-                        } py-[24px] rounded-[12px] absolute z-[1] top-[-18%] max-w-[352px] w-[100%]`}
+                      className={`bg-[#F6F9FC] ${
+                        isJobDetailFooter || isContactUs ? "!bg-[#FFFFFF]" : ""
+                      } ${
+                        isContactUs && "mt-[30px]"
+                      } py-[24px] rounded-[12px] absolute z-[1] top-[-18%] max-w-[352px] w-[100%]`}
                     >
                       <div>
                         <h2
@@ -63,14 +66,15 @@ const MobilePageFooter = ({
                         </p>
                       </div>
                       <div className="flex justify-center itens-center">
-                        <button
-                          onClick={handleHireNowClick}
-                          className={`text-[14px] mt-[30px] font-[400] leading-[14px] bg-[#350ABC] text-[#F3F0FF] py-[12px] px-[16px] rounded-[4px] max-w-[205px] mx-auto w-[100%] h-[38px]
-    transition-transform duration-150 ease-in-out transform active:scale-95 active:shadow-inner 
- grow_ellipse`}
+                        <Link
+                          href={`${process.env.NEXT_PUBLIC_BASE_URL}/add-job?step=event-location`}
+                          // onClick={handleHireNowClick}
+                          className={`text-[14px] mt-[30px] font-[400] text-center leading-[14px] bg-[#350ABC] text-[#F3F0FF] py-[12px] px-[16px] rounded-[4px] max-w-[205px] mx-auto w-[100%] h-[38px]
+                              transition-transform duration-150 ease-in-out transform active:scale-95 active:shadow-inner 
+                          grow_ellipse`}
                         >
                           Book a Talent Now
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -125,9 +129,8 @@ const MobilePageFooter = ({
                             </Link>
                           </div>
                           <p className="text-[14px] py-[24px] font-[400] text-center ">
-                            © <span id="get-current-year">2024</span>
-                            {" "}
-                            Updone. All rights reserved.
+                            © <span id="get-current-year">2025</span> Updone.
+                            All rights reserved.
                           </p>
                         </div>
                       </div>
