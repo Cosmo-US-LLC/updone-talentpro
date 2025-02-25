@@ -384,25 +384,13 @@ const MobileNavbar = ({ ...props }) => {
                 </>
               ) : (
                 <>
-                  {!isTalentProPage && (
                     <div className="">
-                      {storedData?.user && storedData?.user?.role_id == "3" ? (
                         <Link href={`/`}>
                           <button className="bg-[#350abc] text-white rounded-full px-4 py-2 font-semibold">
                             Go to TalentPro
                           </button>
                         </Link>
-                      ) : (
-                        // If no user is logged in, show the default "Book a Talent Now" button
-                        <Link href="/add-job?step=event-location">
-                          <button className="bg-[#350abc] text-white rounded-full px-4 py-2 font-semibold">
-                            Book a Talent Now
-                          </button>
-                        </Link>
-                      )}
                     </div>
-
-                  )}
                   {!storedData?.token && (
                     <>
                       <li>
@@ -474,7 +462,6 @@ const MobileNavbar = ({ ...props }) => {
 
       {/* Conditional Logo */}
 
-      {isTalentProPage ? (
         <>
 
           <div className="px-6 pb-2 relative right-16 ">
@@ -515,26 +502,6 @@ const MobileNavbar = ({ ...props }) => {
             </Sheet>
           </div>
         </>
-      ) : (
-        <Link href={"/"}>
-          <Image
-            src="/images/mobile/headerLogo.svg"
-            className="object-contain"
-            alt="headerLogo"
-            height={28}
-            width={98.45}
-          />
-        </Link>
-      )}
-
-      {/* Conditional Add Job Button */}
-      {!isTalentProPage && (
-        <Link href={"/add-job?step=event-location"}>
-          <button className="bg-[#774dfd] text-white rounded-full p-2">
-            <BsPlusLg size={22} />
-          </button>
-        </Link>
-      )}
     </div>
   );
 };
