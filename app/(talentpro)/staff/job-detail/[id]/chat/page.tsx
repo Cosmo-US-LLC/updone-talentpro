@@ -5,7 +5,7 @@ import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import moment from "moment";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 type Message = {
@@ -16,7 +16,8 @@ type Message = {
     created_at: string;
 };
 
-const ChatPage = ({ params }: { params: { id: number } }) => {
+const ChatPage = () => {
+    const params = useParams();
     const { auth: storedData } = useAppSelector(selectAuth);
     const [messages, setMessages] = useState<Message[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);

@@ -44,6 +44,15 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
     calculateTotalIncome();
   }, [state]);
 
+  const getPriceValidationStatus = (price: number) => {
+    if (price < 35) {
+      return { message: "Cannot submit offer below $35/hour", color: "text-[#C20000]" };
+    } else if (price > 80) {
+      return { message: "Cannot submit offer above $80/hour", color: "text-[#C20000]" };
+    }
+    return { message: "", color: "" };
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
 
@@ -61,12 +70,12 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
       setRateValueError("Rate cannot be empty.");
     }
     // Enforce minimum hourly rate
-    else if (numericValue < 1) {
-      setRateValueError("Rate must be at least $1.");
+    else if (numericValue < 35) {
+      setRateValueError("Cannot submit offer below $35/hour");
     }
     // Enforce maximum hourly rate
-    else if (numericValue > 500) {
-      setRateValueError("Rate cannot exceed $500.");
+    else if (numericValue > 80) {
+      setRateValueError("Cannot submit offer above $80/hour");
     }
     // Valid case
     else {
@@ -77,7 +86,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
       return;
     }
 
-    // Reset the input state if there’s an error
+    // Reset the input state if there's an error
     setState({
       inputValue: inputValue,
     });
@@ -146,6 +155,16 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
       return;
     }
 
+    const price = isDefaultRate ? hourRate : Number(state.inputValue);
+    if (price < 35) {
+      setRateValueError("Cannot submit offer below $35/hour");
+      return;
+    }
+    if (price > 80) {
+      setRateValueError("Cannot submit offer above $80/hour");
+      return;
+    }
+
     const body: {
       user_id: number;
       job_id: number;
@@ -204,29 +223,6 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
             Make your Offer
           </p>
           <div className="flex flex-col items-center">
-            {/* <div className="relative flex items-center justify-center">
-              <span className="absolute left-2 flex items-center gap-1">
-                <PiCurrencyDollarSimpleThin color="#4C4B4B" size={20} />
-                <PiLineVerticalThin color="#4C4B4B" size={20} />
-              </span>
-              <input
-                type="number"
-                className={`
-                            ${rateValueError !== ""
-                    ? "shadow-[0px_0px_20px_0px_rgba(194,0,0,0.22)]"
-                    : ""
-                  } 
-                            ${rateValueError === ""
-                    ? "border-[#4C4B4B]"
-                    : "border-[#FF8F8F]"
-                  }
-                            px-4 w-[104px] pl-8 text-right border-[1px] rounded-[4px]
-                        `}
-                value={state.inputValue}
-                onChange={handleChange}
-                disabled={isDefaultRate}
-              />
-            </div> */}
             <div className="flex items-center">
               <span className="flex justify-center items-center">
                 <PiCurrencyDollarSimpleThin color="#000" size={24} />
@@ -249,15 +245,16 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
               />
               <span className="pl-2">/ hour</span>
             </div>
-            {
-              <p
-                className={`text-[#C20000] text-[12px] pt-[5px] font-[400] leading-[20px] transition-opacity duration-500 ease-linear ${rateValueError !== "" ? "opacity-100" : "opacity-0"
-                  } ${rateValueError !== "" ? "max-h-20" : "max-h-0"
-                  } overflow-hidden`}
-              >
+            {!isDefaultRate && state.inputValue && !rateValueError && getPriceValidationStatus(Number(state.inputValue)).message && (
+              <p className={`text-[12px] pt-[5px] font-[400] leading-[20px] ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
+                {getPriceValidationStatus(Number(state.inputValue)).message}
+              </p>
+            )}
+            {rateValueError && (
+              <p className="text-[#C20000] text-[12px] pt-[5px] font-[400] leading-[20px]">
                 {rateValueError}
               </p>
-            }
+            )}
             <p className="flex items-center gap-2 text-[#9F9F9F] text-[16px] font-[400] leading-[28px] tracking-[-0.32px]">
               <input
                 type="checkbox"

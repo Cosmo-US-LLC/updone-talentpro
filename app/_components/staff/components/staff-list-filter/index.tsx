@@ -63,7 +63,7 @@ const StaffFilters = ({ isAlreadyCreted, isFilterBookingFlow, handleTimeChange, 
                             <div style={{ width: '28%' }} className="text-start space-y-2">
                                 <div className='flex justify-start items-center gap-1.5 pl-[10px]'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 13 13" fill="none">
-                                        <g clip-path="url(#clip0_580_9968)">
+                                        <g clipPath="url(#clip0_580_9968)">
                                             <path d="M10.8335 3.79166H2.16683C1.56852 3.79166 1.0835 4.27668 1.0835 4.87499V10.2917C1.0835 10.89 1.56852 11.375 2.16683 11.375H10.8335C11.4318 11.375 11.9168 10.89 11.9168 10.2917V4.87499C11.9168 4.27668 11.4318 3.79166 10.8335 3.79166Z" stroke="#2C2240" stroke-width="1.08333" strokeLinecap="round" strokeLinejoin="round" />
                                             <path d="M8.66683 11.375V2.70833C8.66683 2.42102 8.55269 2.14547 8.34953 1.9423C8.14636 1.73914 7.87081 1.625 7.5835 1.625H5.41683C5.12951 1.625 4.85396 1.73914 4.6508 1.9423C4.44763 2.14547 4.3335 2.42102 4.3335 2.70833V11.375" stroke="#2C2240" stroke-width="1.08333" strokeLinecap="round" strokeLinejoin="round" />
                                         </g>

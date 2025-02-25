@@ -60,6 +60,7 @@ const MobileNavbar = ({ ...props }) => {
 
   const userName = storedData?.user?.name || "";
   const userInitials = userName.substring(0, 2).toUpperCase();
+ 
 
   async function logout() {
     const isUpdoneDomain = window?.location?.hostname?.includes("updone");
@@ -171,16 +172,13 @@ const MobileNavbar = ({ ...props }) => {
           side={"left"}
           className="fixed z-[60] w-[80%] flex flex-col bg-gray-50 h-[calc(100dvh-75px)] top-[75px]  overflow-y-auto"
         >
-          {/* <SheetHeader>
+          <SheetHeader hidden>
             <SheetTitle hidden></SheetTitle>
             <SheetDescription hidden></SheetDescription>
-          
-          </SheetHeader> */}
-          <div className="grow pt-6 px-2 flex flex-col justify-between">
+          </SheetHeader>
+          <div className="grow pt-0 px-2 flex flex-col justify-between">
             <ul className="list-none space-y-6">
               {/* Use setActiveTab to switch between tabs */}
-              {isTalentProPage && storedData?.token ? (
-                <>
                   <li className="space-y-8">
                     {/* Dropdown Menu */}
                     <div>
@@ -381,37 +379,6 @@ const MobileNavbar = ({ ...props }) => {
                       </div>
                     </div>
                   </li>
-                </>
-              ) : (
-                <>
-                    <div className="">
-                        <Link href={`/`}>
-                          <button className="bg-[#350abc] text-white rounded-full px-4 py-2 font-semibold">
-                            Go to TalentPro
-                          </button>
-                        </Link>
-                    </div>
-                  {!storedData?.token && (
-                    <>
-                      <li>
-                        <Link onClick={()=>toggleMenu()} href="/signin">Log in</Link>
-                      </li>
-                      <li>
-                        <Link onClick={()=>toggleMenu()} href="/signup">Sign up</Link>
-                      </li>
-                    </>
-                  )}
-                  <li>
-                    <Link onClick={()=>toggleMenu()} href="/">Home</Link>
-                  </li>
-                  <li>
-                    <Link onClick={()=>toggleMenu()} href="/about">About Us</Link>
-                  </li>
-                  <li>
-                    <Link onClick={()=>toggleMenu()} href="/contact-us">Contact</Link>
-                  </li>
-                </>
-              )}
             </ul>
 
             <div className="mt-4 space-y-8 ">
@@ -419,7 +386,7 @@ const MobileNavbar = ({ ...props }) => {
                 <div className="space-y-4">
                   <div className="w-full pl-2 py-2 rounded-lg flex items-center gap-3">
                     <Avatar>
-                      <AvatarImage src={storedData?.user?.profile_pic} />
+                      <AvatarImage src={storedData?.user?.image} />
                       <AvatarFallback>
                         {`
                         ${storedData?.user?.name?.split(" ")[0][0]}${storedData?.user?.name?.split(" ")?.length > 1
@@ -447,11 +414,11 @@ const MobileNavbar = ({ ...props }) => {
               <p className="text-neutral-500 text-center text-xs">
                 Copyright &copy; 2025 Updone. All rights reserved.
                 <br />
-                <Link className="pt-1 underline" href={"terms-condition"}>
+                <Link className="pt-1 underline" href="/terms-condition">
                   Terms & Conditions
                 </Link>
                 ,&nbsp;
-                <Link className="pt-1 underline" href={"privacy-policy"}>
+                <Link className="pt-1 underline" href="/privacy-policy">
                   Privacy Policy
                 </Link>
               </p>
@@ -488,9 +455,9 @@ const MobileNavbar = ({ ...props }) => {
           <SheetTrigger asChild>
 
             <Avatar className="absolute right-4 bottom-3 w-10 h-10 bg-[#d7cefc] text-[#350ABC] font-semibold">
-              {storedData?.user?.profile_pic ? (
+              {storedData?.user?.image ? (
                 <AvatarImage
-                  src={storedData?.user?.profile_pic}
+                  src={storedData?.user?.image}
                   alt="User Avatar"
                   className="rounded-full object-cover"
                 />

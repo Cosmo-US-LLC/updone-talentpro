@@ -6,7 +6,7 @@ import SideBarTalent from "../_components/ui/sidebarTalent";
 const RootLayout = ({ children }: RootLayoutProps) => {
     return (
         <>
-            <div className="lg:hidden w-full border border-red-500">
+            <div className="lg:hidden w-full">
                 {children}
             </div>
             <div className="max-lg:hidden">

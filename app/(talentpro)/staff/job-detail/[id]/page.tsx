@@ -8,7 +8,7 @@ import loadable from '@/app/_components/ui/lazy-load'
 import { selectAuth } from "@/app/lib/store/features/authSlice"
 import { useAppSelector } from "@/app/lib/store/hooks"
 import { Suspense, useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { setJobData, setJobId } from "@/app/lib/store/features/staffSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from '@/app/_components/ui/footer'
@@ -25,7 +25,8 @@ import NavbarTalentPro from '@/components/layout/NavbarTalentPro'
 
 const JobDetail = loadable(() => import('@/app/_components/booking/job-detail'), { loading: () => <Loader /> });
 
-const page = ({ params }: { params: { id: number } }) => {
+const page = () => {
+    const params = useParams();
     const { auth: storedData } = useAppSelector(selectAuth);
     const [isWorker, setIsWorker] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(true);

@@ -97,7 +97,7 @@ function NavbarTalentPro() {
                 <Avatar>
                   <AvatarImage
                     src={
-                      storedData?.user?.profile_pic
+                      storedData?.user?.image
                     }
                   />
                   <AvatarFallback>{`

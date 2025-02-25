@@ -12,7 +12,7 @@ import JobStatus from "./JobStatus";
 import LoginToUnlock from "./LoginToUnlock";
 import { Loader2 } from 'lucide-react';
 
-const TalentMobile = ({ jobId }: { jobId: number }) => {
+const TalentMobile = ({ jobId }: { jobId: any }) => {
   const [alreadyOffered, setAlreadyOffered] = useState(false);
   const [loggedIn, setLoggedIn] = useState<any>(undefined);
   const { auth: storedData } = useAppSelector(selectAuth);

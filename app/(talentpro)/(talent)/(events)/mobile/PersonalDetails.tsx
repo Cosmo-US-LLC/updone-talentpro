@@ -175,7 +175,7 @@ export default function PersonalDetails({ activeTab }: { activeTab: string }) {
         <div className="mt-6 w-full bg-white rounded-lg shadow-lg p-6">
    {successMessage && (
     <div 
-        className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 flex justify-center w-[280px] px-4 py-3 z-10
+        className={`fixed bottom-12 left-1/2 transform -translate-x-1/2 flex justify-center w-[280px] px-4 py-3 z-10
                     bg-green-400 text-white font-semibold text-center text-[14px] 
                     shadow-lg shadow-green-200 rounded-sm transition-opacity 
                     duration-1000 ease-in-out ${showMessage ? "opacity-100" : "opacity-0"}`}

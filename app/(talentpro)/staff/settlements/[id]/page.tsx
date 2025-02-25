@@ -3,9 +3,11 @@ import React from 'react'
 import Loader from '../../../../_components/ui/loader';
 import loadable from '../../../../_components/ui/lazy-load';
 import Header from '@/app/_components/ui/header'
+import { useParams } from 'next/navigation';
 const Sattlements = loadable(() => import('../../../../_components/settlements'), { loading: () => <Loader /> });
 
-const page = ({ params }: { params: { id: number } }) => {
+const page = () => {
+  const params = useParams();
 
   return (
     <div>

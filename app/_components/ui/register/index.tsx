@@ -309,27 +309,7 @@ const RegisterForm = ({
                     alt="step-1"
                   />
                 </div>
-                <input
-                  type="text"
-                  id="default-search"
-                  className={`${styles.defaultsearch} ${
-                    loading && "opacity-[10%]"
-                  } ${
-                    errors.company && "bg-[#FFF5F5]"
-                  } relative z-10 mt-[12px] pb-[14px] pt-[17px] pl-[50px] min-h-[52px] w-full  ${
-                    (errors as any)?.company?.message
-                      ? "focus:outline-none !border-[.2px] border-[red]"
-                      : "focus:outline-blue-200"
-                  }`}
-                  placeholder="Company Name"
-                  style={{
-                    ...loginInputStyles, // Apply base styles
-                    ...((errors as any).company?.message && {
-                      boxShadow: "rgb(255 0 0 / 18%) 0px 0px 12px 0px", // Apply error-specific styles if there's an error
-                    }),
-                  }}
-                  {...register("company")}
-                />
+                
               </div>
             </div>
             <div className="flex justify-between flex-col gap-[8px] items-center">

@@ -24,7 +24,7 @@ import BlurredOverlay from "./components/BlurredOverlay";
 import { Loader } from "@/app/_components/ui/dashboard-loader";
 
 interface JobDetailWorkerProps {
-  jobId: number;
+  jobId: any;
 }
 const JobDetailWorker = ({ jobId }: JobDetailWorkerProps) => {
   const [isCompleted] = useState(false);

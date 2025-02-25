@@ -46,7 +46,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ testimonials, isDetailTesto
           Testimonials
         </h2>
         <p className={`${montserrat.className} text-[18px] text-[#6B6B6B] text-center`}>
-          At Updone we are committed to pushing the boundaries of what’s possible.
+          At Updone we are committed to pushing the boundaries of what's possible.
         </p>
       </div>
 
