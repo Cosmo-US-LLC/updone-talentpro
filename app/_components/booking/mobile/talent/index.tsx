@@ -358,7 +358,7 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
                           </div>
                           {/* Request Submitted / Request Payment Release Button */}
                           <button
-                            className={`bg-[#350ABC] min-w-[270px] py-[12px] text-[16px] font-[400] leading-[26px] text-white mb-4 rounded-full`}
+                            className={`bg-[#350ABC] min-w-[270px] py-[12px] text-[16px] font-[400] leading-[26px] text-white mb-4 rounded-full ${jobData.payment_status !== "release_pending" ? 'opacity-50 cursor-not-allowed' : ''}`}
                             onClick={handleClickRequestReleaseButton}
                             disabled={jobData.payment_status !== "release_pending" || isButtonLoading}
                           >

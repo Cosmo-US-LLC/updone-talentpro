@@ -35,9 +35,9 @@ const Offered = ({
 
   const getPriceValidationStatus = (price: number) => {
     if (price < 35) {
-      return { message: "Price is too low (minimum $35/hour)", color: "text-yellow-500" };
-    } else if (price > 80) {
-      return { message: "Price is too high (maximum $80/hour)", color: "text-blue-500" };
+      return { message: "Rate cannot be less than $35/hr", color: "text-yellow-500" };
+    } else if (price > 200) {
+      return { message: "Rate cannot exceed $200/hr", color: "text-blue-500" };
     }
     return { message: "Good price", color: "text-green-500" };
   };
@@ -96,8 +96,8 @@ const Offered = ({
       setPriceError("Cannot submit offer below $35/hour");
       return;
     }
-    if (price > 80) {
-      setPriceError("Cannot submit offer above $80/hour");
+    if (price > 200) {
+      setPriceError("Cannot submit offer above $200/hour");
       return;
     }
 
@@ -139,8 +139,10 @@ const Offered = ({
     }
   };
 
-  const isButtonDisabled = !state.inputValue || !isDefaultRate || 
-    (Number(state.inputValue) < 35 || Number(state.inputValue) > 80);
+  const isButtonDisabled = !state.inputValue || 
+    (isDefaultRate ? 
+      ((hourRate || 0) < 35 || (hourRate || 0) > 200) :
+      (Number(state.inputValue) < 35 || Number(state.inputValue) > 200));
 
   const totalAmount = isDefaultRate
     ? (hourRate || 0) * hoursWorked

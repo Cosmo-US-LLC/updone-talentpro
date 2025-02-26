@@ -46,9 +46,9 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
 
   const getPriceValidationStatus = (price: number) => {
     if (price < 35) {
-      return { message: "Cannot submit offer below $35/hour", color: "text-[#C20000]" };
+      return { message: "Rate cannot be less than $35/hr", color: "text-[#C20000]" };
     } else if (price > 80) {
-      return { message: "Cannot submit offer above $80/hour", color: "text-[#C20000]" };
+      return { message: "Rate cannot exceed $200/hr", color: "text-[#C20000]" };
     }
     return { message: "", color: "" };
   };
@@ -71,11 +71,11 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
     }
     // Enforce minimum hourly rate
     else if (numericValue < 35) {
-      setRateValueError("Cannot submit offer below $35/hour");
+      setRateValueError("Rate cannot be less than $35/hr");
     }
     // Enforce maximum hourly rate
-    else if (numericValue > 80) {
-      setRateValueError("Cannot submit offer above $80/hour");
+    else if (numericValue > 200) {
+      setRateValueError("Rate cannot exceed $200/hr");
     }
     // Valid case
     else {
@@ -160,7 +160,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
       setRateValueError("Cannot submit offer below $35/hour");
       return;
     }
-    if (price > 80) {
+    if (price > 200) {
       setRateValueError("Cannot submit offer above $80/hour");
       return;
     }

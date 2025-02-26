@@ -18,6 +18,8 @@ import { MdOutlineReviews } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { TbLogin2 } from "react-icons/tb";
 import { MdMiscellaneousServices } from "react-icons/md";
+import { apiRequest } from '@/app/lib/services';
+
 
 // Define an array of link objects
 const links = [
@@ -29,7 +31,7 @@ const links = [
 ];
 
 const bottomLinks = [
-    { name: 'Logout', icon: LuLogOut, path: `${process.env.NEXT_PUBLIC_BASE_URL ? process.env.NEXT_PUBLIC_BASE_URL : '/'}` },
+    { name: 'Logout', icon: LuLogOut, onClick: 'logout' },
 ];
 
 const SideBarTalent = () => {
@@ -58,16 +60,35 @@ const SideBarTalent = () => {
         findActiveIndex();
     }, [pathname]);
 
-    const handleLogout = () => {
-        Cookies.remove('token', { path: '/' });
-        Cookies.remove('authData', { path: '/' });
-        dispatch(clearAuth());
-        dispatch(setStaffEmpty());
-        dispatch(setBookingEmpty());
-        dispatch(setJobEmpty());
-        dispatch(setAuthEmpty());
-        location.reload();
-    };
+    const handleLogout = async () => {
+        await apiRequest("/logout", {
+          method: "POST",
+          headers: {
+            revalidate: true,
+            ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+          },
+          
+        }).then((res)=>{
+          console.log(res)
+          // ✅ Clear Redux Authentication & Data States
+          dispatch(clearAuth());
+          dispatch(setStaffEmpty());
+          dispatch(setBookingEmpty());
+          dispatch(setJobEmpty());
+          dispatch(setAuthEmpty());
+      
+          // alert('Redux cleared')
+      
+          // ✅ Remove Authentication Cookies
+          Cookies.remove("token");
+          Cookies.remove("authToken");
+          Cookies.remove("authData");
+      
+          // ✅ Redirect Based on Role
+          router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
+        });
+      };
+    
 
     return (
         <aside className="">
@@ -82,7 +103,6 @@ const SideBarTalent = () => {
                             href={link.path}
                             key={index}
                             className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-6 w-full p-3 rounded-[8px] ${activeIndex === index ? 'bg-[#F8F6FF]' : ''
-
                                 }`}
                         >
                             <link.icon className={`h-6 w-6  ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
@@ -139,22 +159,24 @@ const SideBarTalent = () => {
                     </span>
                     <div className='w-full flex flex-col gap-2'>
                         {bottomLinks.map((link, index) => (
-                            <Link
-                                href={index !== 1 ? link.path : ''}
+                            <div
                                 key={index + links.length}
-                                className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-6 w-full p-3 rounded-[12px] ${activeIndex === index + links.length ? 'bg-[#F8F6FF]' : ''
-                                    }`}
+                                className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-6 w-full p-3 rounded-[12px] cursor-pointer ${
+                                    activeIndex === index + links.length ? 'bg-[#F8F6FF]' : ''
+                                }`}
                                 onClick={() => {
-                                    if (index === 1) {
+                                    if (link.onClick === 'logout') {
                                         handleLogout();
                                     }
                                 }}
                             >
-                                <link.icon className={`h-6 w-6  ${activeIndex === index + links.length ? 'text-[#350ABC]' : 'text-[#2C2240]'
-                                    }`} />
-                                <span className={`text-[14px] leading-[18px] font-[400] ${activeIndex === index + links.length ? 'text-[#350ABC]' : 'text-[#2C2240]'
-                                    }`}>{link.name}</span>
-                            </Link>
+                                <link.icon className={`h-6 w-6  ${
+                                    activeIndex === index + links.length ? 'text-[#350ABC]' : 'text-[#2C2240]'
+                                }`} />
+                                <span className={`text-[14px] leading-[18px] font-[400] ${
+                                    activeIndex === index + links.length ? 'text-[#350ABC]' : 'text-[#2C2240]'
+                                }`}>{link.name}</span>
+                            </div>
                         ))}
                     </div>
                 </div>

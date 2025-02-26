@@ -24,6 +24,7 @@ export default function PersonalDetails() {
     const [isEditing, setIsEditing] = useState(false);
     const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
     const [selectedCity, setSelectedCity] = useState("");
+    const [isModified, setIsModified] = useState(false); 
     const [successMessage, setSuccessMessage] = useState("");
     const [showMessage, setShowMessage] = useState(false);
     const [hasChanges, setHasChanges] = useState(false);
@@ -86,13 +87,15 @@ export default function PersonalDetails() {
     }, [personalDetails]);
 
     useEffect(() => {
-        // Check if any field has changed from original values
+        // Check if any field has changed from original values AND phone number is valid
         const hasFieldChanges = 
             formData.name !== personalDetails.name ||
             formData.phone !== personalDetails.phone ||
             selectedCity !== personalDetails.location;
         
-        setHasChanges(hasFieldChanges);
+        const isPhoneValid = formData.phone && formData.phone.length === 11;
+        
+        setHasChanges(Boolean(hasFieldChanges && isPhoneValid));
     }, [formData, selectedCity, personalDetails]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,6 +143,14 @@ export default function PersonalDetails() {
     const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCity(e.target.value);
         setFormData((prev) => ({ ...prev, location: e.target.value }));
+    };
+
+   
+    const checkIfModified = () => {
+        // Check if phone number is complete (should be 11 digits including country code)
+        const isPhoneValid = formData.phone && formData.phone.length === 11;
+        const hasChanges = JSON.stringify(formData) !== JSON.stringify(personalDetails);
+        setIsModified(hasChanges && isPhoneValid ? true : false);
     };
 
     const handleCancel = () => {
@@ -212,24 +223,30 @@ export default function PersonalDetails() {
                     </div>
 
                     <div className="flex flex-col">
-                        <label className="font-medium text-gray-700 mb-1">Phone Number</label>
-                        {isEditing ? (
-                            <PhoneInput
-                                country={"us"}
-                                value={formData.phone}
-                                onChange={(phone) => setFormData({ ...formData, phone })}
-                                inputClass="!w-full border !border-gray-300 rounded-lg p-2 !mt-2 focus:ring-1 focus:ring-gray-300"
-                            />
-                        ) : (
-                            <input
-                                type="text"
-                                name="phone"
-                                value={formData.phone}
-                                disabled
-                                className="border rounded-lg px-4 py-2  bg-gray-100 text-gray-500 cursor-not-allowed"
-                            />
-                        )}
-                    </div>
+    <label className="font-medium text-gray-700">Phone Number</label>
+    {isEditing ? (
+        <PhoneInput
+            country={"us"}
+            onlyCountries={["us"]}
+            value={formData.phone}
+            onChange={(phone) => {
+                // Ensure phone number starts with 1 (US country code)
+                const phoneNumber = phone.startsWith('1') ? phone : `1${phone}`;
+                setFormData({ ...formData, phone: phoneNumber });
+            }}
+            inputClass="!w-full border !border-gray-300 rounded-lg p-2 !mt-1 focus:ring-1 focus:ring-gray-300"
+            countryCodeEditable={false}  // Prevent country code editing
+        />
+    ) : (
+        <input
+            type="text"
+            name="phone"
+            value={formData.phone ? `+1 (${formData.phone.slice(1,4)}) ${formData.phone.slice(4,7)}-${formData.phone.slice(7)}` : ''}
+            disabled
+            className="border rounded-lg px-2 mt-1 bg-gray-100 text-gray-700 cursor-not-allowed"
+        />
+    )}
+</div>
 
                     <div className="flex flex-col">
                         <label className="font-medium text-gray-700">Location</label>
@@ -266,7 +283,7 @@ export default function PersonalDetails() {
                         <button 
                             onClick={handleSave} 
                             disabled={!hasChanges}
-                            className={`px-6 py-2 rounded-sm ${hasChanges 
+                            className={`px-6 py-2 rounded-sm ${hasChanges
                                 ? 'bg-[#5d0abc] text-white hover:bg-[#4a078f] cursor-pointer' 
                                 : 'bg-[#5d0abc] text-white hover:bg-[#4a078f] opacity-50 cursor-not-allowed'}`}
                         >
@@ -280,7 +297,11 @@ export default function PersonalDetails() {
                 <h3 className="text-xl font-semibold mb-4">Profile Summary</h3>
                 <p className="text-gray-600 mb-2"><strong>Name:</strong> {formData.name}</p>
                 <p className="text-gray-600 mb-2"><strong>Display Name:</strong> {displayName}</p>
-                <p className="text-gray-600 mb-2"><strong>Phone:</strong> {formData.phone}</p>
+                <p className="text-gray-600 mb-2">
+                    <strong>Phone:</strong> {formData.phone ? 
+                        `+1 (${formData.phone.slice(1,4)}) ${formData.phone.slice(4,7)}-${formData.phone.slice(7)}` 
+                        : ''}
+                </p>
                 <p className="text-gray-600"><strong>Location:</strong> {selectedCity}</p>
             </div>
         </div>

@@ -167,7 +167,7 @@ const page: React.FC = () => {
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1  pb-40">
+      <div className="flex-1 overflow-y-auto pb-40">
         {" "}
         {/* Added padding-bottom */}
         {!showReceipt ? (
@@ -388,7 +388,7 @@ const page: React.FC = () => {
       {/* Fixed Bottom Div */}
       <div
         style={{ boxShadow: "0 -8px 12px rgba(0, 0, 0, 0.1)" }}
-        className="fixed bottom-0 left-0 w-full bg-white rounded-t-3xl shadow-xl "
+        className="fixed bottom-0 left-0 w-full bg-white rounded-t-3xl shadow-xl z-10"
       >
         {/* <div className="flex justify-center items-center font-light pl-4 text-sm">
           <h6>

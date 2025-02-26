@@ -74,20 +74,30 @@ export default function ServicesProvided({ activeTab }: { activeTab: string }) {
     };
 
     const handleRateChange = (serviceId: number, value: string) => {
-        const numericValue = value.replace(/^0+/, ''); // Remove leading zeros
+        const numericValue = value.replace(/^0+/, '');
         const parsedValue = parseInt(numericValue, 10);
-
+    
         setEditingRates((prev) => ({
             ...prev,
             [serviceId]: isNaN(parsedValue) ? 0 : parsedValue,
         }));
-
-        // ✅ Remove error when user types a valid value
+    
+        // Updated error validation
+        let errorMessage = "";
+        if (!parsedValue) {
+            errorMessage = "Please enter your service rate";
+        } else if (parsedValue < 35) {
+            errorMessage = "Rate cannot be less than $35/hr";
+        } else if (parsedValue > 200) {
+            errorMessage = "Rate cannot exceed $200/hr";
+        }
+    
         setErrors((prevErrors) => ({
             ...prevErrors,
-            [serviceId]: parsedValue ? "" : "Please enter your service rate",
+            [serviceId]: errorMessage,
         }));
     };
+    
 
     const hasChanges = () => {
         // Check if services were added or removed
@@ -114,9 +124,15 @@ export default function ServicesProvided({ activeTab }: { activeTab: string }) {
         // ✅ Validate all services (edited & non-edited)
         selectedServices.forEach((service) => {
             const rateValue = editingRates[service.id] !== undefined ? editingRates[service.id] : service.rate;
-            
+    
             if (rateValue === 0 || rateValue === undefined) {
                 newErrors[service.id] = "Please enter your service rate";
+                hasError = true;
+            } else if (rateValue < 35) {
+                newErrors[service.id] = "Rate cannot be less than $35/hr";
+                hasError = true;
+            } else if (rateValue > 200) {
+                newErrors[service.id] = "Rate cannot exceed $200/hr";
                 hasError = true;
             }
         });
@@ -180,6 +196,8 @@ export default function ServicesProvided({ activeTab }: { activeTab: string }) {
         setSelectedServices([...initialServices]);
         setEditingRates({});
         setIsEditing(false);
+        setErrors({}); 
+
     };
 
      if (isLoading) {

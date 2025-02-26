@@ -111,8 +111,10 @@ export default function PersonalDetails({ activeTab }: { activeTab: string }) {
     };
 
     const checkIfModified = () => {
+        // Check if phone number is complete (should be 11 digits including country code)
+        const isPhoneValid = formData.phone && formData.phone.length === 11;
         const hasChanges = JSON.stringify(formData) !== JSON.stringify(personalDetails);
-        setIsModified(hasChanges);
+        setIsModified(hasChanges && isPhoneValid ? true : false);
     };
 
 
@@ -214,16 +216,22 @@ export default function PersonalDetails({ activeTab }: { activeTab: string }) {
     <label className="font-medium text-gray-700">Phone Number</label>
     {isEditing ? (
         <PhoneInput
-            country={"us"}  // Default country (change based on user location)
+            country={"us"}
+            onlyCountries={["us"]}
             value={formData.phone}
-            onChange={(phone) => setFormData({ ...formData, phone })}
+            onChange={(phone) => {
+                // Ensure phone number starts with 1 (US country code)
+                const phoneNumber = phone.startsWith('1') ? phone : `1${phone}`;
+                setFormData({ ...formData, phone: phoneNumber });
+            }}
             inputClass="!w-full border !border-gray-300 rounded-lg p-2 !mt-1 focus:ring-1 focus:ring-gray-300"
+            countryCodeEditable={false}  // Prevent country code editing
         />
     ) : (
         <input
             type="text"
             name="phone"
-            value={formData.phone}
+            value={formData.phone ? `+1 (${formData.phone.slice(1,4)}) ${formData.phone.slice(4,7)}-${formData.phone.slice(7)}` : ''}
             disabled
             className="border rounded-lg px-2 mt-1 bg-gray-100 text-gray-700 cursor-not-allowed"
         />
@@ -273,11 +281,11 @@ export default function PersonalDetails({ activeTab }: { activeTab: string }) {
             </button>
             <button
                 onClick={handleSave}
-                disabled={!isModified}
+                disabled={!isModified || formData.phone.length !== 11}
                 className={`w-[50%] py-2 rounded-sm transition-colors ${
-                    isModified
+                    isModified && formData.phone.length === 11
                         ? "bg-[#5d0abc] text-white hover:bg-[#4a078f]"
-                        : "bg-[#5d0abc] text-white cursor-not-allowed"
+                        : "bg-[#5d0abc] text-white cursor-not-allowed opacity-70"
                 }`}
             >
                 Save

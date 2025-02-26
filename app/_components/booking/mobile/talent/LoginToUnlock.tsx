@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import Cookies from "js-cookie";
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const LoginToUnlock = ({ isClient = false }) => {
   const router = useRouter();
@@ -16,13 +17,12 @@ const LoginToUnlock = ({ isClient = false }) => {
       path: "/",
       ...(isUpdoneDomain && { domain: ".updone.com" }),
     });
-
     // Redirect to the sign-in page
-    router.push(`/signin?from=unlock`);
+    router.push(`${NEXT_PUBLIC_BASE_URL}/signin?from=unlock`);
   };
 
   return (
-    <>
+    <> 
     <div className="flex items-center justify-center h-screen bg-[#F6F9FC] relative overflow-hidden">
       <Image
         className="absolute w-full h-auto object-contain"

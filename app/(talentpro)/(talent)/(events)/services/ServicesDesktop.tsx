@@ -81,9 +81,18 @@ export default function ServicesProvided() {
             [serviceId]: isNaN(parsedValue) ? 0 : parsedValue,
         }));
 
+        let errorMessage = "";
+        if (!parsedValue) {
+            errorMessage = "Please enter your service rate";
+        } else if (parsedValue < 35) {
+            errorMessage = "Rate cannot be less than $35/hr";
+        } else if (parsedValue > 200) {
+            errorMessage = "Rate cannot exceed $200/hr";
+        }
+
         setErrors((prevErrors) => ({
             ...prevErrors,
-            [serviceId]: parsedValue ? "" : "Please enter your service rate",
+            [serviceId]: errorMessage,
         }));
     };
 
@@ -110,6 +119,12 @@ export default function ServicesProvided() {
 
             if (rateValue === 0 || rateValue === undefined) {
                 newErrors[service.id] = "Please enter your service rate";
+                hasError = true;
+            } else if (rateValue < 35) {
+                newErrors[service.id] = "Rate cannot be less than $35/hr";
+                hasError = true;
+            } else if (rateValue > 200) {
+                newErrors[service.id] = "Rate cannot exceed $200/hr";
                 hasError = true;
             }
         });
@@ -169,6 +184,7 @@ export default function ServicesProvided() {
         setSelectedServices([...initialServices]);
         setEditingRates({});
         setIsEditing(false);
+        setErrors({});
     };
 
     if (isLoading) {
