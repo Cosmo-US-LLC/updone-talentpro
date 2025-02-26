@@ -52,7 +52,12 @@ const SideBarTalent = () => {
 
     useEffect(() => {
         const findActiveIndex = () => {
-            const activeLinkIndex = [...links, ...bottomLinks].findIndex(link => pathname === link.path);
+            const activeLinkIndex = [...links, ...bottomLinks].findIndex(link => {
+                if ('path' in link) {
+                    return pathname === link.path;
+                }
+                return false;
+            });
             setActiveIndex(activeLinkIndex);
             setLoading(false);
         };
