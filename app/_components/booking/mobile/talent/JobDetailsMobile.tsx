@@ -6,7 +6,7 @@ const JobDetailsMobile = ({ jobData }: any) => {
     const eventTume = formatTimeMobile(jobData?.working_times[0]?.date, jobData?.working_times[0]?.start_time, jobData?.working_times[0]?.end_time);
 
     return (
-        <div className="flex flex-col items-start gap-4 pt-4">
+        <div className="flex flex-col items-start gap-4 pt-4 ">
             <p className="text-[20px] font-[500] leading-[32px]">{jobData?.title}</p>
             <p className="text-[16px] font-[500] leading-[8px]">Event Description</p>
             <p className="text-[#575555] text-[14px] font-[400] leading-[24px]">{jobData?.description}</p>

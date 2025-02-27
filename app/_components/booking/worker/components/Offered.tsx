@@ -34,12 +34,12 @@ const Offered = ({
   const [priceError, setPriceError] = useState<string | null>(null);
 
   const getPriceValidationStatus = (price: number) => {
-    if (price < 35) {
-      return { message: "Rate cannot be less than $35/hr", color: "text-yellow-500" };
+    if (price < 30) {
+      return { message: "Rate cannot be less than $30/hr", color: "text-[#C20000]" };
     } else if (price > 200) {
-      return { message: "Rate cannot exceed $200/hr", color: "text-blue-500" };
+      return { message: "Rate cannot exceed $200/hr", color: "text-[#C20000]" };
     }
-    return { message: "Good price", color: "text-green-500" };
+    return { message: "", color: "" };
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,8 +92,8 @@ const Offered = ({
     }
 
     const price = isDefaultRate ? (hourRate || 0) : Number(state.inputValue);
-    if (price < 35) {
-      setPriceError("Cannot submit offer below $35/hour");
+    if (price < 30) {
+      setPriceError("Cannot submit offer below $30/hour");
       return;
     }
     if (price > 200) {
@@ -141,8 +141,8 @@ const Offered = ({
 
   const isButtonDisabled = !state.inputValue || 
     (isDefaultRate ? 
-      ((hourRate || 0) < 35 || (hourRate || 0) > 200) :
-      (Number(state.inputValue) < 35 || Number(state.inputValue) > 200));
+      ((hourRate || 0) < 30 || (hourRate || 0) > 200) :
+      (Number(state.inputValue) < 30 || Number(state.inputValue) > 200));
 
   const totalAmount = isDefaultRate
     ? (hourRate || 0) * hoursWorked

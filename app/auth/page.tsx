@@ -12,6 +12,7 @@ function page() {
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
+  const callback = searchParams.get("callback");
   const token = searchParams.get("token");
   const { auth: storedData } = useAppSelector(selectAuth);
 
@@ -39,10 +40,14 @@ function page() {
   }, []);
 
   useEffect(() => {
-    console.log("res", storedData);
+    console.log("res", storedData, callback);
     // storeUser();
     if (storedData?.token && storedData?.user?.id) {
-      router.push("/");
+      if (callback && callback != "false") { 
+        router.push(callback);
+      } else {
+        router.push("/");
+      }
     }
   }, [storedData]);
 

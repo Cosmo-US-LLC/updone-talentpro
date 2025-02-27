@@ -222,12 +222,12 @@ const ChatPage = () => {
             {/* Message Input */}
             {
                 (chatStatus === "open" || assignedToMe === true) && chatStatus !== "completed" &&
-                <div className="p-4 sticky bottom-0 bg-white flex items-center space-x-2">
+                <div className="p-4 sticky bottom-0 bg-white flex items-center justify-start space-x-2">
                     <input
                         type="text"
                         value={messageBody}
                         onChange={(e) => setMessageBody(e.target.value)}
-                        className="flex-1 p-3 border border-gray-300 outline-none rounded-full !rounded-full"
+                        className="w-[73%] p-3 border border-gray-300 outline-none rounded-full !rounded-full"
                         placeholder="Add your comment here..."
                     />
                     <div onClick={sendMessage}>

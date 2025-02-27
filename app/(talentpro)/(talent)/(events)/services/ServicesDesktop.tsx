@@ -84,8 +84,8 @@ export default function ServicesProvided() {
         let errorMessage = "";
         if (!parsedValue) {
             errorMessage = "Please enter your service rate";
-        } else if (parsedValue < 35) {
-            errorMessage = "Rate cannot be less than $35/hr";
+        } else if (parsedValue < 30) {
+            errorMessage = "Rate cannot be less than $30/hr";
         } else if (parsedValue > 200) {
             errorMessage = "Rate cannot exceed $200/hr";
         }
@@ -120,8 +120,8 @@ export default function ServicesProvided() {
             if (rateValue === 0 || rateValue === undefined) {
                 newErrors[service.id] = "Please enter your service rate";
                 hasError = true;
-            } else if (rateValue < 35) {
-                newErrors[service.id] = "Rate cannot be less than $35/hr";
+            } else if (rateValue < 30) {
+                newErrors[service.id] = "Rate cannot be less than $30/hr";
                 hasError = true;
             } else if (rateValue > 200) {
                 newErrors[service.id] = "Rate cannot exceed $200/hr";

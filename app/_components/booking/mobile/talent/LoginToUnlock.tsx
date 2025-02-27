@@ -10,16 +10,21 @@ const LoginToUnlock = ({ isClient = false }) => {
 
   const handleLoginClick = () => {
     const isUpdoneDomain = window.location.hostname.includes("updone");
-
-    // Save the current URL to redirect back after login
-    Cookies.set("callbackUrl", pathname + window.location.search || "", {
+    
+    // Save the full URL path to redirect back after login
+    const fullPath = `${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${window.location.pathname.split('/').pop()}`;
+    
+    // Save the callback URL in cookie
+    Cookies.set("callback", fullPath, {
       expires: 2,
       path: "/",
       ...(isUpdoneDomain && { domain: ".updone.com" }),
     });
+
     // Redirect to the sign-in page
-    router.push(`${NEXT_PUBLIC_BASE_URL}/signin?from=unlock`);
+    router.push(`${NEXT_PUBLIC_BASE_URL}/signin?callback=${fullPath}`);
   };
+
 
   return (
     <> 

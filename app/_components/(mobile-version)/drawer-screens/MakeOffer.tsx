@@ -45,9 +45,9 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
   }, [state]);
 
   const getPriceValidationStatus = (price: number) => {
-    if (price < 35) {
-      return { message: "Rate cannot be less than $35/hr", color: "text-[#C20000]" };
-    } else if (price > 80) {
+    if (price < 30) {
+      return { message: "Rate cannot be less than $30/hr", color: "text-[#C20000]" };
+    } else if (price > 200) {
       return { message: "Rate cannot exceed $200/hr", color: "text-[#C20000]" };
     }
     return { message: "", color: "" };
@@ -70,8 +70,8 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
       setRateValueError("Rate cannot be empty.");
     }
     // Enforce minimum hourly rate
-    else if (numericValue < 35) {
-      setRateValueError("Rate cannot be less than $35/hr");
+    else if (numericValue < 30) {
+      setRateValueError("Rate cannot be less than $30/hr");
     }
     // Enforce maximum hourly rate
     else if (numericValue > 200) {
@@ -156,12 +156,12 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
     }
 
     const price = isDefaultRate ? hourRate : Number(state.inputValue);
-    if (price < 35) {
-      setRateValueError("Cannot submit offer below $35/hour");
+    if (price < 30) {
+      setRateValueError("Cannot submit offer below $30/hour");
       return;
     }
     if (price > 200) {
-      setRateValueError("Cannot submit offer above $80/hour");
+      setRateValueError("Cannot submit offer above $200/hour");
       return;
     }
 
@@ -205,9 +205,9 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
   };
 
   return (
-    <div className="bg-[#f5f8fb] min-h-[100dvh]   flex flex-col items-left gap-4 relative">
+    <div className="bg-[#f5f8fb] h-[100dvh] flex flex-col relative">
       <div
-        className="bg-[#f5f8fb] min-h-[100dvh] p-4 flex flex-col items-left gap-4 relative pb-24"
+        className="bg-[#f5f8fb] flex-1 overflow-y-auto p-4 flex flex-col items-left gap-4 pb-24"
         style={{ scrollbarWidth: "none" }}
       >
         <div
@@ -332,33 +332,33 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
             </ul>
           </div>
         </div>
-        <div className="bg-white fixed bottom-0 left-0 w-full flex justify-center items-center shadow-3xl py-4 rounded-t-3xl">
-          {
-            offerSuccessfull ? (
-              <div className="py-[12px] bg-[#350ABC] fixed bottom-4 w-[80%] flex flex-row items-center justify-center gap-2 rounded-[4px]">
-                <div>
-                  <img
-                    src="/images/mobile/check_success.svg"
-                    className="h-[23px] w-[23px]"
-                    alt="check_success"
-                  />
-                </div>
-                <div className="text-[16px] font-[400] leading-[26px] text-[#9DFF95]">
-                  {"Offer Submitted Successfully"}
-                </div>
+      </div>
+      <div className="bg-white sticky bottom-0 w-full flex justify-center items-center shadow-3xl py-4 rounded-t-3xl">
+        {
+          offerSuccessfull ? (
+            <div className="py-[12px] bg-[#350ABC] fixed bottom-4 w-[80%] flex flex-row items-center justify-center gap-2 rounded-[4px]">
+              <div>
+                <img
+                  src="/images/mobile/check_success.svg"
+                  className="h-[23px] w-[23px]"
+                  alt="check_success"
+                />
               </div>
-            ) : (
-              <button
-                disabled={loading || rateValueError !== ""}
-                onClick={() => {
-                  onSubmit();
-                }}
-                className="w-[12rem] bg-[#350ABC] py-[12px] text-[16px] font-[400] leading-[26px] text-[#e0d9f8] rounded-full disabled:opacity-50"
-              >
-                {loading ? "Submitting Offer" : "Submit Offer"}
-              </button>
-            )}
-        </div>
+              <div className="text-[16px] font-[400] leading-[26px] text-[#9DFF95]">
+                {"Offer Submitted Successfully"}
+              </div>
+            </div>
+          ) : (
+            <button
+              disabled={loading || rateValueError !== ""}
+              onClick={() => {
+                onSubmit();
+              }}
+              className="w-[12rem] bg-[#350ABC] py-[12px] text-[16px] font-[400] leading-[26px] text-[#e0d9f8] rounded-full disabled:opacity-50"
+            >
+              {loading ? "Submitting Offer" : "Submit Offer"}
+            </button>
+          )}
       </div>
     </div>
   );
