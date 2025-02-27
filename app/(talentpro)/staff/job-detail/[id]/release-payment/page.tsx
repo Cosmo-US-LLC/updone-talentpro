@@ -130,7 +130,7 @@ const page: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center h-[100dvh]">
         <div className="animate-spin w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full"></div>
         <p className="mt-4 text-gray-600">Loading...</p>
       </div>
@@ -139,7 +139,7 @@ const page: React.FC = () => {
 
   if (!jobData) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center h-[100dvh]">
         <p className="text-gray-600">Failed to load job details. Please try again later.</p>
       </div>
     );
@@ -147,7 +147,7 @@ const page: React.FC = () => {
 
   if (jobData?.job?.status !== "completed") {
     return (
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-[100dvh]">
         <MobileNavbar />
         <div className="flex flex-col items-center justify-center h-full">
           <p className="text-gray-600">Job not completed yet.</p>
@@ -161,7 +161,7 @@ const page: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-[100dvh]">
       <div>
         <MobileNavbar />
       </div>

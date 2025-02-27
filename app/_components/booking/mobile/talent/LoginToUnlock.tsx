@@ -3,26 +3,24 @@ import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import Cookies from "js-cookie";
 const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const NEXT_PUBLIC_TALENTPRO_URL = process.env.NEXT_PUBLIC_TALENTPRO_URL;
 
 const LoginToUnlock = ({ isClient = false }) => {
   const router = useRouter();
   const pathname = usePathname();
 
   const handleLoginClick = () => {
-    const isUpdoneDomain = window.location.hostname.includes("updone");
+    const isUpdoneDomain = window?.location?.hostname?.includes("updone");
     
     // Save the full URL path to redirect back after login
-    const fullPath = `${process.env.NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${window.location.pathname.split('/').pop()}`;
+    const fullPath = `${NEXT_PUBLIC_TALENTPRO_URL}/staff/job-detail/${window?.location?.pathname?.split('/')?.pop()}`;
     
     // Save the callback URL in cookie
-    Cookies.set("callback", fullPath, {
-      expires: 2,
-      path: "/",
-      ...(isUpdoneDomain && { domain: ".updone.com" }),
-    });
+    Cookies.set("callback", fullPath);
 
+    console.log(fullPath, "fullPath");
     // Redirect to the sign-in page
-    router.push(`${NEXT_PUBLIC_BASE_URL}/signin?callback=${fullPath}`);
+    router.push(`${NEXT_PUBLIC_BASE_URL}/signin?${(fullPath && fullPath != "undefined") && `callback=${fullPath}`}`);
   };
 
 

@@ -207,7 +207,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
   return (
     <div className="bg-[#f5f8fb] h-[100dvh] flex flex-col relative">
       <div
-        className="bg-[#f5f8fb] flex-1 overflow-y-auto p-4 flex flex-col items-left gap-4 pb-24"
+        className="bg-[#f5f8fb] flex-1 overflow-y-auto p-4 flex flex-col items-left gap-4 pb-32"
         style={{ scrollbarWidth: "none" }}
       >
         <div
@@ -316,7 +316,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
             className=""
             src="/images/mobile/talent/envelope.svg"
           />
-          <div className="absolute border-l border-[#F9E1BE] h-[130px] left-[19%]"></div>
+          <div className=" border-l border-[#F9E1BE] h-[230px] left-[19%]"></div>
           <div>
             <p className="font-[500] text-[18px] leading-[8px] mb-4 mt-1">How to make an impact?</p>
             <ul className="list-disc pl-5">

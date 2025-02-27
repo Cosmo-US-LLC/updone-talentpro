@@ -188,9 +188,9 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
       )
     } else {
       return (
-        <div className="flex flex-col h-screen relative">
+        <div className="flex flex-col h-[100dvh] relative">
           <MobileNavbar className="fixed top-0 w-full z-10" />
-          <div className="flex-1 overflow-y-auto mt-20 pb-24">
+          <div className="flex-1 overflow-y-auto mt-20 pb-32">
             <div
               onClick={() => {
                 router.push(`/?tab=${activeTab}`)
