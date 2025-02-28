@@ -87,12 +87,12 @@ const Signup: React.FC<SignupFormProps> = ({ onSwitchToSignIn, onSuccess }) => {
         Cookies.set("token", response.token, {
           expires: 30,
           path: "/",
-          ...(isUpdoneDomain && { domain: ".updone.com" }),
+          // ...(isUpdoneDomain && { domain: ".updone.com" }),
         });
-        Cookies.set("authData", JSON.stringify(response), {
+        Cookies.set("authData", JSON.stringify(response.user), {
           expires: 30,
           path: "/",
-          ...(isUpdoneDomain && { domain: ".updone.com" }),
+          // ...(isUpdoneDomain && { domain: ".updone.com" }),
         });
 
         // ✅ Save user data in Redux store

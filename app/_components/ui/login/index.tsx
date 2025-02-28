@@ -72,14 +72,14 @@ const LoginForm = ({
         Cookies.set("token", newData?.token, {
           expires: 30,
           path: "/",
-          ...(isUpdoneDomain && { domain: ".updone.com" }), // Add domain only if URL contains .updone.com
+          // ...(isUpdoneDomain && { domain: ".updone.com" }), // Add domain only if URL contains .updone.com
         });
 
         // Set the authData cookie
-        Cookies.set("authData", JSON.stringify(newData), {
+        Cookies.set("authData", JSON.stringify(newData.user), {
           expires: 30,
           path: "/",
-          ...(isUpdoneDomain && { domain: ".updone.com" }), // Add domain only if URL contains .updone.com
+          // ...(isUpdoneDomain && { domain: ".updone.com" }), // Add domain only if URL contains .updone.com
         });
 
         dispatch(setAuth(newData));
