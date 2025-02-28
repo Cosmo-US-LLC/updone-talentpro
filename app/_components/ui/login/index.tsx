@@ -69,7 +69,7 @@ const LoginForm = ({
       if (newData?.token) {
         setLoginSuccess(true);
         // Set the token cookie
-        Cookies.set("token", newData?.token, {
+        Cookies.set("authToken", newData?.token, {
           expires: 30,
           path: "/",
           // ...(isUpdoneDomain && { domain: ".updone.com" }), // Add domain only if URL contains .updone.com

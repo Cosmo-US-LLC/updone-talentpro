@@ -157,7 +157,7 @@ export const updateProfile = async (
       dispatch(setAuth(updatedAuth));
       const isUpdoneDomain = window.location.hostname.includes("updone");
 
-      Cookies.set("token", updatedAuth.token || "", {
+      Cookies.set("authToken", updatedAuth.token || "", {
         expires: 30,
         path: "/",
         // ...(isUpdoneDomain && { domain: ".updone.com" }),

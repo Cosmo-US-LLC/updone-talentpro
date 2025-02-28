@@ -66,7 +66,7 @@ const SignIn: React.FC<signInProps> = ({
 
       if (response?.token) {
         // ✅ Save token in Cookies
-        Cookies.set("token", response.token, {
+        Cookies.set("authToken", response.token, {
           expires: 30,
           path: "/",
           // ...(isUpdoneDomain && { domain: ".updone.com" }),

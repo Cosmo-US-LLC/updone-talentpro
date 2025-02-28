@@ -108,7 +108,7 @@ const LoginFromDrawer = ({ setCurrentScreen }: any) => {
       if (newData?.token) {
         dispatch(setAuth(newData));
         setLoginSuccess(true);
-        Cookies.set("token", newData?.token, {
+        Cookies.set("authToken", newData?.token, {
           expires: 30,
           path: "/",
           // ...(isUpdoneDomain && { domain: ".updone.com" }),

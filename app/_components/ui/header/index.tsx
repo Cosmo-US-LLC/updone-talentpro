@@ -33,18 +33,18 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
   const router = useRouter();
   const pathName = usePathname();
 
-  useEffect(() => {
-    const authData = Cookies.get("authData");
-    if (authData) {
-      dispatch(setAuth(JSON.parse(authData)));
-    } else {
-      dispatch(clearAuth());
-      dispatch(setStaffEmpty());
-      dispatch(setBookingEmpty());
-      dispatch(setJobEmpty());
-      dispatch(setAuthEmpty());
-    }
-  }, [dispatch, router]);
+  // useEffect(() => {
+  //   const authData = Cookies.get("authData");
+  //   if (authData) {
+  //     dispatch(setAuth(JSON.parse(authData)));
+  //   } else {
+  //     dispatch(clearAuth());
+  //     dispatch(setStaffEmpty());
+  //     dispatch(setBookingEmpty());
+  //     dispatch(setJobEmpty());
+  //     dispatch(setAuthEmpty());
+  //   }
+  // }, [dispatch, router]);
 
   useEffect(() => {
     setIsClient(true);
