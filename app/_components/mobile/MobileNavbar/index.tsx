@@ -43,6 +43,7 @@ const MobileNavbar = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEventAccordionOpen, setIsEventAccordionOpen] = useState(true);
   const [isComingAccordionOpen, setIsComingAccordionOpen] = useState(true);
+  const [isOfferAccordionOpen, setIsOfferAccordionOpen] = useState(true);
   const [isProfileAccordionOpen, setIsProfileAccordionOpen] = useState(true);
   const [isProfileSheetOpen, setIsProfileSheetOpen] = useState(false);
 
@@ -157,6 +158,17 @@ const MobileNavbar = ({ ...props }) => {
     }
   };
 
+  const handleClickOffered = () => {
+    // Check if the current URL path is the job detail page
+    if (pathname.includes("/job-detail")) {
+      // Redirect to the events page with the correct tab
+      router.push(`/?tab=offered`);
+    } else {
+      // Just set the active tab if it's not the job detail page
+      props.setActiveTab("offered");
+    }
+  };
+
   useEffect(()=>{
     setIsOpen(false);
   }, [pathname])
@@ -242,6 +254,19 @@ const MobileNavbar = ({ ...props }) => {
                                   }`}
                               >
                                 My Events
+                              </button>
+                            </div>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <div className="flex">
+                              <button
+                                onClick={handleClickOffered}
+                                className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${props.activeTab === "offered"
+                                  ? "text-[#5d0abc] font-semibold"
+                                  : "text-gray-500 hover:text-gray-700"
+                                  }`}
+                              >
+                                Offered Events
                               </button>
                             </div>
                           </SheetClose>
@@ -421,11 +446,11 @@ const MobileNavbar = ({ ...props }) => {
               <p className="text-neutral-500 text-center text-xs">
                 Copyright &copy; 2025 Updone. All rights reserved.
                 <br />
-                <Link className="pt-1 underline" href="/terms-condition">
+                <Link className="pt-1 underline" href={`${process.env.NEXT_PUBLIC_BASE_URL}/terms-condition`}>
                   Terms & Conditions
                 </Link>
                 ,&nbsp;
-                <Link className="pt-1 underline" href="/privacy-policy">
+                <Link className="pt-1 underline" href={`${process.env.NEXT_PUBLIC_BASE_URL}/privacy-policy`}>
                   Privacy Policy
                 </Link>
               </p>

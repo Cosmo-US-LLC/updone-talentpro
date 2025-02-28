@@ -11,12 +11,14 @@ import PersonalDetails from "./mobile/PersonalDetails";
 import LoginDetails from "./mobile/LoginDetails";
 import Services from "./mobile/Services";
 import PaymentMethod from "./mobile/PaymentMethod";
+import OfferMobile from "./mobile/OfferMobile";
 
 
 const PageContent = () => {
     const [activeTab, setActiveTab] = useState("upcoming");
     const [upcomingEventCount, setUpcomingEventCount] = useState(0);
     const [myEventCount, setMyEventCount] = useState(0);
+    const [offeredEventCount, setOfferedEventCount] = useState(0);
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const isMobile = useIsMobile();
@@ -38,6 +40,8 @@ const PageContent = () => {
                 return "Login Details";
             case "services":
                 return "Services";
+            case "offered":
+                return `Offered Events (${offeredEventCount})`;
             case "paymentmethod":
                 return "Payment Method";
            
@@ -58,6 +62,9 @@ const PageContent = () => {
                         )}
                         {activeTab === "myevents" && (
                             <MyEventsMobile activeTab={activeTab} setEventCount={setMyEventCount} />
+                        )}
+                        {activeTab === "offered" && (
+                            <OfferMobile activeTab={activeTab} setEventCount={setOfferedEventCount} />
                         )}
                           {activeTab === "personaldetails" && (
                             <PersonalDetails activeTab={activeTab} />
