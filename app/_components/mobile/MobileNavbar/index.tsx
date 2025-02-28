@@ -32,6 +32,8 @@ import { CgProfile } from "react-icons/cg";
 import { TbCalendarUp } from "react-icons/tb";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { Skeleton } from "@/components/ui/skeleton";
+import { apiRequest } from "@/app/lib/services";
+
 
 const MobileNavbar = ({ ...props }) => {
   const pathname = usePathname();
@@ -62,29 +64,34 @@ const MobileNavbar = ({ ...props }) => {
   const userInitials = userName.substring(0, 2).toUpperCase();
  
 
-  async function logout() {
-    const isUpdoneDomain = window?.location?.hostname?.includes("updone");
-    const role = storedData?.user?.role_id;
-
-    await Promise.all([
-      dispatch(clearAuth()),
-      dispatch(setStaffEmpty()),
-      dispatch(setBookingEmpty()),
-      dispatch(setJobEmpty()),
-      dispatch(setAuthEmpty()),
-    ]);
-
-    Cookies.remove("token", {
-      path: "/",
-      ...(isUpdoneDomain && { domain: ".updone.com" }),
+  const logout = async () => {
+    await apiRequest("/logout", {
+      method: "POST",
+      headers: {
+        revalidate: true,
+        ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+      },
+      body: {}
+    }).then((res)=>{
+      console.log(res)
+      // ✅ Clear Redux Authentication & Data States
+      dispatch(clearAuth());
+      dispatch(setStaffEmpty());
+      dispatch(setBookingEmpty());
+      dispatch(setJobEmpty());
+      dispatch(setAuthEmpty());
+  
+      // alert('Redux cleared')
+  
+      // ✅ Remove Authentication Cookies
+      Cookies.remove("token");
+      Cookies.remove("authToken");
+      Cookies.remove("authData");
+  
+      // ✅ Redirect Based on Role
+      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
     });
-    Cookies.remove("authData", {
-      path: "/",
-      ...(isUpdoneDomain && { domain: ".updone.com" }),
-    });
-
-    router.push(process.env.NEXT_PUBLIC_BASE_URL || "/");
-  }
+  };
   const handleClickUpcoming = () => {
     // Check if the current URL path is the job detail page
     if (pathname.includes("/job-detail")) {
