@@ -101,7 +101,7 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
     if (loggedIn === true) {
       getJobDetailsApi();
     }
-  }, [jobId, storedData, loggedIn]);
+  }, [jobId, storedData, loggedIn, jobData?.payment_status ]);
 
   const handleClickRequestReleaseButton = () => {
     if (jobData.payment_status !== "release_requested") {
