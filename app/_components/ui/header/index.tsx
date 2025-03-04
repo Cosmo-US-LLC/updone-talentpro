@@ -268,7 +268,7 @@ const Header = ({ isClientHub }: { isClientHub?: boolean }) => {
                                   }/events`
                                 );
                               } else if (storedData?.user?.role_id === 3) {
-                                router.push(`/`);
+                                router.push(`/upcoming`);
                               }
                             }}
                             className="flex hover-state-color border-b-[1px] px-[20px] border-[#EBEBEB] hover:!bg-[#F1EEFF] group"
