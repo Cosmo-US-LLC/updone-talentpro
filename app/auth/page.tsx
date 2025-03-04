@@ -46,7 +46,7 @@ function page() {
       if (callback && callback != "false") { 
         router.push(callback);
       } else {
-        router.push("/");
+        router.push("/upcoming");
       }
     }
   }, [storedData]);
