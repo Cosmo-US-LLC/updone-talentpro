@@ -1,18 +1,18 @@
-"use client"
+"use client";
+import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet"; // For modal
 import { clearAuth, selectAuth, setAuth, setEmpty as setAuthEmpty } from '@/app/lib/store/features/authSlice';
 import { setEmpty as setBookingEmpty } from "@/app/lib/store/features/bookingSlice";
 import { setEmpty as setJobEmpty } from "@/app/lib/store/features/jobCreateSlice";
 import { setEmpty as setStaffEmpty } from "@/app/lib/store/features/staffSlice";
 import { useAppSelector } from '@/app/lib/store/hooks';
-import Cookies from 'js-cookie';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { LuLogOut } from "react-icons/lu";
 import { TbCalendarUp } from "react-icons/tb";
-import { useDispatch } from 'react-redux';
-import Image from "next/image";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdOutlineReviews } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
@@ -20,14 +20,18 @@ import { TbLogin2 } from "react-icons/tb";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { apiRequest } from '@/app/lib/services';
 
+// Maximum number of links to display before showing "More"
+const MAX_VISIBLE_LINKS = 4;
 
 // Define an array of link objects
 const links = [
     { name: 'Upcoming', icon: TbCalendarUp, path: '/' },
     { name: 'My Events', icon: FaRegCalendarCheck, path: '/myevents' },
-    { name: 'Personal details ', icon: CgProfile, path: '/personaldetails' },
-    { name: 'Login details', icon: TbLogin2, path: '/logindetails' },
+    { name: 'Personal Details', icon: CgProfile, path: '/personaldetails' },
+    { name: 'Login Details', icon: TbLogin2, path: '/logindetails' },
     { name: 'Services', icon: MdMiscellaneousServices, path: '/services' },
+    { name: 'Payments', icon: MdOutlinePayment, path: '/payments' },
+    { name: 'Reviews', icon: MdOutlineReviews, path: '/reviews' },
 ];
 
 const bottomLinks = [
@@ -38,32 +42,11 @@ const SideBarTalent = () => {
     const { auth: storedData } = useAppSelector(selectAuth);
     const router = useRouter();
     const pathname = usePathname();
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
+    const [isMoreOpen, setIsMoreOpen] = useState(false);
 
-    useEffect(() => {
-        const authData = Cookies.get("authData");
-        const authToken = Cookies.get("authToken");
-        if (authData) {
-          dispatch(setAuth(({ token: authToken, user: JSON.parse(authData) })));
-        }
-    }, [dispatch, router]);
-
-    useEffect(() => {
-        const findActiveIndex = () => {
-            const activeLinkIndex = [...links, ...bottomLinks].findIndex(link => {
-                if ('path' in link) {
-                    return pathname === link.path;
-                }
-                return false;
-            });
-            setActiveIndex(activeLinkIndex);
-            setLoading(false);
-        };
-
-        findActiveIndex();
-    }, [pathname]);
+    // Find active link
+    const activeIndex = links.findIndex(link => pathname === link.path);
 
     const handleLogout = async () => {
         await apiRequest("/logout", {
@@ -72,120 +55,100 @@ const SideBarTalent = () => {
             revalidate: true,
             ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
           },
-          
-        }).then((res)=>{
-          console.log(res)
-          // ✅ Clear Redux Authentication & Data States
+        }).then(() => {
           dispatch(clearAuth());
           dispatch(setStaffEmpty());
           dispatch(setBookingEmpty());
           dispatch(setJobEmpty());
           dispatch(setAuthEmpty());
-      
-          // alert('Redux cleared')
-      
-          // ✅ Remove Authentication Cookies
+
           Cookies.remove("token");
           Cookies.remove("authToken");
           Cookies.remove("authData");
-      
-          // ✅ Redirect Based on Role
+
           router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/logout?status=200`);
         });
-      };
-    
+    };
 
     return (
         <aside className="">
             <section
                 style={{ boxShadow: '0px 6px 26px 0px rgba(0, 0, 0, 0.06)' }}
-                className="bg-[#fff] h-[100%] py-[10px] overflow-auto px-[8px] rounded-[12px] flex flex-col justify-between items-center"
+                className="bg-[#fff] h-full py-2 overflow-hidden px-2 rounded-lg flex flex-col justify-between items-center"
             >
                 {/* Top Links */}
                 <div className="w-full flex flex-col gap-2">
-                    {links.map((link, index) => (
+                    {links.slice(0, MAX_VISIBLE_LINKS).map((link, index) => (
                         <Link
                             href={link.path}
                             key={index}
-                            className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-6 w-full p-3 rounded-[8px] ${activeIndex === index ? 'bg-[#F8F6FF]' : ''
-                                }`}
+                            className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-2 w-full p-3 rounded-lg ${
+                                activeIndex === index ? 'bg-[#F8F6FF]' : ''
+                            }`}
                         >
-                            <link.icon className={`h-6 w-6  ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
-                                }`} />
-                            <span className={`text-[14px] w-[73px] truncate leading-[18px] font-[400] ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
-                                }`}>{link.name}</span>
+                            <link.icon className={`h-6 w-6 ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'}`} />
+                            <span className={`text-sm w-20 truncate font-medium ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'}`}>
+                                {link.name}
+                            </span>
                         </Link>
                     ))}
+                    
+                    {/* "More" button */}
+                    {links.length > MAX_VISIBLE_LINKS && (
+                        <button
+                            className="hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-2 w-full p-3 rounded-lg"
+                            onClick={() => setIsMoreOpen(true)}
+                        >
+                            <span className="h-6 w-6 text-[#2C2240]">•••</span>
+                            <span className="text-sm font-medium text-[#2C2240]">More</span>
+                        </button>
+                    )}
                 </div>
 
-
-
-                {/* Bottom Links: Settings and Logout */}
-                <div className="w-full">
-                    <div className='flex flex-col gap-6 mb-8'>
-                        <div className='flex flex-row justify-center items-center gap-2'>
-                            {/* <Image
-                                src="/images/talentpro/glass.svg"
-                                alt="coming-soon"
-                                width={20}
-                                height={20}
-                                objectFit="fill"
-                            /> */}
-                            {/* <p className='text-[14px] text-gray-400'>Coming Soon</p> */}
+                {/* Bottom Links */}
+                <div className="w-full flex flex-col gap-2">
+                    {bottomLinks.map((link, index) => (
+                        <div
+                            key={index + links.length}
+                            className="hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-2 w-full p-3 rounded-lg cursor-pointer"
+                            onClick={() => {
+                                if (link.onClick === 'logout') {
+                                    handleLogout();
+                                }
+                            }}
+                        >
+                            <link.icon className="h-6 w-6 text-[#2C2240]" />
+                            <span className="text-sm font-medium text-[#2C2240]">{link.name}</span>
                         </div>
-                        <div className="relative group flex flex-col items-center gap-2 cursor-pointer">
-                            <MdOutlinePayment className="h-6 w-6" color="#BDBDBD" />
-                            <p className="text-[12px] text-gray-400 font-[400]">Payments</p>
-
-                         
-                        </div>
-                        <div className='relative group flex flex-col items-center gap-2 cursor-pointer'>
-                            <MdOutlineReviews
-                                className='h-6 w-6'
-                                color='#BDBDBD'
-                            />
-                            <p className='text-[12px] text-gray-400 font-[400]'>Reviews</p>
-                          
-                            
-                        </div>
-                        
-                    </div>
-                    <span className='relative bottom-1'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="98" height="2" viewBox="0 0 98 2" fill="none">
-                            <path d="M1 1.48828H97" stroke="url(#paint0_linear_2412_20068)" strokeLinecap="round" />
-                            <defs>
-                                <linearGradient id="paint0_linear_2412_20068" x1="1" y1="1.98828" x2="97" y2="1.98828" gradientUnits="userSpaceOnUse">
-                                    <stop stopColor="#D9D9D9" stopOpacity="0" />
-                                    <stop offset="0.475" stopColor="#D9D9D9" />
-                                    <stop offset="1" stopColor="#D9D9D9" stopOpacity="0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span>
-                    <div className='w-full flex flex-col gap-2'>
-                        {bottomLinks.map((link, index) => (
-                            <div
-                                key={index + links.length}
-                                className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-6 w-full p-3 rounded-[12px] cursor-pointer ${
-                                    activeIndex === index + links.length ? 'bg-[#F8F6FF]' : ''
-                                }`}
-                                onClick={() => {
-                                    if (link.onClick === 'logout') {
-                                        handleLogout();
-                                    }
-                                }}
-                            >
-                                <link.icon className={`h-6 w-6  ${
-                                    activeIndex === index + links.length ? 'text-[#350ABC]' : 'text-[#2C2240]'
-                                }`} />
-                                <span className={`text-[14px] leading-[18px] font-[400] ${
-                                    activeIndex === index + links.length ? 'text-[#350ABC]' : 'text-[#2C2240]'
-                                }`}>{link.name}</span>
-                            </div>
-                        ))}
-                    </div>
+                    ))}
                 </div>
             </section>
+
+            {/* More Links Modal */}
+            <Sheet open={isMoreOpen} onOpenChange={setIsMoreOpen}>
+                <SheetContent
+                    side="bottom"
+                    className="w-full max-h-[70vh] bg-white shadow-lg rounded-t-lg overflow-y-auto"
+                >
+                    <div className="p-4">
+                        <h2 className="text-lg font-semibold text-gray-800 mb-4">More Options</h2>
+                        <ul className="flex flex-col gap-2">
+                            {links.slice(MAX_VISIBLE_LINKS).map((link, index) => (
+                                <SheetClose asChild key={index}>
+                                    <Link
+                                        href={link.path}
+                                        className="hover:bg-[#F8F6FF] flex items-center gap-3 p-3 rounded-lg w-full"
+                                        onClick={() => setIsMoreOpen(false)}
+                                    >
+                                        <link.icon className="h-6 w-6 text-[#2C2240]" />
+                                        <span className="text-sm font-medium text-[#2C2240]">{link.name}</span>
+                                    </Link>
+                                </SheetClose>
+                            ))}
+                        </ul>
+                    </div>
+                </SheetContent>
+            </Sheet>
         </aside>
     );
 };
