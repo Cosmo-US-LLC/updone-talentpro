@@ -24,10 +24,12 @@ import { apiRequest } from '@/app/lib/services';
 // Define an array of link objects
 const links = [
     { name: 'Upcoming', icon: TbCalendarUp, path: '/' },
+    { name: 'Offered', icon: MdMiscellaneousServices, path: '/offered' },
     { name: 'My Events', icon: FaRegCalendarCheck, path: '/myevents' },
     { name: 'Personal details ', icon: CgProfile, path: '/personaldetails' },
     { name: 'Login details', icon: TbLogin2, path: '/logindetails' },
     { name: 'Services', icon: MdMiscellaneousServices, path: '/services' },
+    
 ];
 
 const bottomLinks = [
@@ -107,12 +109,12 @@ const SideBarTalent = () => {
                         <Link
                             href={link.path}
                             key={index}
-                            className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-6 w-full p-3 rounded-[8px] ${activeIndex === index ? 'bg-[#F8F6FF]' : ''
+                            className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-3 w-full p-3 rounded-[8px] ${activeIndex === index ? 'bg-[#F8F6FF]' : ''
                                 }`}
                         >
                             <link.icon className={`h-6 w-6  ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
                                 }`} />
-                            <span className={`text-[14px] w-[73px] truncate leading-[18px] font-[400] ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
+                            <span className={`text-[14px] text-center w-[73px] truncate leading-[18px] font-[400] ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
                                 }`}>{link.name}</span>
                         </Link>
                     ))}
