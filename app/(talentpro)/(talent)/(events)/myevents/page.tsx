@@ -5,8 +5,9 @@ import useIsMobile from "@/app/lib/hooks/useMobile";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MyEventsMobile from "../mobile/MyEventsMobile";
-import UpcomingEventsDesktop from "./UpcommingEventsDesktop";
+import UpcomingEventsDesktop from "../UpcommingEventsDesktop";
 import UpcomingEventsMobile from "../mobile/UpcommingEventsMobile";
+import MyEventsDesktop from "./MyEventsDekstop";
 
 const Page = () => {
     // const [activeTab, setActiveTab] = useState("upcoming");
@@ -60,7 +61,7 @@ const Page = () => {
     if (isMobile === false) {
         return (
             <div className="mt-2 mx-auto lg:w-[800px] xl:w-[1000px]">
-                <UpcomingEventsDesktop />
+                <MyEventsDesktop />
             </div>
         );
     }

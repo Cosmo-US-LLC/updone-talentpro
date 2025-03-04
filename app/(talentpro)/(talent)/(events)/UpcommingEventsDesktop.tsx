@@ -15,6 +15,15 @@ const UpcomingEventsDesktop = () => {
     const [loadingEventId, setLoadingEventId] = useState<string | null>(null);
     const router = useRouter();
 
+    const serviceImages: { [key: string]: string } = {
+        "Bartender": "/images/mobile/service-icons/bartender-black.svg",
+  "Barback": "/images/mobile/service-icons/bar-back-black.svg",
+  "Promo Model": "/images/mobile/service-icons/promo-model-black.svg",
+  "Waiter": "/images/mobile/service-icons/waiter-black.svg",
+  "Cocktail Server": "/images/mobile/service-icons/coctail-server-black.svg",
+  "Event Helper": "/images/mobile/service-icons/event-helper-black.svg" 
+    };
+
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -81,7 +90,7 @@ const UpcomingEventsDesktop = () => {
                             </p>
                             <div className="flex flex-row items-center justify-between w-fit pt-4 gap-4">
                                 <Image
-                                    src="/images/mobile/talentpro/party_glass.svg"
+                                    src={serviceImages[event.service_name] || "/images/mobile/service-icons/event-helper-black.svg"}
                                     alt="event-service"
                                     width={24}
                                     height={24}

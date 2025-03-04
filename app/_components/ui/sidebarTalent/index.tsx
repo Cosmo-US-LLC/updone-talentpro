@@ -23,8 +23,8 @@ import { apiRequest } from '@/app/lib/services';
 
 // Define an array of link objects
 const links = [
-    { name: 'My Events', icon: FaRegCalendarCheck, path: '/' },
-    { name: 'Upcoming', icon: TbCalendarUp, path: '/upcoming' },
+    { name: 'Upcoming', icon: TbCalendarUp, path: '/' },
+    { name: 'My Events', icon: FaRegCalendarCheck, path: '/myevents' },
     { name: 'Personal details ', icon: CgProfile, path: '/personaldetails' },
     { name: 'Login details', icon: TbLogin2, path: '/logindetails' },
     { name: 'Services', icon: MdMiscellaneousServices, path: '/services' },

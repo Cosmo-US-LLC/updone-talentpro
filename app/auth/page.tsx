@@ -35,18 +35,18 @@ function page() {
   }
 
   useEffect(() => {
-    console.log("res", token);
+    // console.log("res", token);
     storeUser();
   }, []);
 
   useEffect(() => {
-    console.log("res", storedData, callback);
+    console.log("res",  callback);
     // storeUser();
     if (storedData?.token && storedData?.user?.id) {
       if (callback && callback != "false") { 
         router.push(callback);
       } else {
-        router.push("/upcoming");
+        router.push("/");
       }
     }
   }, [storedData]);

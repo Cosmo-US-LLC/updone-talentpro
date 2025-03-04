@@ -4,7 +4,6 @@ import { EventTabs } from "@/app/_components/(mobile-version)/talentpro/EventTab
 import MobileNavbar from "@/app/_components/mobile/MobileNavbar";
 import useIsMobile from "@/app/lib/hooks/useMobile";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import MyEventsDesktop from "./MyEventsDekstop";
 import MyEventsMobile from "./mobile/MyEventsMobile";
 import UpcomingEventsMobile from "./mobile/UpcommingEventsMobile";
 import PersonalDetails from "./mobile/PersonalDetails";
@@ -12,6 +11,8 @@ import LoginDetails from "./mobile/LoginDetails";
 import Services from "./mobile/Services";
 import PaymentMethod from "./mobile/PaymentMethod";
 import OfferMobile from "./mobile/OfferMobile";
+import UpcomingEventsDesktop from "./UpcommingEventsDesktop";
+
 
 
 const PageContent = () => {
@@ -86,7 +87,7 @@ const PageContent = () => {
     if (isMobile === false) {
         return (
             <div className="mt-2 mx-auto lg:w-[800px] xl:w-[1000px]">
-                <MyEventsDesktop />
+                <UpcomingEventsDesktop />
             </div>
         );
     }
