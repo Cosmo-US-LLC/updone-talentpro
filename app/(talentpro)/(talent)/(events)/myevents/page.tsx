@@ -60,7 +60,15 @@ const Page = () => {
 
     if (isMobile === false) {
         return (
-            <div className="mt-2 mx-auto lg:w-[800px] xl:w-[1000px]">
+            <div className="mt-2 mx-auto lg:w-[730px] xl:w-[980px]">
+                <div className="flex flex-col gap-2">
+                    <h2 className="text-[24px] text-[#350ABC] underline font-medium">
+                        My Events
+                    </h2>
+                    <p className="text-[14px] text-gray-600">
+                        Here you can see all the events you have been assigned to!
+                    </p>
+                </div>
                 <MyEventsDesktop />
             </div>
         );

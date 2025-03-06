@@ -118,7 +118,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                                 <div className="mt-">
 
 
-                                    <p className={`${event.status === "assigned" ? "bg-[#EAFDE7] text-[#0C9000] rounded-full ml-3 py-1 px-2" : "text-[#E60000] bg-[#FDE7E7] rounded-full ml-1 py-1 px-2"} text-center  font-[500]`}>
+                                    <p className={`text-[14px] ${event.status === "assigned" ? "bg-[#EAFDE7] text-[#0C9000] rounded-full ml-3 py-1 px-3" : "text-[#E60000] bg-[#FDE7E7] rounded-full ml-1 py-1 px-3"} text-center  font-[500]`}>
                                         {event.status}
                                     </p>
 
@@ -194,7 +194,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                                     </div>
                                 </div>
                             </div>
-                            <div className="h-[1px] bg-[#EBE6FF] w-full my-4 self-center" />
+                            <div className="h-[1px] bg-[#EBE6FF] w-[95%] my-4 self-start" />
 
                             {/* <div className="flex w-full items-start justify-end mt-8"> */}
                             <div className="flex flex-row w-full items-start justify-end mt-1">

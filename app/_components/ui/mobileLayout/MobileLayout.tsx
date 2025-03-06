@@ -11,7 +11,7 @@ interface MobileLayoutProps {
 
 const MobileLayout = ({ children }: MobileLayoutProps) => {
   return (
-    <div className="lg:hidden flex flex-col">
+    <div className="lg:hidden flex flex-col overflow-x-hidden">
       <MobileNavbar />
       <ProgressBar
         height="3px"

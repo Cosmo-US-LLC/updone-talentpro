@@ -191,8 +191,13 @@ const handleButtonClick = (eventId: number, url: string) => {
                                 </p>
                                 </div>
                                 </div>
+                                {event.is_invited && (
+                <div className="bg-yellow-100  py-2 px-6 w-fit min-w-[100px] rounded-full mt-3">
+                    <p className="text-yellow-800 text-[14px] text-center font-[500]">The client invited you to this event</p>
+                </div>
+            )}
                             </div>
-                            <div className="h-[1px] bg-[#EBE6FF] w-full my-4 self-center" />
+                            <div className="h-[1px] bg-[#EBE6FF] w-[95%] my-4 self-start " />
                            
                             {/* <div className="flex w-full items-start justify-end mt-8"> */}
                             <div className="flex flex-row w-full items-start justify-end mt-1 ">

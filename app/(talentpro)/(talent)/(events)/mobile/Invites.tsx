@@ -20,7 +20,7 @@ const serviceIcons = {
   "Event Helper": "/images/mobile/service-icons/event-helper.svg"
 };
 
-const UpcomingEventsMobile = ({ setEventCount, activeTab }: {activeTab:string, setEventCount: (count: number) => void }) => {
+const Invites = ({ setEventCount, activeTab }: {activeTab:string, setEventCount: (count: number) => void }) => {
     const [isButtonLoading, setIsButtonLoading] = useState(false);
     const { auth: storedData } = useAppSelector(selectAuth);
     const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +41,7 @@ const handleButtonClick = (eventId: number, url: string) => {
         const fetchEvents = async () => {
             try {
                 setIsLoading(true);
-                const response = await apiRequest("/talentpro/upcoming-events", {
+                const response = await apiRequest("/talentpro/invites", {
                     method: "POST",
                     headers: {
                         revalidate: true,
@@ -74,7 +74,7 @@ const handleButtonClick = (eventId: number, url: string) => {
     return (
         <div className="">
             {
-                events?.length === 0 &&
+                events?.length === 0 || !events?.some((event: any) => event.has_offered === false) &&
                 <div className="w-full h-[80dvh] flex flex-col items-center justify-center gap-4">
                     <Image
                         src="/images/mobile/talentpro/no-events.svg"
@@ -84,18 +84,18 @@ const handleButtonClick = (eventId: number, url: string) => {
                         quality={100}
                         objectFit="fill"
                     />
-                    <p className="font-normal leading-[24px] text-[18px]">No Upcoming Events</p>
+                    <p className="font-normal leading-[24px] text-[18px]">No Invites</p>
                 </div>
             }
             {
                 events?.length > 0 &&
-                events.map((event: any, id:any) => {
+                events.filter((event: any) => event.has_offered === false).map((event: any, id:any) => {
                     const truncatedTitle =
             event.title.length > MAX_TITLE_LENGTH
               ? `${event.title.substring(0, MAX_TITLE_LENGTH)}...`
               : event.title;
                     return (
-                        <div key={id}className="shadow-md rounded-md flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] pl-[16px] pt-[16px] pb-[12px] ">
+                        <div key={id}className="shadow-md rounded-md flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] pl-[16px] pt-[16px] pb-[12px]">
                             <div className="flex flex-row items-center justify-between flex-wrap">
                                 <div className="mr-2 flex-shrink-0">
                                     <Image 
@@ -236,4 +236,4 @@ const handleButtonClick = (eventId: number, url: string) => {
     );
 };
 
-export default UpcomingEventsMobile;
+export default Invites;
