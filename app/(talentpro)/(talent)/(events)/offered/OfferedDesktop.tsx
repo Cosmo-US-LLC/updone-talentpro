@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const UpcomingEventsDesktop = () => {
+const OfferedDesktop = () => {
     const { auth: storedData } = useAppSelector(selectAuth);
     const [isLoading, setIsLoading] = useState(false);
     const [events, setEvents] = useState([]);
@@ -69,7 +69,7 @@ const UpcomingEventsDesktop = () => {
                         quality={100}
                         objectFit="fill"
                     />
-                    <p className="font-normal leading-[24px] text-[18px]">No Upcoming Events</p>
+                    <p className="font-normal leading-[24px] text-[18px]">No Offered Events</p>
                 </div>
             }
             {
@@ -77,11 +77,18 @@ const UpcomingEventsDesktop = () => {
                 events.filter((event: any) => event.has_offered === true).map((event: any, id:any) => {
                     return (
                         <div key={event.id} className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">
+                             <div className="flex flex-row items-center gap-1 w-full">
                             <div className="bg-[#E7F4FD] p-2 w-fit min-w-[100px] rounded-full">
                                 <p className="text-[#0076E6] text-center font-[500]">
                                     {event.status}
                                 </p>
                             </div>
+                            {event.is_invited && (
+                <div className="bg-yellow-100 p-2 w-fit min-w-[100px] rounded-full">
+                    <p className="text-yellow-800 text-center font-[500]">Invited</p>
+                </div>
+            )}
+            </div>
                             <p className="text-start text-[24px] font-medium pt-4">
                                 {event.title}
                             </p>
@@ -161,4 +168,4 @@ const UpcomingEventsDesktop = () => {
     );
 };
 
-export default UpcomingEventsDesktop;
+export default OfferedDesktop;

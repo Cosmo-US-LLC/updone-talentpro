@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const UpcomingEventsDesktop = () => {
+const InvitesDesktop = () => {
     const { auth: storedData } = useAppSelector(selectAuth);
     const [isLoading, setIsLoading] = useState(false);
     const [events, setEvents] = useState([]);
@@ -28,7 +28,7 @@ const UpcomingEventsDesktop = () => {
         const fetchEvents = async () => {
             try {
                 setIsLoading(true);
-                const response = await apiRequest("/talentpro/upcoming-events", {
+                const response = await apiRequest("/talentpro/invites", {
                     method: "POST",
                     headers: {
                         revalidate: true,
@@ -39,6 +39,7 @@ const UpcomingEventsDesktop = () => {
                         page_size: 100,
                     },
                 });
+        
                 setEvents(response?.jobs);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -69,15 +70,15 @@ const UpcomingEventsDesktop = () => {
                         quality={100}
                         objectFit="fill"
                     />
-                    <p className="font-normal leading-[24px] text-[18px]">No Upcoming Events</p>
+                    <p className="font-normal leading-[24px] text-[18px]">No Invites</p>
                 </div>
             }
             {
                 events?.length > 0 &&
-                events.map((event: any) => {
+                events.filter((event: any) => event.has_offered === false).map((event: any, id:any) => {
                     return (
                         <div key={event.id} className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">
-                            <div className="flex flex-row items-center gap-1 w-full">
+                              <div className="flex flex-row items-center gap-1 w-full">
                             <div className="bg-[#E7F4FD] p-2 w-fit min-w-[100px] rounded-full">
                                 <p className="text-[#0076E6] text-center font-[500]">
                                     {event.status}
@@ -168,4 +169,4 @@ const UpcomingEventsDesktop = () => {
     );
 };
 
-export default UpcomingEventsDesktop;
+export default InvitesDesktop;

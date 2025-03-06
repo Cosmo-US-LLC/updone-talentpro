@@ -18,18 +18,19 @@ import { MdOutlineReviews } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { TbLogin2 } from "react-icons/tb";
 import { MdMiscellaneousServices } from "react-icons/md";
+import { BsEnvelopePaper } from "react-icons/bs";
 import { apiRequest } from '@/app/lib/services';
 
 
 // Define an array of link objects
 const links = [
     { name: 'Upcoming', icon: TbCalendarUp, path: '/' },
-    { name: 'Offered', icon: MdMiscellaneousServices, path: '/offered' },
+    { name: 'Invites', icon: BsEnvelopePaper, path: '/invites' },
+    { name: 'My offers', imagePath: '/images/offer.png', path: '/offered' },
     { name: 'My Events', icon: FaRegCalendarCheck, path: '/myevents' },
     { name: 'Personal details ', icon: CgProfile, path: '/personaldetails' },
     { name: 'Login details', icon: TbLogin2, path: '/logindetails' },
-    { name: 'Services', icon: MdMiscellaneousServices, path: '/services' },
-    
+    { name: 'Services', imagePath: '/images/bart.png', path: '/services' },
 ];
 
 const bottomLinks = [
@@ -109,13 +110,26 @@ const SideBarTalent = () => {
                         <Link
                             href={link.path}
                             key={index}
-                            className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-3 w-full p-3 rounded-[8px] ${activeIndex === index ? 'bg-[#F8F6FF]' : ''
-                                }`}
+                            className={`hover:bg-[#F8F6FF] flex flex-col items-center justify-center gap-3 w-full p-3 rounded-[8px] ${
+                                activeIndex === index ? 'bg-[#F8F6FF]' : ''
+                            }`}
                         >
-                            <link.icon className={`h-6 w-6  ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
+                            {'icon' in link && link.icon ? (
+                                <link.icon className={`h-6 w-6  ${
+                                    activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
                                 }`} />
-                            <span className={`text-[14px] text-center w-[73px] truncate leading-[18px] font-[400] ${activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
-                                }`}>{link.name}</span>
+                            ) : (
+                                <Image 
+                                    src={link.imagePath}
+                                    alt={link.name}
+                                    width={30}
+                                    height={24}
+                                    className={activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'}
+                                />
+                            )}
+                            <span className={`text-[14px] text-center w-[73px] truncate leading-[18px] font-[400] ${
+                                activeIndex === index ? 'text-[#350ABC]' : 'text-[#2C2240]'
+                            }`}>{link.name}</span>
                         </Link>
                     ))}
                 </div>

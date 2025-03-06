@@ -266,7 +266,7 @@ const MobileNavbar = ({ ...props }) => {
                                   : "text-gray-500 hover:text-gray-700"
                                   }`}
                               >
-                                Offered Events
+                                My offers
                               </button>
                             </div>
                           </SheetClose>
