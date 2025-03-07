@@ -7,6 +7,7 @@ import { Loader2 } from 'lucide-react';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { LuSparkle, LuSparkles } from "react-icons/lu";
 
 const UpcomingEventsDesktop = () => {
     const { auth: storedData } = useAppSelector(selectAuth);
@@ -16,12 +17,12 @@ const UpcomingEventsDesktop = () => {
     const router = useRouter();
 
     const serviceImages: { [key: string]: string } = {
-        "Bartender": "/images/mobile/service-icons/bartender-black.svg",
-  "Barback": "/images/mobile/service-icons/bar-back-black.svg",
-  "Promo Model": "/images/mobile/service-icons/promo-model-black.svg",
-  "Waiter": "/images/mobile/service-icons/waiter-black.svg",
-  "Cocktail Server": "/images/mobile/service-icons/coctail-server-black.svg",
-  "Event Helper": "/images/mobile/service-icons/event-helper-black.svg" 
+        "Bartender": "/images/mobile/service-icons/bartender.svg",
+        "Barback": "/images/mobile/service-icons/bar-back.svg",
+        "Promo Model": "/images/mobile/service-icons/promo-model.svg",
+        "Waiter": "/images/mobile/service-icons/waiter.svg",
+        "Cocktail server": "/images/mobile/service-icons/coctail-server.svg",
+        "Event Helper": "/images/mobile/service-icons/event-helper.svg" 
     };
 
     useEffect(() => {
@@ -75,6 +76,8 @@ const UpcomingEventsDesktop = () => {
             {
                 events?.length > 0 &&
                 events.map((event: any) => {
+                    console.log('Service name:', event.service_name);
+
                     return (
                         <div key={event.id} className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">
                             <div className="flex flex-row items-center gap-1 justify-between w-full">
@@ -84,7 +87,8 @@ const UpcomingEventsDesktop = () => {
                                 </p>
                             </div>
                             {event.is_invited && (
-                <div className="bg-yellow-100  py-2 px-6 w-fit min-w-[100px] rounded-full">
+                <div className="bg-yellow-100 flex flex-row items-center gap-2 py-2 px-6 w-fit min-w-[100px] rounded-full">
+                    <LuSparkles className="w-4 h-4 text-yellow-800" />
                     <p className="text-yellow-800 text-[14px] text-center font-[500]">The client invited you to this event</p>
                 </div>
             )}
@@ -97,7 +101,7 @@ const UpcomingEventsDesktop = () => {
                             </p>
                             <div className="flex flex-row pt-4 gap-4">
                             <Image
-                                    src={serviceImages[event.service_name] || "/images/mobile/service-icons/event-helper-black.svg"}
+                                    src={serviceImages[event.service_name] || "/images/mobile/service-icons/event-helper.svg"}
                                     alt="event-service"
                                     width={24}
                                     height={24}
@@ -116,9 +120,9 @@ const UpcomingEventsDesktop = () => {
                             </div>
                             <div className="flex flex-row pt-4 gap-4">
                                 <Image
-                                    src="/images/mobile/talentpro/map_pin.svg"
+                                    src="/images/mobile/talent/map-pin.svg"
                                     alt="event-location"
-                                    width={24}
+                                    width={26}
                                     height={24}
                                     quality={100}
                                     objectFit="fill"
@@ -134,7 +138,27 @@ const UpcomingEventsDesktop = () => {
                             </div>
                             <div className="flex flex-row pt-4 gap-4">
                                     <Image
-                                        src="/images/mobile/talentpro/calendar.svg"
+                                        src="/images/mobile/talent/schedule.svg"
+                                        alt="event-date"
+                                        width={26}
+                                        height={24}
+                                        quality={100}
+                                        objectFit="fill"
+                                    />
+                                    <div className="flex flex-col items-start justify-center ">
+                                        <p className="text-start text-[14px] font-semibold">
+                                            Date 
+                                        </p>
+                                        <p className="text-start text-[14px] font-medium text-gray-400">
+                                            {event.working_time.date} 
+                                            
+                                        </p>
+                                    </div>
+                                    
+                                </div>
+                                <div className="flex flex-row pt-4 gap-4">
+                                    <Image
+                                        src="/icons/time-icon.svg"
                                         alt="event-date"
                                         width={24}
                                         height={24}
@@ -143,13 +167,13 @@ const UpcomingEventsDesktop = () => {
                                     />
                                     <div className="flex flex-col items-start justify-center ">
                                         <p className="text-start text-[14px] font-semibold">
-                                            Date & Time
+                                         Time
                                         </p>
                                         <p className="text-start text-[14px] font-medium text-gray-400">
-                                            {event.working_time.date} from
-                                            <span className="ml-2">{event.working_time.time}</span>
+                                            {event.working_time.time} <span className="">  ({event.working_time.number_of_hours}) </span>
                                         </p>
                                     </div>
+                                    
                                 </div>
                             <div className="h-[1px] bg-[#EBE6FF] w-full my-4 self-center" />
                             <div className="flex flex-row items-center justify-end w-full">

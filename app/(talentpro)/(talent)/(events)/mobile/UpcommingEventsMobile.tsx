@@ -4,6 +4,7 @@ import { apiRequest } from "@/app/lib/services";
 import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import { Loader2 } from 'lucide-react';
+import { LuSparkles } from "react-icons/lu";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ const serviceIcons = {
   "Barback": "/images/mobile/service-icons/bar-back.svg",
   "Promo Model": "/images/mobile/service-icons/promo-model.svg",
   "Waiter": "/images/mobile/service-icons/waiter.svg",
-  "Cocktail Server": "/images/mobile/service-icons/coctail-server.svg",
+  "Cocktail server": "/images/mobile/service-icons/coctail-server.svg",
   "Event Helper": "/images/mobile/service-icons/event-helper.svg"
 };
 
@@ -140,7 +141,7 @@ const handleButtonClick = (eventId: number, url: string) => {
                             <div className=" mt-4">
                                 <div className="flex flex-row">
                                     <div className="mr-2 flex items-center flex-shrink-0">
-                                  <Image src='/images/mobile/talent/schedule.svg' width={30} height={30} alt="glass" />
+                                  <Image src='/images/mobile/talent/map-pin.svg' width={30} height={30} alt="glass" />
                                     </div>
                                 <div className="flex flex-col flex-grow">
                                 <h3 className="text-[12px] ">
@@ -155,7 +156,7 @@ const handleButtonClick = (eventId: number, url: string) => {
                             <div className="mt-3">
                                 <div className="flex flex-row">
                                 <div className="mr-2 flex items-center flex-shrink-0">
-                                   <Image src='/images/mobile/talent/map-pin.svg' width={30} height={28} alt="glass" />
+                                   <Image src='/images/mobile/talent/schedule.svg' width={30} height={28} alt="glass" />
                                     </div>
                                     <div className="flex flex-col flex-grow">
                                                                         
@@ -187,13 +188,14 @@ const handleButtonClick = (eventId: number, url: string) => {
                                     Time
                                 </h3>
                                 <p className="text-[14px] font-semibold">
-                                {event.working_time.number_of_hours} <span className=""> - from {event.working_time.time} </span>
+                                {event.working_time.time} <span className="">  ({event.working_time.number_of_hours}) </span>
                                 </p>
                                 </div>
                                 </div>
                             </div>
                             {event.is_invited && (
-                <div className="bg-yellow-100  py-2 px-6 w-fit min-w-[100px] rounded-full mt-3">
+                <div className="bg-yellow-100 flex flex-row items-center gap-1 py-2 px-5 w-fit min-w-[100px] rounded-full mt-3">
+                    <LuSparkles className="w-4 h-4 text-yellow-800" />
                     <p className="text-yellow-800 text-[14px] text-center font-[500]">The client invited you to this event</p>
                 </div>
             )}

@@ -15,7 +15,7 @@ const serviceIcons = {
     "Barback": "/images/mobile/service-icons/bar-back.svg",
     "Promo Model": "/images/mobile/service-icons/promo-model.svg",
     "Waiter": "/images/mobile/service-icons/waiter.svg",
-    "Cocktail Server": "/images/mobile/service-icons/coctail-server.svg",
+    "Cocktail server": "/images/mobile/service-icons/coctail-server.svg",
     "Event Helper": "/images/mobile/service-icons/event-helper.svg"
   };
 
@@ -142,7 +142,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                             <div className=" mt-4">
                                 <div className="flex flex-row">
                                     <div className="mr-2 flex items-center flex-shrink-0">
-                                        <Image src='/images/mobile/talent/schedule.svg' width={30} height={30} alt="glass" />
+                                        <Image src='/images/mobile/talent/map-pin.svg' width={30} height={30} alt="glass" />
                                     </div>
                                     <div className="flex flex-col flex-grow">
                                         <h3 className="text-[12px] ">
@@ -157,7 +157,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                             <div className="mt-3">
                                 <div className="flex flex-row">
                                     <div className="mr-2 flex items-center flex-shrink-0">
-                                        <Image src='/images/mobile/talent/map-pin.svg' width={30} height={28} alt="glass" />
+                                        <Image src='/images/mobile/talent/schedule.svg' width={30} height={28} alt="glass" />
                                     </div>
                                     <div className="flex flex-col flex-grow">
 
@@ -189,7 +189,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                                             Time
                                         </h3>
                                         <p className="text-[14px] font-semibold">
-                                            {event.working_time.number_of_hours} <span className=""> - from {event.working_time.time} </span>
+                                            {event.working_time.time} <span className="">  ({event.working_time.number_of_hours}) </span>
                                         </p>
                                     </div>
                                 </div>

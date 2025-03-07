@@ -95,6 +95,8 @@ const SignIn: React.FC<signInProps> = ({
   };
 
   function handleGoogleAuth() {
+    router.push(`${process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK}/callback_url=${process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window?.location?.search}` || "");
+    return;
     const isUpdoneDomain = window.location.hostname.includes("updone");
     console.log(pathname + window.location.search);
     if (process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK) {
