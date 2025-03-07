@@ -18,7 +18,7 @@ const allServices = [
 export default function ServicesProvided({ activeTab }: { activeTab: string }) {
     const { auth: storedData } = useAppSelector(selectAuth);
     const [selectedServices, setSelectedServices] = useState<{ id: number; name: string; rate: number }[]>([]);
-    const [editingRates, setEditingRates] = useState<{ [key: number]: number  }>({});
+    const [editingRates, setEditingRates] = useState<any>({});
     const [perHourRate, setPerHourRate] = useState<number>(0);
     const [initialServices, setInitialServices] = useState<{ id: number; name: string; rate: number }[]>([]);
     const [successMessage, setSuccessMessage] = useState("");
@@ -77,9 +77,9 @@ export default function ServicesProvided({ activeTab }: { activeTab: string }) {
         const numericValue = value.replace(/^0+/, '');
         const parsedValue = parseInt(numericValue, 10);
     
-        setEditingRates((prev) => ({
+        setEditingRates((prev: any) => ({
             ...prev,
-            [serviceId]: isNaN(parsedValue) ? 0 : parsedValue,
+            [serviceId]: isNaN(parsedValue) ? '' : parsedValue,
         }));
     
         // Updated error validation
