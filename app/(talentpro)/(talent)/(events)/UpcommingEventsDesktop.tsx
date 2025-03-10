@@ -76,7 +76,6 @@ const UpcomingEventsDesktop = () => {
             {
                 events?.length > 0 &&
                 events.map((event: any) => {
-                    console.log('Service name:', event.service_name);
 
                     return (
                         <div key={event.id} className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">

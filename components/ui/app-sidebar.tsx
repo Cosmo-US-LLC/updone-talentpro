@@ -71,7 +71,7 @@ const items = [
     icon: TbCalendarUp,
   },
   {
-    title: "Invites",
+    title: "Open Invites",
     url: "/invites",
     icon: BsEnvelopePaper,
   },

@@ -43,6 +43,15 @@ const JobDetailWorker = ({ jobId }: JobDetailWorkerProps) => {
   const loginMenuRef = useRef<HTMLDivElement>(null);
   const { handleError } = useError();
 
+  const serviceImages: { [key: string]: string } = {
+    "Bartender": "/images/mobile/service-icons/bartender.svg",
+    "Barback": "/images/mobile/service-icons/bar-back.svg",
+    "Promo Model": "/images/mobile/service-icons/promo-model.svg",
+    "Waiter": "/images/mobile/service-icons/waiter.svg",
+    "Cocktail server": "/images/mobile/service-icons/coctail-server.svg",
+    "Event Helper": "/images/mobile/service-icons/event-helper.svg" 
+};
+
   useEffect(() => {
     const fetchDataIfNeeded = async () => {
       setLoadingJobDetail(true);
@@ -221,7 +230,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                     style={{ wordBreak: "break-word" }}
                     className={`${jobDetailData?.status === "completed" &&
                       "opacity-[50%] !text-gray-300"
-                      } tracking-[0.2px] text-[#000000] !font-[600] text-[16px]`}
+                      } tracking-[0.2px] text-[#000000] !font-[600] text-[24px] mb-1`}
                   >
                     {loadingJobDetail ? (
                       <div className="h-6 animate-pulse !bg-gray-200 rounded-full mt-4 w-60"></div>
@@ -232,7 +241,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
 
                   <div
                     style={{ wordBreak: "break-word" }}
-                    className={`flex justify-start items-center  gap-[6px] !text-[14px] font-[400] tracking-[-0.32px] leading-[22px] text-[#6B6B6B] !w-[101%] ${jobDetailData?.status === "completed" &&
+                    className={`flex justify-start items-center  gap-[6px] !text-[16px] font-[400] tracking-[-0.32px] leading-[22px] text-[#6B6B6B] !w-[101%] ${jobDetailData?.status === "completed" &&
                       "opacity-[50%] !text-gray-300"
                       }`}
                   >
@@ -283,12 +292,12 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                       </>
                     ) : (
                       <Image
-                        className="relative"
-                        width={32}
+                        className="relative mt-1"
+                        width={36}
                         height={28}
                         alt="verified"
-                        src="/images/staff-listing/glass.svg"
-                      />
+                        src={serviceImages[jobDetailData?.service_name] || "/images/mobile/service-icons/event-helper.svg"}
+                        />
                     )}
 
                     <div>
@@ -300,13 +309,13 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                         {jobDetailData?.event_location && (
                           <>
                             {/* First part of the location */}
-                            <div className=" text-[#161616] text-[14px] leading-normal font-[600]">
+                            <div className=" text-[#161616] text-[16px] leading-normal font-[600]">
                               {loadingJobDetail ? (
                                 <>
                                   <div className="h-2 animate-pulse !bg-gray-200 rounded-full mt-4 w-20"></div>
                                 </>
                               ) : (
-                                <>Required Service</>
+                                <>Requested Service</>
                               )}
                             </div>
                             <p className="text-[14px] font-[400] leading-[28px] text-[#6B6B6B]">
@@ -330,9 +339,9 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                       </>
                     ) : (
                       <Image
-                        className="relative"
-                        width={32}
-                        height={28}
+                        className="relative mt-1"
+                        width={38}
+                        height={32}
                         alt="verified"
                         src="/images/staff-listing/calander.svg"
                       />
@@ -346,7 +355,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                       {jobDetailData?.event_location && (
                         <>
                           {/* First part of the location */}
-                          <div className="  text-[#161616] text-[14px] leading-[28px] font-[400]">
+                          <div className="  text-[#161616] !text-[16px] leading-[28px] font-[400]">
                             {jobDetailData?.working_times &&
                               formatWorkingTimes(
                                 jobDetailData?.working_times
@@ -364,9 +373,9 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                       </>
                     ) : (
                       <Image
-                        className="relative"
-                        width={32}
-                        height={28}
+                        className="relative mt-1"
+                        width={36}
+                        height={36}
                         alt="verified"
                         src="/images/staff-listing/map.svg"
                       />
@@ -390,7 +399,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                             )}
                           </div>
 
-                          <div className="text-[14px] font-[400] leading-[28px] text-[#6B6B6B]">
+                          <div className="text-[16px] font-[400] leading-[28px] text-[#6B6B6B]">
                             {loadingJobDetail ? (
                               <>
                                 <div className="h-2 animate-pulse !bg-gray-200 rounded-full mt-2 w-40"></div>

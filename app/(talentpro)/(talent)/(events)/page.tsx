@@ -35,7 +35,7 @@ const PageContent = () => {
             case "upcoming":
                 return `Upcoming Events (${upcomingEventCount})`;
             case "invites":
-                return `Invites (${invitesCount})`;
+                return `Open Invites (${invitesCount})`;
             case "myevents":
                 return `My Events (${myEventCount})`;
             case "personaldetails":

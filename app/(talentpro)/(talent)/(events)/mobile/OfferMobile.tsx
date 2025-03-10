@@ -75,7 +75,7 @@ const handleButtonClick = (eventId: number, url: string) => {
     return (
         <div className="">
             {
-                events?.length === 0 &&
+                events?.length === 0 || !events?.some((event: any) => event.has_offered === true) &&
                 <div className="w-full h-[80dvh] flex flex-col items-center justify-center gap-4">
                     <Image
                         src="/images/mobile/talentpro/no-events.svg"

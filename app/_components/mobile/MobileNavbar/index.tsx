@@ -264,7 +264,7 @@ const MobileNavbar = ({ ...props }) => {
                                   : "text-gray-500 hover:text-gray-700"
                                   }`}
                               >
-                                Invites
+                               Open Invites
                               </button>
                             </div>
                           </SheetClose>

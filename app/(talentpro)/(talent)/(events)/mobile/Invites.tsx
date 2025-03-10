@@ -85,7 +85,7 @@ const handleButtonClick = (eventId: number, url: string) => {
                         quality={100}
                         objectFit="fill"
                     />
-                    <p className="font-normal leading-[24px] text-[18px]">No Invites</p>
+                    <p className="font-normal leading-[24px] text-[18px]">No Open Invites</p>
                 </div>
             }
             {

@@ -35,9 +35,9 @@ const Offered = ({
 
   const getPriceValidationStatus = (price: number) => {
     if (price < 30) {
-      return { message: "Rate cannot be less than $30/hr", color: "text-[#C20000]" };
+      return { message: "This price seems lower than the market rate. Consider raising your offer", color: "text-[#C20000]" };
     } else if (price > 200) {
-      return { message: "Rate cannot exceed $200/hr", color: "text-[#C20000]" };
+      return { message: "You are offering above the market rate. Consider lowering your offer", color: "text-[#C20000]" };
     }
     return { message: "", color: "" };
   };
@@ -92,15 +92,6 @@ const Offered = ({
     }
 
     const price = isDefaultRate ? (hourRate || 0) : Number(state.inputValue);
-    if (price < 30) {
-      setPriceError("Cannot submit offer below $30/hour");
-      return;
-    }
-    if (price > 200) {
-      setPriceError("Cannot submit offer above $200/hour");
-      return;
-    }
-
     const body: {
       user_id: number;
       job_id: number;
@@ -139,10 +130,7 @@ const Offered = ({
     }
   };
 
-  const isButtonDisabled = !state.inputValue || 
-    (isDefaultRate ? 
-      ((hourRate || 0) < 30 || (hourRate || 0) > 200) :
-      (Number(state.inputValue) < 30 || Number(state.inputValue) > 200));
+  const isButtonDisabled = !state.inputValue;
 
   const totalAmount = isDefaultRate
     ? (hourRate || 0) * hoursWorked
@@ -160,9 +148,9 @@ const Offered = ({
             fill="none"
           >
           </svg>
-          <div className="relative top-[-87px] pl-[32px] flex flex-row justify-start items-center gap-8">
+          <div className="relative top-[-87px] pl-[] flex flex-row justify-start items-center gap-8">
             <div className="flex flex-col pt-[30px] min-w-[200px]">
-              <div className="flex items-center">
+              <div className="flex items-center pl-[32px]">
                 <span className="flex justify-center items-center">
                   <PiCurrencyDollarSimpleThin color="#000" size={24} />
                 </span>
@@ -178,18 +166,8 @@ const Offered = ({
                 />
                 <span className="pl-2">/ hour</span>
               </div>
-              {state.inputValue && !isDefaultRate && !priceError && (
-                <div className={`text-sm w-[180px] ml-2 mt-1 ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
-                  {getPriceValidationStatus(Number(state.inputValue)).message}
-                </div>
-              )}
-              {priceError && (
-                <div className="text-red-500 text-sm w-[180px] mt-1">
-                  {priceError}
-                </div>
-              )}
 
-              <label className="flex items-center gap-2 mb-[17px] text-[#6B6B6B] text-[16px] font-[400] leading-[18px] mt-[8px] tracking-[-0.32px] whitespace-nowrap">
+              <label className="flex items-center pl-[32px] gap-2 mb-[px] text-[#6B6B6B] text-[16px] font-[400] leading-[18px] mt-[8px] tracking-[-0.32px] whitespace-nowrap">
                 <input
                   type="checkbox"
                   className="!bg-[#774DFD]"
@@ -198,6 +176,11 @@ const Offered = ({
                 />
                 offer with your default rate
               </label>
+              {state.inputValue && !isDefaultRate && !priceError && (
+                <div className={`text-sm w-[300px] pl-3  ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
+                  {getPriceValidationStatus(Number(state.inputValue)).message}
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col border-r-[2px] border-gray-300 pr-[80px] min-w-[450px]">

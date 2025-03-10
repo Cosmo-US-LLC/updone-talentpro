@@ -11,7 +11,7 @@ const Page = () => {
             <div className="mx-auto mt-2 lg:w-[730px] xl:w-[980px]">
                 <div className="flex flex-col gap-2">
                     <h2 className="text-[24px] text-[#350ABC] underline font-medium">
-                        Invites
+                        Open Invites
                     </h2>
                     <p className="text-[14px] text-gray-600">
                         Here you can see all the events you have been invited to!

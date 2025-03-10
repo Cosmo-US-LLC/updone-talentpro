@@ -155,8 +155,8 @@ const ResetPassword: React.FC<ResetPasswordFormProps> = ({
             />
           </svg>
           <p className="text-sm font-medium text-gray-600 mt-2 pl-4">
-            If this email is registered with us, you’ll receive a password reset link shortly.
-            Please check your inbox and spam folder.
+          You will receive a new password on this email. Please check your inbox and login again.
+        
           </p>
 
           {/* ✅ Resend Button with Timer */}
