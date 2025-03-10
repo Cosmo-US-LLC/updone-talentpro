@@ -46,9 +46,9 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
 
   const getPriceValidationStatus = (price: number) => {
     if (price < 30) {
-      return { message: "Rate cannot be less than $30/hr", color: "text-[#C20000]" };
+      return { message: "This price seems lower than the market rate. Consider raising your offer", color: "text-[#C20000]" };
     } else if (price > 200) {
-      return { message: "Rate cannot exceed $200/hr", color: "text-[#C20000]" };
+      return { message: "You are offering above the market rate. Consider lowering your offer", color: "text-[#C20000]" };
     }
     return { message: "", color: "" };
   };
@@ -71,11 +71,11 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
     }
     // Enforce minimum hourly rate
     else if (numericValue < 30) {
-      setRateValueError("Rate cannot be less than $30/hr");
+      setRateValueError("This price seems lower than the market rate. Consider raising your offer");
     }
     // Enforce maximum hourly rate
     else if (numericValue > 200) {
-      setRateValueError("Rate cannot exceed $200/hr");
+      setRateValueError("You are offering above the market rate. Consider lowering your offer");
     }
     // Valid case
     else {
@@ -152,16 +152,6 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
       return;
     } else if (messageBody?.length > 1000) {
       setMessageBodyError("Description too long");
-      return;
-    }
-
-    const price = isDefaultRate ? hourRate : Number(state.inputValue);
-    if (price < 30) {
-      setRateValueError("Cannot submit offer below $30/hour");
-      return;
-    }
-    if (price > 200) {
-      setRateValueError("Cannot submit offer above $200/hour");
       return;
     }
 
@@ -246,7 +236,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
               <span className="pl-2">/ hour</span>
             </div>
             {!isDefaultRate && state.inputValue && !rateValueError && getPriceValidationStatus(Number(state.inputValue)).message && (
-              <p className={`text-[12px] pt-[5px] font-[400] leading-[20px] ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
+              <p className={`text-[12px] pl-2 pt-[5px] font-[400] leading-[20px] ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
                 {getPriceValidationStatus(Number(state.inputValue)).message}
               </p>
             )}
@@ -350,7 +340,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
             </div>
           ) : (
             <button
-              disabled={loading || rateValueError !== ""}
+              disabled={loading || !state.inputValue}
               onClick={() => {
                 onSubmit();
               }}
