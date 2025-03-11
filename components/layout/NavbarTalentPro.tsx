@@ -28,7 +28,7 @@ function NavbarTalentPro() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { auth: storedData } = useAppSelector(selectAuth);
-  console.log(storedData)
+  // console.log(storedData)
 
   const [clientLoad, setClientLoad] = useState(true);
   useEffect(()=>{
@@ -44,7 +44,7 @@ function NavbarTalentPro() {
       },
       body: {}
     }).then((res)=>{
-      console.log(res)
+      // console.log(res)
       // ✅ Clear Redux Authentication & Data States
       dispatch(clearAuth());
       dispatch(setStaffEmpty());

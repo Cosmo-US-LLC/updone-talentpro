@@ -55,7 +55,9 @@ const handleButtonClick = (eventId: number, url: string) => {
                 });
                 const eventsData = response?.jobs || [];
                 setEvents(eventsData);
-                setEventCount(eventsData.length);
+                const openInvitesCount = eventsData.filter((event: any) => event.has_offered === false).length;
+                
+                setEventCount(openInvitesCount);
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
