@@ -208,7 +208,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
         >
           <RxCross2 style={{ height: "20px", width: "20px" }} />
         </div>
-        <div className="bg-white w-full flex flex-col items-center shadow-lg rounded-lg py-4">
+        <div className="bg-white w-full flex flex-col items-center shadow-lg rounded-lg py-4 px-4">
           <p className="text-[20px] font-[400] leading-[30px] mb-4">
             Make your Offer
           </p>
@@ -236,7 +236,7 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
               <span className="pl-2">/ hour</span>
             </div>
             {!isDefaultRate && state.inputValue && !rateValueError && getPriceValidationStatus(Number(state.inputValue)).message && (
-              <p className={`text-[12px] pl-2 pt-[5px] font-[400] leading-[20px] ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
+              <p className={`text-[12px] text-center pt-[5px] font-[400] leading-[20px] ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
                 {getPriceValidationStatus(Number(state.inputValue)).message}
               </p>
             )}
@@ -286,7 +286,11 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
             style={{
               boxShadow: "0px 4px 16px 0px rgba(0, 0, 0, 0.06)",
             }}
-            className="!h-[140px] w-full p-2 border border-[#EBE6FF] !rounded-sm resize-none placeholder:text-[#9F9F9F] placeholder:text-[14px]"
+            className={`!h-[140px] w-full p-2 border ${
+              messageBodyError 
+              ? "border-red-500 shadow-xl shadow-red-500" 
+              : "border-[#EBE6FF]"
+            } !rounded-sm resize-none placeholder:text-[#9F9F9F] placeholder:text-[14px]`}
           />
           {
             <p
