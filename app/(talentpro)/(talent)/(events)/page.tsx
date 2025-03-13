@@ -12,7 +12,7 @@ import Services from "./mobile/Services";
 import PaymentMethod from "./mobile/PaymentMethod";
 import OfferMobile from "./mobile/OfferMobile";
 import UpcomingEventsDesktop from "./UpcommingEventsDesktop";
-
+import Invites from "./mobile/Invites";
 
 
 const PageContent = () => {
@@ -20,6 +20,7 @@ const PageContent = () => {
     const [upcomingEventCount, setUpcomingEventCount] = useState(0);
     const [myEventCount, setMyEventCount] = useState(0);
     const [offeredEventCount, setOfferedEventCount] = useState(0);
+    const [invitesCount, setInvitesCount] = useState(0);
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const isMobile = useIsMobile();
@@ -33,6 +34,8 @@ const PageContent = () => {
         switch (activeTab) {
             case "upcoming":
                 return `Upcoming Events (${upcomingEventCount})`;
+            case "invites":
+                return `Open Invites (${invitesCount})`;
             case "myevents":
                 return `My Events (${myEventCount})`;
             case "personaldetails":
@@ -61,6 +64,9 @@ const PageContent = () => {
                         {activeTab === "upcoming" && (
                             <UpcomingEventsMobile activeTab={activeTab} setEventCount={setUpcomingEventCount} />
                         )}
+                        {activeTab === "invites" && (
+                            <Invites activeTab={activeTab} setEventCount={setInvitesCount} />
+                        )}
                         {activeTab === "myevents" && (
                             <MyEventsMobile activeTab={activeTab} setEventCount={setMyEventCount} />
                         )}
@@ -86,7 +92,15 @@ const PageContent = () => {
     }
     if (isMobile === false) {
         return (
-            <div className="mt-2 mx-auto lg:w-[800px] xl:w-[1000px]">
+            <div className="mt-2 mx-auto lg:w-[730px] xl:w-[980px]">
+                <div className="flex flex-col gap-2">
+                    <h2 className="text-[24px] text-[#350ABC] underline font-medium">
+                        Upcoming Events
+                    </h2>
+                    <p className="text-[14px] text-gray-600">
+                        Here you can see all the upcoming events!
+                    </p>
+                </div>
                 <UpcomingEventsDesktop />
             </div>
         );

@@ -21,7 +21,7 @@ const serviceIcons = {
   "Event Helper": "/images/mobile/service-icons/event-helper.svg"
 };
 
-const OfferMobile = ({  activeTab, setEventCount }: {activeTab:string, setEventCount: (count: number) => void }) => {
+const Invites = ({ setEventCount, activeTab }: {activeTab:string, setEventCount: (count: number) => void }) => {
     const [isButtonLoading, setIsButtonLoading] = useState(false);
     const { auth: storedData } = useAppSelector(selectAuth);
     const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +42,7 @@ const handleButtonClick = (eventId: number, url: string) => {
         const fetchEvents = async () => {
             try {
                 setIsLoading(true);
-                const response = await apiRequest("/talentpro/upcoming-events", {
+                const response = await apiRequest("/talentpro/invites", {
                     method: "POST",
                     headers: {
                         revalidate: true,
@@ -55,7 +55,9 @@ const handleButtonClick = (eventId: number, url: string) => {
                 });
                 const eventsData = response?.jobs || [];
                 setEvents(eventsData);
-                setEventCount(eventsData.filter((event: any) => event.has_offered === true).length);
+                const openInvitesCount = eventsData.filter((event: any) => event.has_offered === false).length;
+                
+                setEventCount(openInvitesCount);
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -75,7 +77,7 @@ const handleButtonClick = (eventId: number, url: string) => {
     return (
         <div className="">
             {
-                events?.length === 0 || !events?.some((event: any) => event.has_offered === true) &&
+                events?.length === 0 || !events?.some((event: any) => event.has_offered === false) &&
                 <div className="w-full h-[80dvh] flex flex-col items-center justify-center gap-4">
                     <Image
                         src="/images/mobile/talentpro/no-events.svg"
@@ -85,12 +87,12 @@ const handleButtonClick = (eventId: number, url: string) => {
                         quality={100}
                         objectFit="fill"
                     />
-                    <p className="font-normal leading-[24px] text-[18px]">No Offered Events</p>
+                    <p className="font-normal leading-[24px] text-[18px]">No Open Invites</p>
                 </div>
             }
             {
                 events?.length > 0 &&
-                events.filter((event: any) => event.has_offered === true).map((event: any, id:any) => {
+                events.filter((event: any) => event.has_offered === false).map((event: any, id:any) => {
                     const truncatedTitle =
             event.title.length > MAX_TITLE_LENGTH
               ? `${event.title.substring(0, MAX_TITLE_LENGTH)}...`
@@ -156,7 +158,7 @@ const handleButtonClick = (eventId: number, url: string) => {
                             <div className="mt-3">
                                 <div className="flex flex-row">
                                 <div className="mr-2 flex items-center flex-shrink-0">
-                                    <Image src='/images/mobile/talent/schedule.svg' width={30} height={28} alt="glass" />
+                                        <Image src='/images/mobile/talent/schedule.svg' width={30} height={28} alt="glass" />
                                     </div>
                                     <div className="flex flex-col flex-grow">
                                                                         
@@ -188,18 +190,20 @@ const handleButtonClick = (eventId: number, url: string) => {
                                     Time
                                 </h3>
                                 <p className="text-[14px] font-semibold">
-                                {event.working_time.time} <span className="">  ({event.working_time.number_of_hours}) </span>
+                                    {event.working_time.time} <span className="">  ({event.working_time.number_of_hours}) </span>
                                 </p>
                                 </div>
                                 </div>
-                                {event.is_invited && (
+                            </div>
+                            {event.is_invited && (
                 <div className="bg-yellow-100 flex flex-row items-center gap-1 py-2 px-5 w-fit min-w-[100px] rounded-full mt-3">
                     <LuSparkles className="w-4 h-4 text-yellow-800" />
                     <p className="text-yellow-800 text-[14px] text-center font-[500]">The client invited you to this event</p>
                 </div>
             )}
-                            </div>
-                            <div className="h-[1px] bg-[#EBE6FF] w-[95%] my-4 self-start " />
+                            
+
+                            <div className="h-[1px] bg-[#EBE6FF] w-[95%] my-4 self-start" />
                            
                             {/* <div className="flex w-full items-start justify-end mt-8"> */}
                             <div className="flex flex-row w-full items-start justify-end mt-1 ">
@@ -236,4 +240,4 @@ const handleButtonClick = (eventId: number, url: string) => {
     );
 };
 
-export default OfferMobile;
+export default Invites;

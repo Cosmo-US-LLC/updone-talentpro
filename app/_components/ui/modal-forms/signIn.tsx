@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setAuth } from "@/app/lib/store/features/authSlice";
 import Cookies from "js-cookie";
 import { redirect, usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 // **Validation Schema**
 const SignInFormSchema = z.object({
@@ -95,26 +96,28 @@ const SignIn: React.FC<signInProps> = ({
   };
 
   function handleGoogleAuth() {
-    const isUpdoneDomain = window.location.hostname.includes("updone");
-    console.log(pathname + window.location.search);
-    if (process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK) {
-      console.log("Redirecting...");
-      Cookies.set("callbackUrl", pathname + window?.location?.search || "", {
-        expires: 30,
-        path: "/",
-        ...(isUpdoneDomain && { domain: ".updone.com" }),
-      });
-      router.push(process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK || "");
-    } else {
-      console.error("Unable to redirect to google auth due to missing url");
-    }
+    // console.log(process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window.location.search)
+    console.log(`${process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK}?callback_url=${process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window?.location?.search}` || "");
+    return;
+    // const isUpdoneDomain = window.location.hostname.includes("updone");
+    // console.log(pathname + window.location.search);
+    // if (process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK) {
+    //   console.log("Redirecting...");
+    //   Cookies.set("callbackUrl", process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window?.location?.search || "", {
+    //     expires: 30,
+    //     path: "/",
+    //     ...(isUpdoneDomain && { domain: ".updone.com" }),
+    //   });
+    //   router.push(process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK || "");
+    // } else {
+    //   console.error("Unable to redirect to google auth due to missing url");
+    // }
   }
 
   return (
     <div
-      className={`w-full p-6 transition-opacity ${
-        loading || loginSuccess ? "opacity-50" : "opacity-100"
-      }`}
+      className={`w-full p-6 transition-opacity ${loading || loginSuccess ? "opacity-50" : "opacity-100"
+        }`}
     >
       <h2 className="text-2xl font-bold text-center mb-2">Log in</h2>
       {/* <p className="text-sm text-gray-600 text-center mb-6">
@@ -122,17 +125,19 @@ const SignIn: React.FC<signInProps> = ({
       </p> */}
 
       {/* Google Login Button */}
-      <button
-        onClick={() => handleGoogleAuth()}
-        className="w-full flex items-center justify-center py-3 px-4 !rounded-full shadow-sm bg-[#F6F9FC] text-gray-600 font-medium"
-      >
-        <img
-          src="/images/signup/Google.svg"
-          alt="Google"
-          className="w-5 h-6 mr-2"
-        />
-        Google
-      </button>
+      <Link className="w-fit" href={`${process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK}?callback_url=${process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window?.location?.search}`}>
+        <button
+          // onClick={() => handleGoogleAuth()}
+          className="w-full flex items-center justify-center py-3 px-4 !rounded-full shadow-sm bg-[#F6F9FC] text-gray-600 font-medium"
+        >
+          <img
+            src="/images/signup/Google.svg"
+            alt="Google"
+            className="w-5 h-6 mr-2"
+          />
+          Google
+        </button>
+      </Link>
 
       <div className="relative text-center mt-3 mb-2">
         <span className="absolute inset-0 flex items-center">
@@ -154,11 +159,10 @@ const SignIn: React.FC<signInProps> = ({
           <input
             type="email"
             id="email"
-            className={`w-full px-4 py-2 border ${
-              errors.email
+            className={`w-full px-4 py-2 border ${errors.email
                 ? "border-red-500 shadow-lg shadow-red-200"
                 : "border-gray-300"
-            } !rounded-full`}
+              } !rounded-full`}
             placeholder="Email"
             {...register("email")}
           />
@@ -179,11 +183,10 @@ const SignIn: React.FC<signInProps> = ({
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              className={`w-full px-4 py-2 border ${
-                errors.password
+              className={`w-full px-4 py-2 border ${errors.password
                   ? "border-red-500 shadow-lg shadow-red-200"
                   : "border-gray-300"
-              } !rounded-full`}
+                } !rounded-full`}
               placeholder="Password"
               {...register("password")}
             />
@@ -217,13 +220,12 @@ const SignIn: React.FC<signInProps> = ({
         <button
           type="submit"
           disabled={loading || loginSuccess}
-          className={`w-full py-3 px-4 h-[48px] flex justify-center items-center text-white !rounded-full shadow-sm transition-all duration-500 ${
-            loading
+          className={`w-full py-3 px-4 h-[48px] flex justify-center items-center text-white !rounded-full shadow-sm transition-all duration-500 ${loading
               ? "!bg-[#2C2240] cursor-not-allowed"
               : loginSuccess
-              ? "!bg-[#2C2240] text-black font-semibold text-lg text-shadow-lg"
-              : "bg-[#350ABC] hover:bg-indigo-700"
-          }`}
+                ? "!bg-[#2C2240] text-black font-semibold text-lg text-shadow-lg"
+                : "bg-[#350ABC] hover:bg-indigo-700"
+            }`}
         >
           {loading ? (
             <div className="flex justify-center items-center gap-2 py-2">
@@ -247,17 +249,17 @@ const SignIn: React.FC<signInProps> = ({
 
       {/* Links for Sign Up and Reset Password */}
       {onSwitchToSignUp && (
-      <div className="text-center text-[14px] mt-6 space-y-2">
-        <p>
-          Don’t have an account?{" "}
-          <span
-            onClick={onSwitchToSignUp}
-            className="text-indigo-600 underline cursor-pointer"
-          >
-            Sign up
-          </span>
-        </p>
-      </div>
+        <div className="text-center text-[14px] mt-6 space-y-2">
+          <p>
+            Don’t have an account?{" "}
+            <span
+              onClick={onSwitchToSignUp}
+              className="text-indigo-600 underline cursor-pointer"
+            >
+              Sign up
+            </span>
+          </p>
+        </div>
       )}
     </div>
   );

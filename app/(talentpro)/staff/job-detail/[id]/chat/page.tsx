@@ -68,7 +68,7 @@ const ChatPage = () => {
     const sendMessage = async () => {
         const newMessage: Message = {
             id: Date.now(),
-            sender_user_id: storedData.user.id,
+            sender_user_id: storedData?.user?.id,
             receiver_user_id: null,
             message_body: messageBody,
             created_at: new Date().toISOString(),
@@ -128,7 +128,7 @@ const ChatPage = () => {
     return (
         <div className="flex flex-col h-screen">
             {/* Header */}
-            <div className=" fixed top-0 p-2 flex items-center space-x-2" onClick={() => {
+            <div className=" lg:hidden fixed top-0 p-2 flex items-center space-x-2" onClick={() => {
                 handleClickBack();
             }}>
                 <Image
@@ -184,7 +184,7 @@ const ChatPage = () => {
                                     )}
 
                                     {/* Elliptical Tail for Receiver */}
-                                    {msg.sender_user_id !== storedData.user.id && (
+                                    {msg.sender_user_id !== storedData?.user?.id && (
                                         <div
                                             style={{
                                                 position: "absolute",
@@ -200,7 +200,7 @@ const ChatPage = () => {
                                     )}
 
                                     <div className="flex flex-col">
-                                        {msg.sender_user_id !== storedData.user.id && (
+                                        {msg.sender_user_id !== storedData?.user?.id && (
                                             <div className="bg-[#FFC56E] px-4 w-fit rounded-full mb-2">
                                                 <p className="text-[14px] font-[400] leading-[24px]">{msg.sender.name}</p>
                                             </div>

@@ -184,7 +184,7 @@ export default function PersonalDetails() {
         </div>
     )}
             {/* Left Panel: Personal Details Form */}
-            <div className="lg:w-[500px] xl:w-[700px] 2xl:w-[800px] bg-white rounded-lg shadow-lg p-8">
+            <div className="lg:w-[440px] xl:w-[640px] 2xl:w-[800px] bg-white rounded-lg shadow-lg p-8">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-semibold text-gray-800">Personal Details</h2>
                     {!isEditing && (
@@ -293,7 +293,7 @@ export default function PersonalDetails() {
                 )}
             </div>
 
-            <div className="lg:w-[300px] xl:w-[360px] 2xl:w-[400px] bg-white rounded-lg shadow-lg p-8">
+            <div className="lg:w-[260px] xl:w-[320px] 2xl:w-[400px] bg-white rounded-lg shadow-lg p-8">
                 <h3 className="text-xl font-semibold mb-4">Profile Summary</h3>
                 <p className="text-gray-600 mb-2"><strong>Name:</strong> {formData.name}</p>
                 <p className="text-gray-600 mb-2"><strong>Display Name:</strong> {displayName}</p>

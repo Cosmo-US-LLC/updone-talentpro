@@ -119,7 +119,7 @@ const Signup: React.FC<SignupFormProps> = ({ onSwitchToSignIn, onSuccess }) => {
     console.log(pathname + window.location.search);
     if (process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK) {
       console.log("Redirecting...");
-      Cookies.set("callbackUrl", pathname + window?.location?.search || "", {
+      Cookies.set("callbackUrl", process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window?.location?.search || "", {
         expires: 30,
         path: "/",
         ...(isUpdoneDomain && { domain: ".updone.com" }),

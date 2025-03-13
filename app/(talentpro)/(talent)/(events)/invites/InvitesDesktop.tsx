@@ -4,33 +4,32 @@ import { apiRequest } from "@/app/lib/services";
 import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import { Loader2 } from 'lucide-react';
+import { LuSparkles } from "react-icons/lu";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const MyEventsDesktop = () => {
-    const [loadingEventId, setLoadingEventId] = useState<string | null>(null);
-    const [isButtonLoading, setIsButtonLoading] = useState(false);
+const InvitesDesktop = () => {
     const { auth: storedData } = useAppSelector(selectAuth);
     const [isLoading, setIsLoading] = useState(false);
     const [events, setEvents] = useState([]);
+    const [loadingEventId, setLoadingEventId] = useState<string | null>(null);
     const router = useRouter();
 
-    
     const serviceImages: { [key: string]: string } = {
         "Bartender": "/images/mobile/service-icons/bartender.svg",
   "Barback": "/images/mobile/service-icons/bar-back.svg",
   "Promo Model": "/images/mobile/service-icons/promo-model.svg",
   "Waiter": "/images/mobile/service-icons/waiter.svg",
   "Cocktail server": "/images/mobile/service-icons/coctail-server.svg",
-  "Event Helper": "/images/mobile/service-icons/event-helper.svg" 
+"Event Helper": "/images/mobile/service-icons/event-helper.svg" 
     };
 
     useEffect(() => {
-        const fetchMyEvents = async () => {
+        const fetchEvents = async () => {
             try {
                 setIsLoading(true);
-                const response = await apiRequest("/talentpro/my-events", {
+                const response = await apiRequest("/talentpro/invites", {
                     method: "POST",
                     headers: {
                         revalidate: true,
@@ -41,6 +40,7 @@ const MyEventsDesktop = () => {
                         page_size: 100,
                     },
                 });
+        
                 setEvents(response?.jobs);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -50,7 +50,7 @@ const MyEventsDesktop = () => {
         };
 
         if (storedData?.token) {
-            fetchMyEvents();
+            fetchEvents();
         }
     }, [storedData]);
 
@@ -61,29 +61,38 @@ const MyEventsDesktop = () => {
     return (
         <div className="pb-8">
             {
-                events?.length === 0 &&
+                (events?.length === 0 || !events?.some((event: any) => event.has_offered === false)) && (
                 <div className="w-full h-[80dvh] flex flex-col items-center justify-center gap-4">
                     <Image
                         src="/images/mobile/talentpro/no-events.svg"
-                        alt="np-events"
+                        alt="no-events"
                         width={200}
                         height={200}
                         quality={100}
                         objectFit="fill"
                     />
-                    <p className="font-normal leading-[24px] text-[18px]">No Assigned Events</p>
+                    <p className="font-normal leading-[24px] text-[18px]">No Open Invites</p>
                 </div>
+                )
             }
             {
                 events?.length > 0 &&
-                events.map((event: any, id) => {
+                events.filter((event: any) => event.has_offered === false).map((event: any, id:any) => {
                     return (
-                        <div key={id} className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">
-                            <div className={`${event.status === "assigned" ? "bg-[#EAFDE7]" : "bg-[#FDE7E7]"}  py-2 px-4 w-fit rounded-full`}>
-                                <p className={`${event.status === "assigned" ? "text-[#0C9000]" : "text-[#E60000]"} text-center  font-[500]`}>
+                        <div key={event.id} className="shadow-md rounded-[24px] flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] p-4">
+                              <div className="flex flex-row items-center gap-1 justify-between w-full">
+                            <div className="bg-[#E7F4FD] p-2 w-fit min-w-[100px] rounded-full">
+                                <p className="text-[#0076E6] text-center font-[500]">
                                     {event.status}
                                 </p>
                             </div>
+                            {event.is_invited && (
+                <div className="bg-yellow-100 flex flex-row items-center gap-2 py-2 px-6 w-fit min-w-[100px] rounded-full">
+                    <LuSparkles className="w-4 h-4 text-yellow-800" />
+                <p className="text-yellow-800 text-[14px] text-center font-[500]">The client invited you to this event</p>
+            </div>
+            )}
+            </div>
                             <p className="text-start text-[24px] font-medium pt-4">
                                 {event.title}
                             </p>
@@ -168,31 +177,31 @@ const MyEventsDesktop = () => {
                                 </div>
                             <div className="h-[1px] bg-[#EBE6FF] w-full my-4 self-center" />
                             <div className="flex flex-row items-center justify-end w-full">
-                                
-                                <div className="flex flex-row items-start justify-end w-[50%]">
+                               
+                                <div className="flex flex-row items-start justify-end w-[20%]">
                                     <div
                                         onClick={() => {
                                             setLoadingEventId(event.id);
                                             router.push(`/staff/job-detail/${event.id}`);
                                         }}
-                                        className="cursor-pointer bg-[#350ABC] rounded-full w-[50%] py-4 self-center"
+                                        className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
                                     >
                                         <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
                                             {loadingEventId === event.id ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
                                             ) : (
-                                                event.status === "completed" ? "View Details" : "Talk to Client"
+                                                event.has_offered ? "View Offer" : "Make an offer"
                                             )}
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    )
+                    );
                 })
             }
         </div>
     );
 };
 
-export default MyEventsDesktop;
+export default InvitesDesktop;

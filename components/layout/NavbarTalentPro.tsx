@@ -28,7 +28,7 @@ function NavbarTalentPro() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { auth: storedData } = useAppSelector(selectAuth);
-  console.log(storedData)
+  // console.log(storedData)
 
   const [clientLoad, setClientLoad] = useState(true);
   useEffect(()=>{
@@ -44,7 +44,7 @@ function NavbarTalentPro() {
       },
       body: {}
     }).then((res)=>{
-      console.log(res)
+      // console.log(res)
       // ✅ Clear Redux Authentication & Data States
       dispatch(clearAuth());
       dispatch(setStaffEmpty());
@@ -70,7 +70,7 @@ function NavbarTalentPro() {
       <nav className="px-4 h-full w-full flex justify-between items-center">
         <div className="flex gap-4">
           {/* Logo */}
-          <div className="px-6 relative">
+          {/* <div className="px-6 relative">
             <p className="text-3xl font-light text-[#4A4A4A] leading-[15px]">
               Talent<span className="font-medium text-[#6265F1]">Pro</span>
             </p>
@@ -87,7 +87,7 @@ function NavbarTalentPro() {
               </span>
             </p>
             <div className="h-[8px]"></div>
-          </div>
+          </div> */}
         </div>
 
         <DropdownMenu>

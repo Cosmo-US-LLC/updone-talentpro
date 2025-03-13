@@ -167,6 +167,17 @@ const MobileNavbar = ({ ...props }) => {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("offered");
     }
+    };
+
+  const handleClickInvites = () => {
+    // Check if the current URL path is the job detail page
+    if (pathname.includes("/job-detail")) {
+      // Redirect to the events page with the correct tab
+      router.push(`/?tab=invites`);
+    } else {
+      // Just set the active tab if it's not the job detail page
+      props.setActiveTab("invites");
+    }
   };
 
   useEffect(()=>{
@@ -247,6 +258,21 @@ const MobileNavbar = ({ ...props }) => {
 
 
                               <button
+                                onClick={handleClickInvites}
+                                className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${props.activeTab === "invites"
+                                  ? "text-[#5d0abc] font-semibold"
+                                  : "text-gray-500 hover:text-gray-700"
+                                  }`}
+                              >
+                               Open Invites
+                              </button>
+                            </div>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <div className="flex">
+
+
+                              <button
                                 onClick={handleClickEvents}
                                 className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${props.activeTab === "myevents"
                                   ? "text-[#5d0abc] font-semibold"
@@ -266,7 +292,7 @@ const MobileNavbar = ({ ...props }) => {
                                   : "text-gray-500 hover:text-gray-700"
                                   }`}
                               >
-                                Offered Events
+                                My offers
                               </button>
                             </div>
                           </SheetClose>

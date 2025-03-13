@@ -1,8 +1,10 @@
+
 import { useState, useEffect } from "react";
 import { apiRequest } from "@/app/lib/services";
 import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import { Loader } from "@/app/_components/ui/dashboard-loader";
+import { FaEdit } from "react-icons/fa";
 
 
 const allServices = [
@@ -18,7 +20,7 @@ const allServices = [
 export default function ServicesProvided() {
     const { auth: storedData } = useAppSelector(selectAuth);
     const [selectedServices, setSelectedServices] = useState<{ id: number; name: string; rate: number }[]>([]);
-    const [editingRates, setEditingRates] = useState<{ [key: number]: number }>({});
+    const [editingRates, setEditingRates] = useState<any>({});
     const [perHourRate, setPerHourRate] = useState<number>(0);
     const [initialServices, setInitialServices] = useState<{ id: number; name: string; rate: number }[]>([]);
     const [successMessage, setSuccessMessage] = useState("");
@@ -76,9 +78,9 @@ export default function ServicesProvided() {
         const numericValue = value.replace(/^0+/, '');
         const parsedValue = parseInt(numericValue, 10);
 
-        setEditingRates((prev) => ({
+        setEditingRates((prev: any) => ({
             ...prev,
-            [serviceId]: isNaN(parsedValue) ? 0 : parsedValue,
+            [serviceId]: isNaN(parsedValue) ? '' : parsedValue,
         }));
 
         let errorMessage = "";
@@ -226,7 +228,21 @@ export default function ServicesProvided() {
         })}
     </div>
 
-    <h3 className="text-[18px] font-medium text-gray-700 mb-6">Add your services per hour rate</h3>
+    <div className="flex justify-between items-center mb-6">
+    <h3 className="text-[18px] font-medium text-gray-700">Add your services per hour rate</h3>
+    
+    {/* Only show "Edit" button when not editing */}
+    {!isEditing && (
+        <button
+            onClick={() => setIsEditing(true)}
+            className="text-[#5d0abc] underline w-fit cursor-pointer hover:bg-transparent hover:text-[#5d0abc] flex items-center gap-2"
+        >
+            <FaEdit />
+            <span>Edit</span>
+        </button>
+    )}
+</div>
+
 
     <ul className="space-y-4 w-full">
         {selectedServices.map((service) => (
@@ -255,28 +271,28 @@ export default function ServicesProvided() {
         ))}
     </ul>
 
-    <div className="flex justify-end space-x-4 mt-6 w-full">
-        {isEditing && (
-            <button
-                onClick={cancelEdit}
-                className="px-6 py-2 text-[16px] w-[150px] rounded-sm bg-gray-200 text-gray-700 hover:bg-gray-300"
-            >
-                Cancel
-            </button>
-        )}
+    {isEditing && (
+    <div className="flex justify-end mt-6 w-full gap-4">
         <button
-            onClick={() => (isEditing ? saveRates() : setIsEditing(true))}
-            disabled={isEditing && !hasChanges()}
-            className={`px-6 py-2 text-[16px] rounded-sm ${isEditing
-                    ? hasChanges() 
-                        ? "bg-[#5d0abc] text-white w-[150px] hover:bg-[#4a078f]"
-                        : "bg-[#5d0abc] text-white w-[150px] opacity-50 cursor-not-allowed"
-                    : "bg-[#5d0abc] text-white w-[150px] hover:bg-[#4a078f]"
-                }`}
+            onClick={cancelEdit}
+            className="px-6 py-2 text-[16px] w-[150px] rounded-sm bg-gray-200 text-gray-700 hover:bg-gray-300"
         >
-            {isEditing ? "Save" : "Edit"}
+            Cancel
+        </button>
+        
+        <button
+            onClick={saveRates}
+            disabled={!hasChanges()}
+            className={`px-6 py-2 text-[16px] w-[150px] rounded-sm ${hasChanges()
+                ? "bg-[#5d0abc] text-white hover:bg-[#4a078f]"
+                : "bg-[#5d0abc] text-white opacity-50 cursor-not-allowed"
+            }`}
+        >
+            Save
         </button>
     </div>
+)}
+
 </div>
     );
     
