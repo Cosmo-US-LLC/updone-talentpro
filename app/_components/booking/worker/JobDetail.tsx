@@ -477,6 +477,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
             </div>
           )}
 
+          {storedData?.token && (
             
             <div>
               {datas?.is_completed ? (
@@ -526,7 +527,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                 />
               )}
             </div>
-          
+          )}
         </div>
       </div>
 

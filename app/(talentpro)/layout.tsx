@@ -22,7 +22,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     return (
         <SidebarProvider>
             <div className="max-md:hidden"></div>
-            <div className={`${!storedData?.token ? "blur-md" : ""}`}>
+            <div>
 
             <AppSidebar setLoggingOut={setLoggingOut}/>
             </div>
@@ -30,7 +30,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
                 {/* Prevent BlurredOverlay from showing when logging out */}
                 {!loggingOut && typeof window !== "undefined" && !storedData?.token && <BlurredOverlay />}
 
-                <div className={`${!storedData?.token ? "blur-md" : ""}`}>
+                <div >
                     <div className="hidden md:block">
                         {/* 🔹 Pass setLoggingOut to NavbarTalentPro */}
                         <NavbarTalentPro setLoggingOut={setLoggingOut} />
