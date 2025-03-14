@@ -55,7 +55,11 @@ import { BsEnvelopePaper } from "react-icons/bs";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { TbCalendarUp } from "react-icons/tb";
 import { PiHandCoins } from "react-icons/pi";
+import { Dispatch, SetStateAction } from "react"; // Import necessary types
 
+interface AppSidebarProps {
+  setLoggingOut: Dispatch<SetStateAction<boolean>>; // Define the type
+}
 
 const coinIcon = () => {
   return (
@@ -117,7 +121,7 @@ const items2 = [
   },
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.ComponentProps<typeof Sidebar>) {
   const { auth: storedData } = useAppSelector(selectAuth);
   const router = useRouter();
   const pathname = usePathname(); // Get the current path
@@ -159,6 +163,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }, [pathname]);
 
   const handleLogout = async () => {
+    setLoggingOut(true);
     await apiRequest("/logout", {
       method: "POST",
       headers: {
