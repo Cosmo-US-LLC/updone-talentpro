@@ -331,7 +331,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {isClient && storedData?.user?.name ? (
                 <>
                   <Avatar className="h-10 w-10 rounded-lg">
-                    <AvatarImage src={storedData?.user?.image} />
+                    <AvatarImage src={storedData?.user?.image} className="object-cover"/>
                     <AvatarFallback className="rounded-lg">{`
                         ${storedData?.user?.name?.split(" ")[0][0]}${
                       storedData?.user?.name?.split(" ").length > 1

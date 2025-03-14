@@ -24,10 +24,18 @@ import { useEffect, useState } from "react";
 import { FaBullseye } from "react-icons/fa";
 import { apiRequest } from "@/app/lib/services";
 
-function NavbarTalentPro() {
+import { Dispatch, SetStateAction } from "react"; // Import necessary types
+
+interface NavbarTalentProProps {
+  setLoggingOut: Dispatch<SetStateAction<boolean>>; // Define the type
+}
+
+function NavbarTalentPro({ setLoggingOut }: NavbarTalentProProps) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { auth: storedData } = useAppSelector(selectAuth);
+   // Add this state
+
   // console.log(storedData)
 
   const [clientLoad, setClientLoad] = useState(true);
@@ -36,6 +44,7 @@ function NavbarTalentPro() {
   }, [])
 
   const handleLogout = async () => {
+    setLoggingOut(true);
     await apiRequest("/logout", {
       method: "POST",
       headers: {
@@ -99,6 +108,7 @@ function NavbarTalentPro() {
                     src={
                       storedData?.user?.image
                     }
+                    className="object-cover"
                   />
                   <AvatarFallback>{`
                    ${storedData?.user?.name?.split(" ")[0][0]}${

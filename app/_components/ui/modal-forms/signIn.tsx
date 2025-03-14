@@ -97,7 +97,7 @@ const SignIn: React.FC<signInProps> = ({
 
   function handleGoogleAuth() {
     // console.log(process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window.location.search)
-    console.log(`${process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK}?callback_url=${process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window?.location?.search}` || "");
+    console.log(`${process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK}?callback_url=${process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window.location.search}` || "");
     return;
     // const isUpdoneDomain = window.location.hostname.includes("updone");
     // console.log(pathname + window.location.search);
@@ -125,7 +125,7 @@ const SignIn: React.FC<signInProps> = ({
       </p> */}
 
       {/* Google Login Button */}
-      <Link className="w-fit" href={`${process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK}?callback_url=${process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window?.location?.search}`}>
+      <Link className="w-fit" href={`${process.env.NEXT_PUBLIC_GOOGLE_AUTH_LINK}?callback_url=${process.env.NEXT_PUBLIC_TALENTPRO_URL + pathname + window.location.search}`}>
         <button
           // onClick={() => handleGoogleAuth()}
           className="w-full flex items-center justify-center py-3 px-4 !rounded-full shadow-sm bg-[#F6F9FC] text-gray-600 font-medium"
