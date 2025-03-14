@@ -28,7 +28,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
                 {/* Prevent BlurredOverlay from showing when logging out */}
                 {!loggingOut && typeof window !== "undefined" && !storedData?.token && <BlurredOverlay />}
 
-                <div className={`${!storedData.token ? "blur-md" : ""}`}>
+                <div className={`${!storedData?.token ? "blur-md" : ""}`}>
                     <div className="hidden md:block">
                         {/* 🔹 Pass setLoggingOut to NavbarTalentPro */}
                         <NavbarTalentPro setLoggingOut={setLoggingOut} />
