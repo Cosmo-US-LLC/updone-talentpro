@@ -22,8 +22,10 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     return (
         <SidebarProvider>
             <div className="max-md:hidden"></div>
-            <AppSidebar setLoggingOut={setLoggingOut}/>
+            <div className={`${!storedData?.token ? "blur-md" : ""}`}>
 
+            <AppSidebar setLoggingOut={setLoggingOut}/>
+            </div>
             <div className="flex flex-col max-h-[100vh] w-[100%] relative">
                 {/* Prevent BlurredOverlay from showing when logging out */}
                 {!loggingOut && typeof window !== "undefined" && !storedData?.token && <BlurredOverlay />}
