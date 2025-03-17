@@ -180,6 +180,17 @@ const MobileNavbar = ({ ...props }) => {
     }
   };
 
+  const handleClickHowit = () => {
+    // Check if the current URL path is the job detail page
+    if (pathname.includes("/job-detail")) {
+      // Redirect to the events page with the correct tab
+      router.push(`/?tab=howitworks`);
+    } else {
+      // Just set the active tab if it's not the job detail page
+      props.setActiveTab("howitworks");
+    }
+  };
+
   useEffect(()=>{
     setIsOpen(false);
   }, [pathname])
@@ -367,6 +378,20 @@ const MobileNavbar = ({ ...props }) => {
                                   }`}
                               >
                                 Services
+                              </button>
+                            </div>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <div className="flex ">
+
+                              <button
+                                onClick={handleClickHowit}
+                                className={`w-full p-2 ml-9  rounded-full text-left text-[14px] ${props.activeTab === "howitworks"
+                                  ? "text-[#5d0abc] font-semibold"
+                                  : "text-gray-500 hover:text-gray-700"
+                                  }`}
+                              >
+                                How it works
                               </button>
                             </div>
                           </SheetClose>

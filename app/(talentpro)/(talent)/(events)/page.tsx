@@ -13,6 +13,8 @@ import PaymentMethod from "./mobile/PaymentMethod";
 import OfferMobile from "./mobile/OfferMobile";
 import UpcomingEventsDesktop from "./UpcommingEventsDesktop";
 import Invites from "./mobile/Invites";
+import Howitworks from "./mobile/Howitworks";
+
 
 
 const PageContent = () => {
@@ -46,6 +48,8 @@ const PageContent = () => {
                 return "Services";
             case "offered":
                 return `Offered Events (${offeredEventCount})`;
+            case "howitworks":
+                return "How it works";    
             case "paymentmethod":
                 return "Payment Method";
            
@@ -81,6 +85,9 @@ const PageContent = () => {
                         )}
                           {activeTab === "services" && (
                             <Services activeTab={activeTab} />
+                        )}
+                         {activeTab === "howitworks" && (
+                            <Howitworks activeTab={activeTab} />
                         )}
                           {activeTab === "paymentmethod" && (
                             <PaymentMethod activeTab={activeTab}/>

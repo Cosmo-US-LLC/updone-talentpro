@@ -7,9 +7,9 @@ const cld = new Cloudinary({
   },
 });
 
-export default function HowitDesktop() {
+export default function Howitworks({activeTab}:{activeTab:string}) {
     return (
-        <div className="relative w-[800px] h-[450px] max-w-3xl bg-black mx-auto rounded-lg overflow-hidden shadow-lg mt-16">
+        <div className="relative w-full h-[450px]  bg-black mx-auto rounded-lg overflow-hidden shadow-lg mt-4">
             <AdvancedVideo 
                 cldVid={cld.video("demo2_zmm4af").quality("auto").format("auto")} 
                 controls 
