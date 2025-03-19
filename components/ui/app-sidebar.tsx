@@ -7,6 +7,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { LuLogOut } from "react-icons/lu";
 import { PiCallBell, PiCurrencyDollar, PiUsersThree } from "react-icons/pi";
 import { SlLocationPin } from "react-icons/sl";
+import { PiBookOpenText } from "react-icons/pi";
 
 import {
   Sidebar,
@@ -55,7 +56,8 @@ import { BsEnvelopePaper } from "react-icons/bs";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { TbCalendarUp } from "react-icons/tb";
 import { PiHandCoins } from "react-icons/pi";
-import { Dispatch, SetStateAction } from "react"; // Import necessary types
+import { Dispatch, SetStateAction } from "react";
+import { LiaHandsHelpingSolid } from "react-icons/lia"; // Import necessary types
 
 interface AppSidebarProps {
   setLoggingOut: Dispatch<SetStateAction<boolean>>; // Define the type
@@ -108,7 +110,12 @@ const items = [
   {
     title: "How it works",
     url: "/howitworks",
-    icon: PiCallBell,
+    icon: PiBookOpenText,
+  },
+  {
+    title: "Payments",
+    url: "/payments",
+    icon: CreditCard,
   },
 ];
 const items2 = [
@@ -118,12 +125,12 @@ const items2 = [
     icon: MdOutlineReviews,
     disabled: true
   },
-  {
-    title: "Payments",
-    url: "/payments",
-    icon: CreditCard,
-    disabled: true
-  },
+  // {
+  //   title: "Payments",
+  //   url: "/payments",
+  //   icon: CreditCard,
+  //   disabled: true
+  // },
 ];
 
 export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.ComponentProps<typeof Sidebar>) {
@@ -156,6 +163,8 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
         setActiveIndex(6);
       } else if (pathname.includes("/howitworks")) {
         setActiveIndex(7);
+      }else if (pathname.includes("/payments")) {
+        setActiveIndex(8);
       }
       // Check which link matches the current pathname
       // const activeLinkIndex = [...links, ...bottomLinks].findIndex((link) =>

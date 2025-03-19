@@ -524,6 +524,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                   }
                   totalHours={datas?.total_hours} // Passing total_hours
                   totalIncome={datas?.total_income}
+                  jobId={datas?.job?.id}
                 />
               )}
             </div>

@@ -181,7 +181,7 @@ const MyEventsDesktop = () => {
                                             {loadingEventId === event.id ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
                                             ) : (
-                                                event.status === "completed" ? "View Details" : "Talk to Client"
+                                                 "View Details"
                                             )}
                                         </p>
                                     </div>
