@@ -151,7 +151,7 @@ const ChatPage = () => {
     return (
         <div className="flex flex-col h-screen">
             {/* Header */}
-            <div className=" lg:hidden fixed top-0 p-2 flex items-center space-x-2" onClick={() => {
+            <div className=" fixed top-0 md:top-3 p-2 flex cursor-pointer items-center space-x-2" onClick={() => {
                 handleClickBack();
             }}>
                 <Image
