@@ -29,6 +29,29 @@ const ChatPage = () => {
     const router = useRouter();
     const inviteId = params.id;
 
+    function timeAgo(dateTimeString: string) {
+        const inputDate: any = new Date(dateTimeString);
+        const now: any = new Date();
+        const diffMs = now - inputDate;
+        
+        const minutes = Math.floor(diffMs / (1000 * 60));
+        const hours = Math.floor(diffMs / (1000 * 60 * 60));
+        const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        
+        if (minutes < 60) {
+          return `${minutes} minutes ago`;
+        } else if (hours < 24) {
+          return `${hours} hours ago`;
+        } else if (days < 7) {
+          return `${days} days ago`;
+        } else if (days < 14) {
+          return `1 week ago`;
+        } else {
+          const weeks = Math.floor(days / 7);
+          return `${weeks} weeks ago`;
+        }
+      }  
+
     useEffect(() => {
         const getMessages = async () => {
             const newData = await apiRequest(
@@ -200,15 +223,24 @@ const ChatPage = () => {
                                     )}
 
                                     <div className="flex flex-col">
-                                        {msg.sender_user_id !== storedData?.user?.id && (
-                                            <div className="bg-[#FFC56E] px-4 w-fit rounded-full mb-2">
-                                                <p className="text-[14px] font-[400] leading-[24px]">{msg.sender.name}</p>
-                                            </div>
-                                        )}
+                                    {msg.sender_user_id !== storedData?.user?.id && (
+    <div className="flex flex-col mb-2">
+        <div className="bg-[#FFC56E] px-4 w-fit rounded-full">
+            <p className="text-[14px] font-[500] leading-[24px]">{msg.sender.name}</p>
+        </div>
+        {msg.sender.last_active && (
+            <p className="text-[12px] font-[400] text-gray-500 mt-1">
+                Last seen {timeAgo(msg.sender.last_active)}
+            </p>
+        )}
+    </div>
+)}
+
                                         <p className="text-[14px] font-[400] leading-[28px]">
                                             {msg.message_body}
                                         </p>
                                     </div>
+                                    
                                 </div>
                             </div>
                         ))}
