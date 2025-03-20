@@ -1,9 +1,17 @@
+"use client"
 import { montserrat } from '@/app/lib/Fonts'
 
 import Image from 'next/image'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { Loader2 } from 'lucide-react'
 
-const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientName }: any) => {
+const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientName, jobId }: any) => {
+  const router = useRouter();
+  const [loadingButton, setLoadingButton] = useState<{ jobId: string | null; type: string | null }>({
+    jobId: null,
+    type: null,
+  });
   return (
 
     <div className='max-w-[1100px] mx-auto flex mb-[300px]'>
@@ -85,19 +93,26 @@ const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientN
               <ul className="text-sm flex flex-col p-4  space-y-[8px] list-disc">
                 <li>We have shared your contact information with the {clientName}. Expect a call anytime soon!</li>
                 <li>Discuss all the requirement with the Client in detail.</li>
-                <li>In case {clientName} doesn't contact you, message them within the platform.
-                  <ul className='list-disc ml-5 mt-1'>
-                    <li>
-                      Avaliable on Cellphone.
-                    </li>
-                    <li>
-                      Coming Soon on Desktop.
-                    </li>
-                  </ul>
-                </li>
                 <li>Contact us at info@updone.com in case you have any queries.</li>
+                {/* <li>In case {clientName} doesn't contact you, message them within the platform.
+                  
+                </li> */}
+              <div
+                    onClick={() => {
+                      setLoadingButton({ jobId: String(jobId), type: 'talkToClient' });
+                      router.push(`/staff/job-detail/${jobId}/chat`);
+                    }}
+                    className="w-fit cursor-pointer bg-[#350ABC] rounded-full py-2 px-10 self-center mx-auto"
+                  >
+                    <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
+                      {loadingButton.jobId === String(jobId) && loadingButton.type === 'talkToClient' ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        "Talk to Client"
+                      )}
+                    </p>
+                  </div>
               </ul>
-
             </div>
           </div>
         </div>

@@ -141,7 +141,7 @@ const ChatPage = () => {
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 md:mt-16">
+            <div className="flex-1 overflow-y-auto p-4 md:mt-24">
                 {Object.entries(groupedMessages).map(([date, msgs]: any) => (
                     <div key={date}>
                         {/* Date Timestamp */}

@@ -11,7 +11,6 @@ const AlreadyOffered = ({ hourRate, totalHours, totalIncome, jobId }: {
   hourRate: string | number; totalHours?: number;
   totalIncome?: number; jobId?: number;
 }) => {
-
   const router = useRouter();
   const [loadingButton, setLoadingButton] = useState<{ jobId: string | null; type: string | null }>({
     jobId: null,
@@ -59,7 +58,7 @@ const AlreadyOffered = ({ hourRate, totalHours, totalIncome, jobId }: {
                       setLoadingButton({ jobId: String(jobId), type: 'talkToClient' });
                       router.push(`/staff/job-detail/${jobId}/chat`);
                     }}
-                    className="w-fit cursor-pointer bg-[#350ABC] rounded-full py-2 px-4 self-center "
+                    className="w-fit cursor-pointer bg-[#350ABC] rounded-full py-2 px-10 self-center mx-auto"
                   >
                     <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
                       {loadingButton.jobId === String(jobId) && loadingButton.type === 'talkToClient' ? (

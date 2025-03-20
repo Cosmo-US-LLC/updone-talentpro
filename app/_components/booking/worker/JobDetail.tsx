@@ -501,6 +501,8 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                   totalIncome={datas?.total_income}
                   myWorkingDetails={datas?.assigned_worker}
                   clientName={datas?.job?.user?.name}
+                  jobId={datas?.invite?.id}
+
                 />
               ) : datas?.is_assigned && !datas?.is_assigned_to_me ? (
                 <AssignedToOther
@@ -524,7 +526,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                   }
                   totalHours={datas?.total_hours} // Passing total_hours
                   totalIncome={datas?.total_income}
-                  jobId={datas?.job?.id}
+                  jobId={datas?.invite?.id}
                 />
               )}
             </div>

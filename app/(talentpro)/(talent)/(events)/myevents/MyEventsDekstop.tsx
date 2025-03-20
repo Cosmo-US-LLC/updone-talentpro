@@ -9,8 +9,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const MyEventsDesktop = () => {
-    const [loadingEventId, setLoadingEventId] = useState<string | null>(null);
-    const [isButtonLoading, setIsButtonLoading] = useState(false);
+    const [loadingButton, setLoadingButton] = useState<{ eventId: string | null; type: string | null }>({
+        eventId: null,
+        type: null,
+      });    const [isButtonLoading, setIsButtonLoading] = useState(false);
     const { auth: storedData } = useAppSelector(selectAuth);
     const [isLoading, setIsLoading] = useState(false);
     const [events, setEvents] = useState([]);
@@ -42,6 +44,7 @@ const MyEventsDesktop = () => {
                     },
                 });
                 setEvents(response?.jobs);
+                console.log(response.jobs)
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -168,25 +171,43 @@ const MyEventsDesktop = () => {
                                 </div>
                             <div className="h-[1px] bg-[#EBE6FF] w-full my-4 self-center" />
                             <div className="flex flex-row items-center justify-end w-full">
-                                
-                                <div className="flex flex-row items-start justify-end w-[50%]">
-                                    <div
-                                        onClick={() => {
-                                            setLoadingEventId(event.id);
-                                            router.push(`/staff/job-detail/${event.id}`);
-                                        }}
-                                        className="cursor-pointer bg-[#350ABC] rounded-full w-[50%] py-4 self-center"
-                                    >
-                                        <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
-                                            {loadingEventId === event.id ? (
-                                                <Loader2 className="w-5 h-5 animate-spin" />
-                                            ) : (
-                                                 "View Details"
-                                            )}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                               
+                               <div className={`flex flex-row items-start justify-end ${event.status==="completed" ? "w-[20%]": "w-[40%]"}`}>
+                                       <div
+                                           onClick={() => {
+                                               setLoadingButton({ eventId: event.id, type: 'viewOffer' });
+                                               router.push(`/staff/job-detail/${event.id}`);
+                                           }}
+                                           className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
+                                       >
+                                           <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
+                                               {loadingButton === event.id ? (
+                                                   <Loader2 className="w-5 h-5 animate-spin" />
+                                               ) : (
+                                                   "View Details"
+                                               )}
+                                           </p>
+                                       </div>
+                                       {event.status==="assigned" && (
+                                           <div
+                                               onClick={() => {
+                                                   setLoadingButton({ eventId: event.id, type: 'talkToClient' });
+                                                   router.push(`/staff/job-detail/${event.invite_id}/chat`);
+                                               }}
+                                               className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center ml-1"
+                                           >
+                                               <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
+                                                   {loadingButton === event.id ? (
+                                                       <Loader2 className="w-5 h-5 animate-spin" />
+                                                   ) : (
+                                                       "Talk to Client"
+                                                   )}
+                                               </p>
+                                           </div>
+                                       )}
+   
+                                   </div>
+                               </div>
                         </div>
                     )
                 })
