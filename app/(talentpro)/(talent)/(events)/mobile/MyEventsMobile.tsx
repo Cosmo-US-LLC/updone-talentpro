@@ -206,7 +206,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                                         {buttonLoadingState[event.id] ? (
                                             <Loader2 className="w-5 h-5 animate-spin" />
                                         ) : (
-                                            event.status === "completed" ? "View Details" : "View Details"
+                                            "View Details"
                                         )}
                                     </p>
                                 </div>

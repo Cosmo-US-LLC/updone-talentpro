@@ -38,6 +38,7 @@ const handleButtonClick = (eventId: number, url: string) => {
     router.push(url);
 };
 
+
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -230,7 +231,7 @@ const handleButtonClick = (eventId: number, url: string) => {
 
 <div
   onClick={() => {
-    const url = `/staff/job-detail/${event.id}/chat`;
+    const url = `/staff/job-detail/${event.invite_id}/chat`;
     handleButtonClick(event.id, url);
   }}
   className="w-[50%] py-[10px] self-center"
