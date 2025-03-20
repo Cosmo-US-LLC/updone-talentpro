@@ -17,7 +17,7 @@ const serviceIcons = {
     "Waiter": "/images/mobile/service-icons/waiter.svg",
     "Cocktail server": "/images/mobile/service-icons/coctail-server.svg",
     "Event Helper": "/images/mobile/service-icons/event-helper.svg"
-  };
+};
 
 const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEventCount: (count: number) => void }) => {
     const [isButtonLoading, setIsButtonLoading] = useState(false);
@@ -89,7 +89,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
             }
             {
                 events?.length > 0 &&
-                events.map((event: any, id:any) => {
+                events.map((event: any, id: any) => {
                     const truncatedTitle =
                         event.title.length > MAX_TITLE_LENGTH
                             ? `${event.title.substring(0, MAX_TITLE_LENGTH)}...`
@@ -98,7 +98,7 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                         <div key={id} className="shadow-md rounded-md flex flex-col items-start justify-start mt-4 bg-[white] border border-1 border-[#EBE6FF] pl-[16px] pt-[16px] pb-[12px]">
                             <div className="flex flex-row">
                                 <div className="mr-2 ">
-                                <Image 
+                                    <Image
                                         src={serviceIcons[event.service_name as keyof typeof serviceIcons] || "/images/mobile/service-icons/event-helper.svg"}
                                         alt={event.service_name}
                                         width={32}
@@ -200,16 +200,36 @@ const MyEventsMobile = ({ setEventCount, activeTab }: { activeTab: string, setEv
                             <div className="flex flex-row w-full items-start justify-end mt-1">
                                 <div
                                     onClick={() => handleButtonClick(event.id, `/staff/job-detail/${event.id}?tab=${activeTab}`)}
-                                    className="bg-[#350ABC] rounded-sm w-[50%] py-2 mr-4 self-center"
+                                    className="underline rounded-sm w-[50%] py-2 mr- self-center"
                                 >
-                                    <p className="flex items-center justify-center text-center text-[white] font-[500] text-[14px] leading-[24px]">
+                                    <p className="flex items-center justify-center text-center text-[#5d0abc] font-[500] text-[14px] leading-[24px]">
                                         {buttonLoadingState[event.id] ? (
                                             <Loader2 className="w-5 h-5 animate-spin" />
                                         ) : (
-                                            event.status === "completed" ? "View Details" : "Talk to Client"
+                                            "View Details"
                                         )}
                                     </p>
                                 </div>
+                                {event.status==="assigned" &&(
+                                <div
+                                    onClick={() => {
+                                        const url = `/staff/job-detail/${event.invite_id}/chat`;
+                                        handleButtonClick(event.id, url);
+                                    }}
+                                    className="w-[50%] py-[10px] self-center"
+                                >
+                                    <p
+                                        className="flex items-center justify-center text-[14px] font-[500] leading-[24px] cursor-pointer text-[white] bg-[#350ABC] py-[10px] px-[16px] rounded-sm mr-4"
+
+                                    >
+                                        {buttonLoadingState[event.id] ? (
+                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                        ) : (
+                                            "Talk to Client"
+                                        )}
+                                    </p>
+                                </div>
+                                )}
                             </div>
                             {/* </div> */}
                         </div>

@@ -7,6 +7,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { LuLogOut } from "react-icons/lu";
 import { PiCallBell, PiCurrencyDollar, PiUsersThree } from "react-icons/pi";
 import { SlLocationPin } from "react-icons/sl";
+import { PiBookOpenText } from "react-icons/pi";
 
 import {
   Sidebar,
@@ -55,7 +56,12 @@ import { BsEnvelopePaper } from "react-icons/bs";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { TbCalendarUp } from "react-icons/tb";
 import { PiHandCoins } from "react-icons/pi";
+import { Dispatch, SetStateAction } from "react";
+import { LiaHandsHelpingSolid } from "react-icons/lia"; // Import necessary types
 
+interface AppSidebarProps {
+  setLoggingOut: Dispatch<SetStateAction<boolean>>; // Define the type
+}
 
 const coinIcon = () => {
   return (
@@ -101,6 +107,16 @@ const items = [
     url: "/services",
     icon: PiCallBell,
   },
+  {
+    title: "How it works",
+    url: "/howitworks",
+    icon: PiBookOpenText,
+  },
+  {
+    title: "Payments",
+    url: "/payments",
+    icon: CreditCard,
+  },
 ];
 const items2 = [
   {
@@ -109,15 +125,15 @@ const items2 = [
     icon: MdOutlineReviews,
     disabled: true
   },
-  {
-    title: "Payments",
-    url: "/payments",
-    icon: CreditCard,
-    disabled: true
-  },
+  // {
+  //   title: "Payments",
+  //   url: "/payments",
+  //   icon: CreditCard,
+  //   disabled: true
+  // },
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.ComponentProps<typeof Sidebar>) {
   const { auth: storedData } = useAppSelector(selectAuth);
   const router = useRouter();
   const pathname = usePathname(); // Get the current path
@@ -145,6 +161,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         setActiveIndex(5);
       } else if (pathname.includes("/services")) {
         setActiveIndex(6);
+      } else if (pathname.includes("/howitworks")) {
+        setActiveIndex(7);
+      }else if (pathname.includes("/payments")) {
+        setActiveIndex(8);
       }
       // Check which link matches the current pathname
       // const activeLinkIndex = [...links, ...bottomLinks].findIndex((link) =>
@@ -159,6 +179,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }, [pathname]);
 
   const handleLogout = async () => {
+    setLoggingOut(true);
     await apiRequest("/logout", {
       method: "POST",
       headers: {
@@ -331,7 +352,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {isClient && storedData?.user?.name ? (
                 <>
                   <Avatar className="h-10 w-10 rounded-lg">
-                    <AvatarImage src={storedData?.user?.image} />
+                    <AvatarImage src={storedData?.user?.image} className="object-cover"/>
                     <AvatarFallback className="rounded-lg">{`
                         ${storedData?.user?.name?.split(" ")[0][0]}${
                       storedData?.user?.name?.split(" ").length > 1

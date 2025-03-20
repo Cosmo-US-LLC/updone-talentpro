@@ -220,8 +220,8 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
     <>
       <div className="relative">
         {/* Blurred overlay */}
-        {!storedData?.token && <BlurredOverlay />}
-        <div className={`relative ${!storedData?.token ? "blur-md" : ""}`}>
+       
+        <div className={`relative`}>
           <section className={`max-w-[1100px]  mx-auto !bg-[#FFF] flex-col bg-[#FFF] flex gap-[32px] !p-4`}>
             <div className="w-full flex justify-start items-center">
               <div className="w-[100%] flex justify-between border-b border-[#86868626] ">
@@ -501,6 +501,8 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                   totalIncome={datas?.total_income}
                   myWorkingDetails={datas?.assigned_worker}
                   clientName={datas?.job?.user?.name}
+                  jobId={datas?.invite?.id}
+
                 />
               ) : datas?.is_assigned && !datas?.is_assigned_to_me ? (
                 <AssignedToOther
@@ -524,6 +526,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                   }
                   totalHours={datas?.total_hours} // Passing total_hours
                   totalIncome={datas?.total_income}
+                  jobId={datas?.invite?.id}
                 />
               )}
             </div>

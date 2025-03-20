@@ -38,6 +38,7 @@ const handleButtonClick = (eventId: number, url: string) => {
     router.push(url);
 };
 
+
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -226,7 +227,30 @@ const handleButtonClick = (eventId: number, url: string) => {
     )}
   </p>
 </div>
+{event.has_offered && (
 
+<div
+  onClick={() => {
+    const url = `/staff/job-detail/${event.invite_id}/chat`;
+    handleButtonClick(event.id, url);
+  }}
+  className="w-[50%] py-[10px] self-center"
+>
+  <p
+    className="flex items-center justify-center text-[14px] font-[500] leading-[24px] cursor-pointer 
+      
+       
+         text-[white] bg-[#350ABC] py-[10px] px-[16px] rounded-sm mr-4"
+    
+  >
+    {buttonLoadingState[event.id] ? (
+      <Loader2 className="w-5 h-5 animate-spin" />
+    ) : (
+        "Talk to Client"
+    )}
+  </p>
+</div>
+)}
 
                             </div>
                             {/* </div> */}

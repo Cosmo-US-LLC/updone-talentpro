@@ -33,6 +33,8 @@ import { TbCalendarUp } from "react-icons/tb";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { Skeleton } from "@/components/ui/skeleton";
 import { apiRequest } from "@/app/lib/services";
+import { LiaHandsHelpingSolid } from "react-icons/lia";
+import { PiBookOpenText } from "react-icons/pi";
 
 
 const MobileNavbar = ({ ...props }) => {
@@ -43,9 +45,8 @@ const MobileNavbar = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEventAccordionOpen, setIsEventAccordionOpen] = useState(true);
   const [isComingAccordionOpen, setIsComingAccordionOpen] = useState(true);
-  const [isOfferAccordionOpen, setIsOfferAccordionOpen] = useState(true);
   const [isProfileAccordionOpen, setIsProfileAccordionOpen] = useState(true);
-  const [isProfileSheetOpen, setIsProfileSheetOpen] = useState(false);
+  const [isGuideAccordionOpen, setIsGuideAccordionOpen] = useState(true);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleEventAccordion = () =>
@@ -54,6 +55,9 @@ const MobileNavbar = ({ ...props }) => {
     setIsComingAccordionOpen(!isComingAccordionOpen);
   const toggleProfileAccordion=()=>{
     setIsProfileAccordionOpen(!isProfileAccordionOpen)
+  }
+  const toggleGuideAccordion=()=>{
+    setIsGuideAccordionOpen(!isGuideAccordionOpen)
   }
 
   // Function to determine if the page belongs to "Talent Pro"
@@ -177,6 +181,17 @@ const MobileNavbar = ({ ...props }) => {
     } else {
       // Just set the active tab if it's not the job detail page
       props.setActiveTab("invites");
+    }
+  };
+
+  const handleClickHowit = () => {
+    // Check if the current URL path is the job detail page
+    if (pathname.includes("/job-detail")) {
+      // Redirect to the events page with the correct tab
+      router.push(`/?tab=howitworks`);
+    } else {
+      // Just set the active tab if it's not the job detail page
+      props.setActiveTab("howitworks");
     }
   };
 
@@ -370,6 +385,7 @@ const MobileNavbar = ({ ...props }) => {
                               </button>
                             </div>
                           </SheetClose>
+                         
                           {/* <SheetClose asChild>
                             <div className="flex">
 
@@ -388,6 +404,44 @@ const MobileNavbar = ({ ...props }) => {
                         </div>
                       </div>
                     </div>
+                    <div>
+                          <button
+                        onClick={toggleGuideAccordion}
+                        className="w-full flex  items-center justify-between bg-[#d7cefc] px-4 py-2 rounded-full text-left font-medium text-[#5d0abc]"
+                      >
+                     <PiBookOpenText className="h-6 w-6"/>
+                        <p className="mr-[72px]">Guide</p>
+                        <Image
+                          src={"/images/down-arrow3.svg"}
+                          alt="darrow"
+                          width={20}
+                          height={20}
+                          className={` ml-1 transition-transform duration-500 ease-in-out ${isGuideAccordionOpen ? "rotate-180" : ""
+                            }`}
+                        />
+                      </button>
+                            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isGuideAccordionOpen ? "max-h-[200px]" : "max-h-0"
+                          }`}>
+                        <div className="mt-2 space-y-2 px-4">
+
+                          <SheetClose asChild>
+                            <div className="flex ">
+
+                              <button
+                                onClick={handleClickHowit}
+                                className={`w-full p-2 ml-9  rounded-full text-left text-[14px] ${props.activeTab === "howitworks"
+                                  ? "text-[#5d0abc] font-semibold"
+                                  : "text-gray-500 hover:text-gray-700"
+                                  }`}
+                              >
+                                How it works
+                              </button>
+                            </div>
+                          </SheetClose>
+                          </div>
+                            </div>
+                          </div>
+                    
                     <div>
                       <button
                         onClick={toggleComingAccordion}
