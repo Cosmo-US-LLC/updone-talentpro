@@ -5,9 +5,21 @@ import { useAppSelector } from "@/app/lib/store/hooks";
 import { useError } from '@/app/lib/context/ErrorProvider';
 import { Loader } from "@/app/_components/ui/dashboard-loader";
 
+interface Payment {
+    payment_id: number;
+    amount: string;
+    payment_type: string;
+    status: string;
+  }
+  
+  interface EventPaymentGroup {
+    event_title: string;
+    payments: Payment[];
+  }
+
 export default function PaymentsDesktop() {
-  const [payments, setPayments] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+    const [payments, setPayments] = useState<EventPaymentGroup[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
   const { auth: storedData } = useAppSelector(selectAuth);
   const { handleError } = useError();
 
