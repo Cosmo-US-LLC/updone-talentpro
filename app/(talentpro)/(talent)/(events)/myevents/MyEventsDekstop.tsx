@@ -178,15 +178,17 @@ const MyEventsDesktop = () => {
                                                setLoadingButton({ eventId: event.id, type: 'viewOffer' });
                                                router.push(`/staff/job-detail/${event.id}`);
                                            }}
-                                           className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
-                                       >
-                                           <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
+                                           className="w-full cursor-pointer py-4 self-center relative group"
+                                           >
+                                           <p className="flex items-center justify-center text-center text-[#350ABC] font-[500] text-[18px] leading-[24px]">
                                                {loadingButton === event.id ? (
                                                    <Loader2 className="w-5 h-5 animate-spin" />
                                                ) : (
                                                    "View Details"
                                                )}
                                            </p>
+                                           <span className="absolute bottom-0 left-1/2 w-0 group-hover:w-full transition-all duration-300 ease-in-out h-[2px] bg-[#350ABC] transform -translate-x-1/2"></span>
+
                                        </div>
                                        {event.status==="assigned" && (
                                            <div

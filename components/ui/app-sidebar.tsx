@@ -109,7 +109,7 @@ const items = [
   },
   {
     title: "How it works",
-    url: "/howitworks",
+    url: "/how-it-works",
     icon: PiBookOpenText,
   },
   {
@@ -161,7 +161,7 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
         setActiveIndex(5);
       } else if (pathname.includes("/services")) {
         setActiveIndex(6);
-      } else if (pathname.includes("/howitworks")) {
+      } else if (pathname.includes("/how-it-works")) {
         setActiveIndex(7);
       }else if (pathname.includes("/payments")) {
         setActiveIndex(8);
