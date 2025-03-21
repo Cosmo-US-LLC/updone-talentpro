@@ -23,45 +23,46 @@ export default function HowitDesktop() {
           src="/images/thumbnail2.png"
           alt="Video Thumbnail"
           fill
-          className="object-cover "
+          className="object-cover"
         />
         <button
           onClick={() => setOpenModal(true)}
           className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/50 transition"
         >
-         <MdOutlinePlayCircle className="w-10 h-10 text-white"/>
+          <MdOutlinePlayCircle className="w-10 h-10 text-white" />
         </button>
       </div>
 
-    
       {openModal && (
-  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
-  onClick={() => setOpenModal(false)} // Close when clicking outside
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+          onClick={() => setOpenModal(false)} // Close when clicking outside
+        >
+          {/* Wrapper for modal and close button */}
+          <div className="relative">
+            {/* Close button */}
+            <div
+              onClick={() => setOpenModal(false)}
+              className="absolute -top-5 -right-4 z-[100] bg-black p-2 rounded-full shadow-xl cursor-pointer border border-white/20 hover:scale-110 transition-transform"
+            >
+              <X className="w-6 h-6 text-white" />
+            </div>
 
-  >
-    <div 
-          onClick={() => setOpenModal(false)}
-
-      className="absolute top-6 right-6 z-50 bg-black/80 p-2 rounded-full shadow-xl cursor-pointer border border-white/20 hover:scale-110 transition-transform"
-    >
-      <X className="w-6 h-6 text-white" />
-    </div>
-
-    {/* Phone modal */}
-    <div className="relative bg-black w-[300px] h-[600px] rounded-[40px] border-4 border-gray-300 overflow-hidden shadow-2xl flex flex-col"
-    onClick={(e) => e.stopPropagation()}
-    >
-      <AdvancedVideo
-        cldVid={cld.video("demo2_zmm4af").quality("auto").format("auto")}
-        controls
-        autoPlay
-        className="w-full h-full object-cover"
-      />
-    </div>
-  </div>
-)}
-
-
+            {/* Phone modal */}
+            <div
+              className="bg-black w-[300px] h-[600px] rounded-[40px] border-4 border-gray-300 overflow-hidden shadow-2xl flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <AdvancedVideo
+                cldVid={cld.video("demo2_zmm4af").quality("auto").format("auto")}
+                controls
+                autoPlay
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
