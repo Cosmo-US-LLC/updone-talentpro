@@ -181,20 +181,23 @@ const OfferedDesktop = () => {
                             <div className="flex flex-row items-center justify-end w-full">
                                
                             <div className={`flex flex-row items-start justify-end ${event.has_offered ? "w-[40%]": "w-[20%]"}`}>
-                                    <div
+                            <div
                                         onClick={() => {
                                             setLoadingButton({ eventId: event.id, type: 'viewOffer' });
                                             router.push(`/staff/job-detail/${event.id}`);
                                         }}
-                                        className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
+                                        className="w-full cursor-pointer py-4 self-center relative group"
                                     >
-                                        <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
+                                        <p className="flex items-center justify-center text-center text-[#350ABC] font-[500] text-[18px] leading-[24px]">
                                             {loadingButton === event.id ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
                                             ) : (
                                                 event.has_offered ? "View Offer" : "Make an offer"
                                             )}
                                         </p>
+
+                                        {/* Underline hover animation */}
+                                        <span className="absolute bottom-0 left-1/2 w-0 group-hover:w-full transition-all duration-300 ease-in-out h-[2px] bg-[#350ABC] transform -translate-x-1/2"></span>
                                     </div>
                                     {event.has_offered && (
                                         <div

@@ -60,7 +60,7 @@ const PageContent = () => {
         return (
             <div className="flex flex-col">
                 <MobileNavbar activeTab={activeTab} setActiveTab={setActiveTab} />
-                <div className="w-full h-[100vh] p-6 bg-[#F6F9FC] overflow-y-auto">
+                <div className="w-full h-[100dvh] p-6 bg-[#F6F9FC] overflow-y-auto">
                     <div className="mt-20">
                         <div className="w-fit font-semibold text-[18px] text-[#5d0abc] pb-1 border-b-2 border-[#5d0abc]">
                             <h3>{pageTitle}</h3>
