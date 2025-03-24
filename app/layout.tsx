@@ -59,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        
         {/* Intercom Configuration */}
         <Script
           dangerouslySetInnerHTML={{
@@ -137,7 +138,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </>
         )}
       </head>
-      <body className={`${poppins.className} overflow-hidden h-[100svh]`}>
+      <body className={`${poppins.className}`}>
         {/* Google Tag Manager Production */}
         {isProd && (
           <noscript>

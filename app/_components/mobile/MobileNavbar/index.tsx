@@ -60,6 +60,10 @@ const MobileNavbar = ({ ...props }) => {
     setIsGuideAccordionOpen(!isGuideAccordionOpen)
   }
 
+  const handleNavigate = (path: string) => {
+    router.push(`/${path}`);
+    setIsOpen(false);
+  };
   // Function to determine if the page belongs to "Talent Pro"
   const isTalentProPage =
     typeof window !== "undefined" &&
@@ -257,58 +261,54 @@ const MobileNavbar = ({ ...props }) => {
                           <SheetClose asChild>
                             <div className="flex ">
 
-                              <button
-                                onClick={handleClickUpcoming}
-                                className={`w-full p-2 ml-9  rounded-full text-left text-[14px] ${props.activeTab === "upcoming"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                Upcoming Events
-                              </button>
+                            <button
+  onClick={() => handleNavigate("upcoming-events")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes ("/talent/events/upcoming-events") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  Upcoming Events
+</button>
                             </div>
                           </SheetClose>
                           <SheetClose asChild>
                             <div className="flex">
 
 
-                              <button
-                                onClick={handleClickInvites}
-                                className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${props.activeTab === "invites"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                               Open Invites
-                              </button>
+                            <button
+  onClick={() => handleNavigate("invites")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/invites") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  Open Invites
+</button>
                             </div>
                           </SheetClose>
                           <SheetClose asChild>
                             <div className="flex">
 
 
-                              <button
-                                onClick={handleClickEvents}
-                                className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${props.activeTab === "myevents"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                My Events
-                              </button>
+                            <button
+  onClick={() => handleNavigate("myevents")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/myevents") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  My Events
+</button>
                             </div>
                           </SheetClose>
                           <SheetClose asChild>
                             <div className="flex">
-                              <button
-                                onClick={handleClickOffered}
-                                className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${props.activeTab === "offered"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                My offers
-                              </button>
+                            <button
+  onClick={() => handleNavigate("offered")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/offered") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  My Offers
+</button>
                             </div>
                           </SheetClose>
                         </div>
@@ -345,44 +345,41 @@ const MobileNavbar = ({ ...props }) => {
                           <SheetClose asChild>
                             <div className="flex ">
 
-                              <button
-                                onClick={handleClickPersonal}
-                                className={`w-full p-2 ml-9  rounded-full text-left text-[14px] ${props.activeTab === "personaldetails"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                Personal Details
-                              </button>
+                            <button
+  onClick={() => handleNavigate("personaldetails")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/personaldetails") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  Personal Details
+</button>
                             </div>
                           </SheetClose>
                           <SheetClose asChild>
                             <div className="flex">
 
 
-                              <button
-                                onClick={handleClickLogin}
-                                className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${props.activeTab === "logindetails"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                Login Details
-                              </button>
+                            <button
+  onClick={() => handleNavigate("logindetails")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/logindetails") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  Login Details
+</button>
                             </div>
                           </SheetClose>
                           <SheetClose asChild>
                             <div className="flex ">
 
-                              <button
-                                onClick={handleClickServices}
-                                className={`w-full p-2 ml-9  rounded-full text-left text-[14px] ${props.activeTab === "services"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                Services
-                              </button>
+                            <button
+  onClick={() => handleNavigate("services")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/services") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  Services
+</button>
                             </div>
                           </SheetClose>
                          
@@ -427,15 +424,14 @@ const MobileNavbar = ({ ...props }) => {
                           <SheetClose asChild>
                             <div className="flex ">
 
-                              <button
-                                onClick={handleClickHowit}
-                                className={`w-full p-2 ml-9  rounded-full text-left text-[14px] ${props.activeTab === "howitworks"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                How it works
-                              </button>
+                            <button
+  onClick={() => handleNavigate("howitworks")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/howitworks") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  How It Works
+</button>
                             </div>
                           </SheetClose>
                           </div>

@@ -27,7 +27,8 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
   const router = useRouter();
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const searchParams = useSearchParams();
-  const activeTab = searchParams.get("tab") || "upcoming";
+const returnUrl = searchParams.get("returnUrl");
+
 
   const customStyles = {
     content: {
@@ -128,19 +129,19 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
 
   const handleButtonClick = () => {
     if (alreadyOffered === true && isAssigned === true && isCompleted === false && isAssignedToMe) {
-      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat`);
+      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat${returnUrl ? `?returnUrl=${returnUrl}` : ''}`)
       return;
     }
     if (alreadyOffered === true && isAssigned === true && isCompleted === false && isAssignedToMe) {
-      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat`);
+      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat${returnUrl ? `?returnUrl=${returnUrl}` : ''}`)
       return;
     }
     if (alreadyOffered === true && isAssigned === false) {
-      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat`);
+      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat${returnUrl ? `?returnUrl=${returnUrl}` : ''}`)
       return;
     }
     if (isAssigned === true && isAssignedToMe === true) {
-      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat`);
+      router.push(`/staff/job-detail/${jobData?.invite?.id}/chat${returnUrl ? `?returnUrl=${returnUrl}` : ''}`)
       return;
     }
     setIsButtonLoading(false);
@@ -163,6 +164,16 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
     return false;
   }
 
+  const handleBackClick = () => {
+    if (returnUrl) {
+      router.push(returnUrl);
+    } else {
+      router.push("/upcoming"); // fallback
+    }
+  };
+  
+  
+
   if (loggedIn === false) {
     return <LoginToUnlock />;
   }
@@ -179,22 +190,22 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
   if (loggedIn === true) {
     if (modalIsOpen === true) {
       return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen ">
           <MobileNavbar />
-          <div className="pt-20">
-            <MakeOffer jobData={jobData} setModalIsOpen={setModalIsOpen} />
-          </div>
+    <div className="pt-20 ">
+      <MakeOffer jobData={jobData} setModalIsOpen={setModalIsOpen} />
+    </div>
+  
         </div>
       )
     } else {
       return (
         <div className="flex flex-col h-[100dvh] relative">
           <MobileNavbar className="fixed top-0 w-full z-10" />
-          <div className="flex-1 overflow-y-auto mt-20 pb-32">
+          <div className="flex-1 overflow-y-auto mt-20 mb-4">
             <div
-              onClick={() => {
-                router.push(`/?tab=${activeTab}`)
-              }}
+               onClick={handleBackClick}
+
               className="flex flex-row items-center justify-start gap-1 mb-4 mx-4">
               <Image
                 src="/images/mobile/talentpro/left.svg"
@@ -322,9 +333,7 @@ const TalentMobile = ({ jobId }: { jobId: any }) => {
             {
               modalIsOpen === false && (
                 <div
-                  style={{ boxShadow: "0 -8px 12px rgba(0, 0, 0, 0.1)" }}
-                  className={`fixed bottom-0 bg-[white] flex flex-row w-full ${jobData?.job?.status === "completed" ? "h-30" : "h-20"} rounded-t-2xl items-center justify-center border-[black]`}>
-                  {
+                  className={` flex flex-row w-fullrounded-t-2xl items-center justify-center border-[black] mt-8`}>                  {
                     jobData?.unread_message_count > 0 &&
                     <div className="p-2 flex flex-row justify-center items-center absolute bg-[#C70101] h-[24px] w-[24px] rounded-full bottom-[60%] right-[25%] z-[99]">
                       <p className="text-[white] text-[12px]">{jobData?.unread_message_count > 10 ? "10+" : jobData?.unread_message_count}</p>

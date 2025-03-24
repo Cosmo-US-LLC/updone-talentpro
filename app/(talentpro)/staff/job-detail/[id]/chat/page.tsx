@@ -5,7 +5,7 @@ import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import moment from "moment";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 type Message = {
@@ -28,6 +28,9 @@ const ChatPage = () => {
     const { handleError } = useError();
     const router = useRouter();
     const inviteId = params.id;
+    const searchParams = useSearchParams();
+const returnUrl = searchParams.get("returnUrl");
+
 
     function timeAgo(dateTimeString: string) {
         const inputDate: any = new Date(dateTimeString);
@@ -145,8 +148,13 @@ const ChatPage = () => {
     }, {});
 
     const handleClickBack = () => {
-        router.push(`/staff/job-detail/${jobId}`)
+        if (returnUrl) {
+            router.push(`/staff/job-detail/${jobId}?returnUrl=${returnUrl}`);
+        } else {
+            router.push(`/staff/job-detail/${jobId}`);
+        }
     };
+    
 
     return (
         <div className="flex flex-col h-screen">

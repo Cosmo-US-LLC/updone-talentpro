@@ -120,14 +120,6 @@ const page: React.FC = () => {
     router.push(`/staff/job-detail/${jobId}`);
   };
 
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     const value = e.target.value;
-  //     const parsedValue = value === "" ? "" : parseInt(value, 10);
-  //     if (!isNaN(parsedValue) || value === "") {
-  //         setAdditionalHours(parsedValue);
-  //     }
-  // };
-
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center h-[100dvh]">
@@ -161,15 +153,13 @@ const page: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh]">
+    <div className="flex flex-col h-[100dvh] ">
       <div>
         <MobileNavbar />
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto pb-40">
-        {" "}
-        {/* Added padding-bottom */}
+      <div className="flex-1 overflow-y-auto pb-4 overflow-x-hidden">
         {!showReceipt ? (
           <>
             <div className="flex justify-center mt-[120px]">
@@ -334,8 +324,8 @@ const page: React.FC = () => {
           </>
         ) : (
           <>
-            <div className="flex flex-col h-[100vh] justify-center px-8">
-              <div className="flex flex-col items-center   ">
+            <div className="flex flex-col justify-center px-8">
+              <div className="flex flex-col items-center">
                 <div className="mb-6">
                   <Image
                     src="/images/OBJECTS.svg"
@@ -345,7 +335,7 @@ const page: React.FC = () => {
                     alt=""
                   />
                 </div>
-                <div className=" mb-14 flex flex-col gap-4">
+                <div className="mb-14 flex flex-col gap-4">
                   <h6 className="text-[24px] font-[500]">
                     {
                       jobData?.payment_status === "release_approved" ?
@@ -356,51 +346,29 @@ const page: React.FC = () => {
                   </h6>
                   {
                     jobData?.payment_status === "release_requested" &&
-                    <p className=" text-[16px] font-[400]">
+                    <p className="text-[16px] font-[400]">
                       You will receive your payment in <br /> 2-3 working days.
                     </p>
                   }
                   {
                     jobData?.payment_status === "release_requested" &&
-                    <p className=" text-[12px] italic font-[400]">
+                    <p className="text-[12px] italic font-[400]">
                       <em>The client will have the option to tip <br />
                         before the final payment!</em>
                     </p>
                   }
                 </div>
               </div>
-
-              {/* <div className="flex justify-center mt-[50px] mb-6">
-                <div className="flex items-start justify-between">
-                  <button
-                    className="text-[#FFF] mt-6 py-[16px] px-[50px] mx-auto rounded-full leading-[16px] font-[400] text-[16px] bg-[#2C2240] hover:bg-[#6b46ff]"
-                    onClick={handleBackToJobDetails}
-                  >
-                    Back to job details
-                  </button>
-                </div>
-              </div> */}
             </div>
           </>
         )}
-      </div>
 
-      {/* Fixed Bottom Div */}
-      <div
-        style={{ boxShadow: "0 -8px 12px rgba(0, 0, 0, 0.1)" }}
-        className="fixed bottom-0 left-0 w-full bg-white rounded-t-3xl shadow-xl z-10"
-      >
-        {/* <div className="flex justify-center items-center font-light pl-4 text-sm">
-          <h6>
-            The client will have the option to tip <br />
-            <span className="pl-6">before the final payment!</span>
-          </h6>
-        </div> */}
-        <div className="flex justify-center  py-6  ">
+        {/* Button now part of the page content */}
+        <div className="flex justify-center py-6 px-4">
           {jobData?.payment_status === "release_requested" ? (
             <button
               disabled={isButtonLoading}
-              className="text-[#FFF] py-[16px] min-w-[250px] mx-auto rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
+              className="text-[#FFF] py-[16px] w-full max-w-[350px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
               onClick={handleBackToJobDetails}
             >
               {isButtonLoading ? (
@@ -411,7 +379,7 @@ const page: React.FC = () => {
             </button>
           ) : (
             <button
-              className={`bg-[#350ABC] min-w-[250px] text-[#FFF] py-[16px] mx-auto rounded-full leading-[16px] font-[400] text-[16px]`}
+              className={`bg-[#350ABC] w-full max-w-[350px] text-[#FFF] py-[16px] rounded-full leading-[16px] font-[400] text-[16px]`}
               onClick={() => {
                 if (jobData.payment_status !== "release_requested") {
                   if (jobData.payment_status === "release_approved") {

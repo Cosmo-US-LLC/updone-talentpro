@@ -86,7 +86,7 @@ const InvitesDesktop = () => {
                                     {event.status}
                                 </p>
                             </div>
-                            {event.is_invited && (
+                            {!!Number(event.is_invited) && (
                 <div className="bg-yellow-100 flex flex-row items-center gap-2 py-2 px-6 w-fit min-w-[100px] rounded-full">
                     <LuSparkles className="w-4 h-4 text-yellow-800" />
                 <p className="text-yellow-800 text-[14px] text-center font-[500]">The client invited you to this event</p>
