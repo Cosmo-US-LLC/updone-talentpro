@@ -364,7 +364,7 @@ const page: React.FC = () => {
         )}
 
         {/* Button now part of the page content */}
-        <div className=" flex justify-center py-6 px-4">
+        <div className="w-[300px] flex items-center mx-auto justify-center py-6 px-4">
           {jobData?.payment_status === "release_requested" ? (
             <button
               disabled={isButtonLoading}

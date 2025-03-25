@@ -199,7 +199,7 @@ const MyEventsMobile = ({ setEventCount }: {  setEventCount: (count: number) => 
                             {/* <div className="flex w-full items-start justify-end mt-8"> */}
                             <div className="flex flex-row w-full items-start justify-end mt-1">
                                 <div
-                                    onClick={() => handleButtonClick(`complete-${event.id}`, `/staff/job-detail/${event.id}?returnUrl=/myevents`)}
+                                    onClick={() => handleButtonClick(`complete-${event.id}`, `/staff/job-detail/${event.id}?returnUrl=/my-events`)}
                                     className="underline rounded-sm w-[50%] py-2 mr- self-center"
                                 >
                                     <p className="flex items-center justify-center text-center text-[#5d0abc] font-[500] text-[14px] leading-[24px]">

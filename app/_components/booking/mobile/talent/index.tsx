@@ -127,6 +127,9 @@ const returnUrl = searchParams.get("returnUrl");
     return "Submit an Offer";
   };
 
+  const buttonLabel = bottomButtonText();
+
+
   const handleButtonClick = () => {
     if (alreadyOffered === true && isAssigned === true && isCompleted === false && isAssignedToMe) {
       router.push(`/staff/job-detail/${jobData?.invite?.id}/chat${returnUrl ? `?returnUrl=${returnUrl}` : ''}`)
@@ -346,7 +349,7 @@ const returnUrl = searchParams.get("returnUrl");
                       {
                         jobData?.job?.status === "completed" ? (
                           <>
-                            <div className="flex pt-4 flex-row">
+                            <div className="flex pt-16 flex-row">
                               <div className="pb-4 mr-4 flex justify-center">
                                 <Image
                                   alt="unread-icon"
@@ -383,7 +386,7 @@ const returnUrl = searchParams.get("returnUrl");
                           <>
                             <div className="flex flex-col">
                               <div className="mr-8">
-                                <div className="pl-8">
+                                <div className={`pl-8 ${ buttonLabel === "Submit an Offer" ? "mt-16" : ""} `}>
                                   <button
                                     disabled={isButtonLoading}
                                     onClick={() => {
