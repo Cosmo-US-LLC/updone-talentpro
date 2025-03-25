@@ -213,7 +213,7 @@ const MyEventsMobile = ({ setEventCount }: {  setEventCount: (count: number) => 
                                 {event.status==="assigned" &&(
                                 <div
                                     onClick={() => {
-                                        const url = `/staff/job-detail/${event.invite_id}/chat?returnUrl=/myevents`;
+                                        const url = `/staff/job-detail/${event.invite_id}/chat?returnUrl=/my-events`;
                                         handleButtonClick(event.id, url);
                                     }}
                                     className="w-[50%] py-[10px] self-center"

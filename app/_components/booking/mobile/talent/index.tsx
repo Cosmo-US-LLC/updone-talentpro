@@ -168,7 +168,7 @@ const returnUrl = searchParams.get("returnUrl");
     if (returnUrl) {
       router.push(returnUrl);
     } else {
-      router.push("/upcoming"); // fallback
+      router.push("/upcoming-events"); // fallback
     }
   };
   

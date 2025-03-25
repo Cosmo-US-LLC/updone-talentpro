@@ -89,17 +89,17 @@ const items = [
   },
   {
     title: "My Events",
-    url: "/myevents",
+    url: "/my-events",
     icon: FaRegCalendarCheck,
   },
   {
     title: "Personal Details",
-    url: "/personaldetails",
+    url: "/personal-details",
     icon: CgProfile,
   },
   {
     title: "Login Details",
-    url: "/logindetails",
+    url: "/login-details",
     icon: TbLogin2,
   },
   {

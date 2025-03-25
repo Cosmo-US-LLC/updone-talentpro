@@ -290,9 +290,9 @@ const MobileNavbar = ({ ...props }) => {
 
 
                             <button
-  onClick={() => handleNavigate("myevents")}
+  onClick={() => handleNavigate("my-events")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/myevents") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    pathname?.includes( "/talent/events/my-events") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   My Events
@@ -346,9 +346,9 @@ const MobileNavbar = ({ ...props }) => {
                             <div className="flex ">
 
                             <button
-  onClick={() => handleNavigate("personaldetails")}
+  onClick={() => handleNavigate("personal-details")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/personaldetails") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    pathname?.includes( "/talent/events/personal-details") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   Personal Details
@@ -360,9 +360,9 @@ const MobileNavbar = ({ ...props }) => {
 
 
                             <button
-  onClick={() => handleNavigate("logindetails")}
+  onClick={() => handleNavigate("login-details")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/logindetails") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    pathname?.includes( "/talent/events/login-details") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   Login Details
@@ -425,9 +425,9 @@ const MobileNavbar = ({ ...props }) => {
                             <div className="flex ">
 
                             <button
-  onClick={() => handleNavigate("howitworks")}
+  onClick={() => handleNavigate("how-it-works")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/howitworks") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    pathname?.includes( "/talent/events/how-it-works") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   How It Works

@@ -3,7 +3,7 @@ import useIsMobile from "@/app/lib/hooks/useMobile";
 import InvitesDesktop from "./InvitesDesktop";
 import { useState } from "react";
 import MobileNavbar from "@/app/_components/mobile/MobileNavbar";
-import MyEventsMobile from "../myevents/MyEventsMobile";
+import MyEventsMobile from "../my-events/MyEventsMobile";
 import Invites from "./InvitesMobile";
 
 const Page = () => {
