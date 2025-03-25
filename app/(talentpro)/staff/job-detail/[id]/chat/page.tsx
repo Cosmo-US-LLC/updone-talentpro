@@ -157,9 +157,9 @@ const returnUrl = searchParams.get("returnUrl");
     
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-[100dvh]">
             {/* Header */}
-            <div className=" fixed top-0 md:top-3 p-2 flex cursor-pointer items-center space-x-2" onClick={() => {
+            <div className=" sticky top-0 md:top-3 p-2 flex cursor-pointer items-center space-x-2" onClick={() => {
                 handleClickBack();
             }}>
                 <Image
@@ -172,7 +172,7 @@ const returnUrl = searchParams.get("returnUrl");
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 md:mt-24">
+            <div className="flex-1 overflow-y-auto p-4  md:mt-24">
                 {Object.entries(groupedMessages).map(([date, msgs]: any) => (
                     <div key={date}>
                         {/* Date Timestamp */}
