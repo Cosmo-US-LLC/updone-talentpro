@@ -324,7 +324,7 @@ const page: React.FC = () => {
           </>
         ) : (
           <>
-            <div className="flex flex-col justify-center px-8 pt-16 ">
+            <div className="flex flex-col justify-center px-8 pt-20 ">
               <div className="flex flex-col items-center">
                 <div className="mb-6">
                   <Image

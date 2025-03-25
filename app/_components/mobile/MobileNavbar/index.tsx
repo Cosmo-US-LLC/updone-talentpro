@@ -287,6 +287,18 @@ const MobileNavbar = ({ ...props }) => {
                           </SheetClose>
                           <SheetClose asChild>
                             <div className="flex">
+                            <button
+  onClick={() => handleNavigate("offered")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/offered") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  My Offers
+</button>
+                            </div>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <div className="flex">
 
 
                             <button
@@ -299,18 +311,7 @@ const MobileNavbar = ({ ...props }) => {
 </button>
                             </div>
                           </SheetClose>
-                          <SheetClose asChild>
-                            <div className="flex">
-                            <button
-  onClick={() => handleNavigate("offered")}
-  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/offered") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
-  }`}
->
-  My Offers
-</button>
-                            </div>
-                          </SheetClose>
+                        
                         </div>
                       </div>
                     </div>
