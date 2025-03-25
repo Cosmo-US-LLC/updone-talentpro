@@ -200,9 +200,9 @@ const returnUrl = searchParams.get("returnUrl");
       )
     } else {
       return (
-        <div className="flex flex-col h-[100dvh] relative">
+        <div className="flex flex-col relative">
           <MobileNavbar className="fixed top-0 w-full z-10" />
-          <div className="flex-1 overflow-y-auto mt-20 mb-4">
+          <div className=" mt-20 mb-4">
             <div
                onClick={handleBackClick}
 

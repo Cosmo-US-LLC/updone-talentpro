@@ -153,16 +153,16 @@ const page: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] ">
+    <div className="flex flex-col ">
       <div>
         <MobileNavbar />
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto pb-4 overflow-x-hidden">
+      <div className="  overflow-y-auto pb-4 overflow-x-hidden">
         {!showReceipt ? (
           <>
-            <div className="flex justify-center mt-[120px]">
+            <div className="flex justify-center mt-[120px]  ">
               <div className="flex flex-col items-center w-[349px] border-2 border-gray-200 rounded-xl bg-[#e0daf9] px-[11.831px] py-[15.774px]">
                 <div className="mb-6">
                   <Image
@@ -324,7 +324,7 @@ const page: React.FC = () => {
           </>
         ) : (
           <>
-            <div className="flex flex-col justify-center px-8">
+            <div className="flex flex-col justify-center px-8 pt-16 ">
               <div className="flex flex-col items-center">
                 <div className="mb-6">
                   <Image
@@ -364,7 +364,7 @@ const page: React.FC = () => {
         )}
 
         {/* Button now part of the page content */}
-        <div className="flex justify-center py-6 px-4">
+        <div className=" flex justify-center py-6 px-4">
           {jobData?.payment_status === "release_requested" ? (
             <button
               disabled={isButtonLoading}

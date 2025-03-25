@@ -27,16 +27,16 @@ const OfferMobile = ({  setEventCount }: { setEventCount: (count: number) => voi
     const [isLoading, setIsLoading] = useState(false);
     const [events, setEvents] = useState([]);
     const router = useRouter();
-    const [buttonLoadingState, setButtonLoadingState] = useState<{ [key: number]: boolean }>({});
+    const [buttonLoadingState, setButtonLoadingState] = useState<{ [key: string]: boolean }>({});
 
-const handleButtonClick = (eventId: number, url: string) => {
-    setButtonLoadingState((prevState) => ({
-        ...prevState,
-        [eventId]: true,
-    }));
-
-    router.push(url);
-};
+    const handleButtonClick = (key: string, url: string) => {
+        setButtonLoadingState((prevState) => ({
+          ...prevState,
+          [key]: true,
+        }));
+        router.push(url);
+      };
+      
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -206,8 +206,8 @@ const handleButtonClick = (eventId: number, url: string) => {
                             <div
   onClick={() => {
     const url = `/staff/job-detail/${event.id}?returnUrl=/offered`;
-    handleButtonClick(event.id, url);
-  }}
+    handleButtonClick(`offer-${event.id}`, url);
+}}
   className="w-[50%] py-[10px] self-center"
 >
   <p
@@ -217,7 +217,7 @@ const handleButtonClick = (eventId: number, url: string) => {
         : "text-[white] bg-[#350ABC] py-[10px] px-[16px] rounded-sm mr-4"
     }`}
   >
-    {buttonLoadingState[event.id] ? (
+    {buttonLoadingState[`offer-${event.id}`] ? (
       <Loader2 className="w-5 h-5 animate-spin" />
     ) : (
       event.has_offered ? "View Offer" : "Make an offer"
@@ -228,8 +228,8 @@ const handleButtonClick = (eventId: number, url: string) => {
 <div
   onClick={() => {
     const url = `/staff/job-detail/${event.invite_id}/chat?returnUrl=/offered`;
-    handleButtonClick(event.id, url);
-  }}
+    handleButtonClick(`chat-${event.id}`, url);
+}}
   className="w-[50%] py-[10px] self-center"
 >
   <p
@@ -239,7 +239,7 @@ const handleButtonClick = (eventId: number, url: string) => {
          text-[white] bg-[#350ABC] py-[10px] px-[16px] rounded-sm mr-4"
     
   >
-    {buttonLoadingState[event.id] ? (
+    {buttonLoadingState[`chat-${event.id}`]? (
       <Loader2 className="w-5 h-5 animate-spin" />
     ) : (
         "Talk to Client"

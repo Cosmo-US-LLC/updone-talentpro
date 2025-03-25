@@ -92,11 +92,13 @@ const returnUrl = searchParams.get("returnUrl");
     };
 
     const sendMessage = async () => {
+        if (!messageBody.trim()) return;
+
         const newMessage: Message = {
             id: Date.now(),
             sender_user_id: storedData?.user?.id,
             receiver_user_id: null,
-            message_body: messageBody,
+            message_body: messageBody.trim(),
             created_at: new Date().toISOString(),
         };
 
@@ -112,7 +114,7 @@ const returnUrl = searchParams.get("returnUrl");
                 method: "POST",
                 body: {
                     offer_id: inviteId,
-                    message_body: messageBody
+                    message_body: messageBody.trim()
                 },
                 headers: {
                     ...(storedData && { Authorization: `Bearer ${storedData.token}` }),
@@ -267,6 +269,11 @@ const returnUrl = searchParams.get("returnUrl");
                         type="text"
                         value={messageBody}
                         onChange={(e) => setMessageBody(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && messageBody.trim() !== "") {
+                                sendMessage();
+                            }
+                        }}
                         className="w-[73%] p-3 border border-gray-300 outline-none rounded-full !rounded-full"
                         placeholder="Add your comment here..."
                     />
