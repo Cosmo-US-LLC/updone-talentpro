@@ -147,17 +147,17 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
   React.useEffect(() => {
     setLogoutPath(`${process.env.NEXT_PUBLIC_BASE_URL}`);
     const findActiveIndex = () => {
-      if (pathname == "/" || pathname.includes("/upcoming")) {
+      if (pathname == "/" || pathname.includes("/upcoming-events")) {
         setActiveIndex(0);
       } else if (pathname.includes("/invites")) {
         setActiveIndex(1);
       } else if (pathname.includes("/offered")) {
         setActiveIndex(2);
-      } else if (pathname.includes("/myevents")) {
+      } else if (pathname.includes("/my-events")) {
         setActiveIndex(3);
-      } else if (pathname.includes("/personaldetails")) {
+      } else if (pathname.includes("/personal-details")) {
         setActiveIndex(4);
-      } else if (pathname.includes("/logindetails")) {
+      } else if (pathname.includes("/login-details")) {
         setActiveIndex(5);
       } else if (pathname.includes("/services")) {
         setActiveIndex(6);

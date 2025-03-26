@@ -383,22 +383,21 @@ const MobileNavbar = ({ ...props }) => {
 </button>
                             </div>
                           </SheetClose>
-                         
-                          {/* <SheetClose asChild>
-                            <div className="flex">
+                          <SheetClose asChild>
+                            <div className="flex ">
 
-                              <button
-                                onClick={handleClickPayment}
-                                disabled
-                                className={`w-full p-2 ml-9  rounded-full text-left text-[14px] ${props.activeTab === "paymentmethod"
-                                  ? "text-[#5d0abc] font-semibold"
-                                  : "text-gray-500 hover:text-gray-700"
-                                  }`}
-                              >
-                                Payment Method
-                              </button>
+                            <button
+  onClick={() => handleNavigate("payments")}
+  className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
+    pathname?.includes( "/talent/events/payments") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  Payments
+</button>
                             </div>
-                          </SheetClose> */}
+                          </SheetClose>
+                         
+                       
                         </div>
                       </div>
                     </div>
@@ -467,14 +466,7 @@ const MobileNavbar = ({ ...props }) => {
                           }`}
                       >
                         <div className="mt-2 space-y-2 px-4">
-                          <SheetClose asChild>
-                            <div className="flex">
-                              
-                              <button className="text-[#929292] w-full p-2 ml-9 rounded-full text-left text-[14px]">
-                                Payment Method
-                              </button>
-                            </div>
-                          </SheetClose>
+                          
                           <SheetClose asChild>
                             <div className="flex">
                             

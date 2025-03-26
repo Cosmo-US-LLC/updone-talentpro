@@ -11,7 +11,7 @@ const Page = () => {
         return (
             <div className="flex flex-col">
                 <MobileNavbar />
-                <div className="w-full h-[100dvh] p-6 bg-[#F6F9FC] overflow-y-auto">
+                <div className="w-full p-6 bg-[#F6F9FC]">
                     <div className="mt-20">
                     <div className="w-fit font-semibold text-[18px] text-[#5d0abc] pb-1 border-b-2 border-[#5d0abc] mb-4">
             <h3>Login Details</h3>

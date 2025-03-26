@@ -205,8 +205,19 @@ export default function ServicesProvided() {
             {successMessage}
         </div>
     )}
+        <div className="flex justify-between items-center ">
 
     <h2 className="text-[18px] font-semibold text-gray-800 mb-6">Offered Services</h2>
+    {!isEditing && (
+        <button
+            onClick={() => setIsEditing(true)}
+            className="text-[#5d0abc] underline w-fit cursor-pointer hover:bg-transparent hover:text-[#5d0abc] flex items-center gap-2 pb-4"
+        >
+            <FaEdit />
+            <span>Edit</span>
+        </button>
+    )}
+    </div>
 
     <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 pb-6 border-b mb-6 w-full overflow-x-hidden">
         {allServices.map((service) => {
@@ -231,16 +242,7 @@ export default function ServicesProvided() {
     <div className="flex justify-between items-center mb-6">
     <h3 className="text-[18px] font-medium text-gray-700">Add your services per hour rate</h3>
     
-    {/* Only show "Edit" button when not editing */}
-    {!isEditing && (
-        <button
-            onClick={() => setIsEditing(true)}
-            className="text-[#5d0abc] underline w-fit cursor-pointer hover:bg-transparent hover:text-[#5d0abc] flex items-center gap-2"
-        >
-            <FaEdit />
-            <span>Edit</span>
-        </button>
-    )}
+    
 </div>
 
 
