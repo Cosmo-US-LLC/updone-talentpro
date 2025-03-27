@@ -45,6 +45,7 @@ export default function PaymentsDesktop() {
                         "Accept": "application/json"
                     },
                 });
+                console.log(data)
                 setPayments(data || []);
             } catch (error) {
                 console.error("Error fetching payments", error);
@@ -85,25 +86,30 @@ export default function PaymentsDesktop() {
 
     const filteredPayments = payments
     .filter(event =>
-        event.event_title.toLowerCase().includes(searchQuery.toLowerCase())
+      event.event_title.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .map(event => ({
-        ...event,
-        payments: event.payments.filter(payment => {
-          if (activeTab === 'approved' && payment.status !== 'release_approved') {
-            return false;
-          }
-          if (activeTab === 'pending' && payment.status !== 'release_pending') {
-            return false;
-          }
-          if (activeTab === 'requested' && payment.status !== 'release_requested') {
-            return false;
-          }
-          return true; // includes 'all'
+      ...event,
+      payments: event.payments
+        .filter(payment => {
+          if (activeTab === 'approved' && payment.status !== 'release_approved') return false;
+          if (activeTab === 'pending' && payment.status !== 'release_pending') return false;
+          if (activeTab === 'requested' && payment.status !== 'release_requested') return false;
+          return true;
         })
-        
+        .sort((a, b) => {
+          const dateA = new Date(a.updated_at || a.created_at || '').getTime();
+          const dateB = new Date(b.updated_at || b.created_at || '').getTime();
+          return dateB - dateA; // Most recent first inside group
+        })
     }))
-    .filter(event => event.payments.length > 0);
+    .filter(event => event.payments.length > 0)
+    .sort((a, b) => {
+      const latestA = new Date(a.payments[0]?.updated_at || a.payments[0]?.created_at || '').getTime();
+      const latestB = new Date(b.payments[0]?.updated_at || b.payments[0]?.created_at || '').getTime();
+      return latestB - latestA; // Most recent group at the top
+    });
+  
 
 
     if (isLoading) {
