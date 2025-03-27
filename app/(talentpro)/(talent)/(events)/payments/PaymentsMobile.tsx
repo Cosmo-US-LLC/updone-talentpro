@@ -62,6 +62,19 @@ export default function PaymentsMobile() {
     }
   };
 
+  const getStatus = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "release_approved":
+        return "Approved";
+      case "release_pending":
+        return "Pending";
+      case "release_requested":
+        return "Requested";
+      default:
+        return "Null";
+    }
+  };
+
   const filteredPayments = payments
     .filter((event) =>
       event.event_title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -147,7 +160,7 @@ export default function PaymentsMobile() {
                   payment.status
                 )}`}
               >
-                {payment.status}
+                {getStatus(payment.status)}
               </span>
             </div>
             <div className="flex justify-between">

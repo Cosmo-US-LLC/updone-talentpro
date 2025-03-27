@@ -66,6 +66,19 @@ export default function PaymentsDesktop() {
         }
     };
 
+    const getStatus = (status: string) => {
+      switch (status.toLowerCase()) {
+        case "release_approved":
+          return "Approved";
+        case "release_pending":
+          return "Pending";
+        case "release_requested":
+          return "Requested";
+        default:
+          return "Null";
+      }
+    };
+
     const filteredPayments = payments
     .filter(event =>
         event.event_title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -165,7 +178,7 @@ export default function PaymentsDesktop() {
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{payment.payment_type}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(payment.status)}`}>
-                                                        {payment.status}
+                                                    {getStatus(payment.status)}
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{payment.amount}</td>
