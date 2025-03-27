@@ -4,9 +4,13 @@ import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import { useError } from '@/app/lib/context/ErrorProvider';
 import { Loader } from "@/app/_components/ui/dashboard-loader";
-import { MdDoneAll } from "react-icons/md";
-import { MdFormatListBulleted } from "react-icons/md";
+
 import { CiFilter } from "react-icons/ci";
+import { MdDoneAll } from "react-icons/md";     // Approved
+import { MdPendingActions } from "react-icons/md"; // Pending
+import { MdOutlineRequestPage } from "react-icons/md"; // Requested
+import { MdFormatListBulleted } from "react-icons/md"; // All
+
 
 interface Payment {
     payment_id: number;
@@ -25,7 +29,7 @@ interface EventPaymentGroup {
 export default function PaymentsDesktop() {
     const [payments, setPayments] = useState<EventPaymentGroup[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [activeTab, setActiveTab] = useState<'all' | 'completed'>('all');
+    const [activeTab, setActiveTab] = useState<'all' | 'approved' | 'pending' | 'requested'>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const { auth: storedData } = useAppSelector(selectAuth);
     const { handleError } = useError();
@@ -86,11 +90,18 @@ export default function PaymentsDesktop() {
     .map(event => ({
         ...event,
         payments: event.payments.filter(payment => {
-            if (activeTab === 'completed' && payment.status !== 'release_approved') {
-                return false;
-            }
-            return true;
+          if (activeTab === 'approved' && payment.status !== 'release_approved') {
+            return false;
+          }
+          if (activeTab === 'pending' && payment.status !== 'release_pending') {
+            return false;
+          }
+          if (activeTab === 'requested' && payment.status !== 'release_requested') {
+            return false;
+          }
+          return true; // includes 'all'
         })
+        
     }))
     .filter(event => event.payments.length > 0);
 
@@ -121,35 +132,40 @@ export default function PaymentsDesktop() {
             <div className="bg-white rounded-lg shadow overflow-hidden">
                 {/* Angled tabs with original names */}
                 <div className="flex">
-                    <div
-                        onClick={() => setActiveTab('all')}
-                        className={`relative cursor-pointer px-6 py-3 text-sm font-medium flex items-center gap-2 ${activeTab === 'all' ? 'text-[#350ABC] bg-white' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`}
-                        style={{
-                            clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%)'
-                        }}
-                    >
-                        <MdFormatListBulleted className="w-4 h-4" />
-                        All Payments
-                        {activeTab === 'all' && (
-                            <div className="absolute bottom-0 left-0 right-8 h-0.5 bg-[#350ABC]"></div>
-                        )}
-                    </div>
+  {[
+    { label: "All", value: "all", icon: <MdFormatListBulleted className="w-4 h-4" /> },
+    { label: "Approved", value: "approved", icon: <MdDoneAll className="w-4 h-4" /> },
+    { label: "Pending", value: "pending", icon: <MdPendingActions className="w-4 h-4" /> },
+    { label: "Requested", value: "requested", icon: <MdOutlineRequestPage className="w-4 h-4" /> },
+  ].map((tab, idx) => (
+    <div
+      key={tab.value}
+      onClick={() => setActiveTab(tab.value as typeof activeTab)}
+      className={`relative cursor-pointer px-6 py-3 text-sm font-medium flex items-center gap-2 ${
+        activeTab === tab.value
+          ? 'text-[#350ABC] bg-white'
+          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+      }`}
+      style={{
+        clipPath:
+          idx === 0
+            ? 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%)'
+            : idx === 3
+            ? 'polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%)'
+            : 'polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%)',
+        marginLeft: idx === 0 ? '0' : '-6px',
+      }}
+    >
+      {tab.icon}
+      <span className="capitalize">{tab.label}</span>
+      {activeTab === tab.value && (
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#350ABC]"></div>
+      )}
+    </div>
+  ))}
+</div>
 
-                    <div
-                        onClick={() => setActiveTab('completed')}
-                        className={`relative cursor-pointer px-6 py-3 text-sm font-medium flex items-center gap-2 ${activeTab === 'completed' ? 'text-[#350ABC] bg-white' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`}
-                        style={{
-                            clipPath: 'polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%)',
-                            marginLeft: '-6px'
-                        }}
-                    >
-                        <MdDoneAll className="w-4 h-4" />
-                        Completed
-                        {activeTab === 'completed' && (
-                            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#350ABC]"></div>
-                        )}
-                    </div>
-                </div>
+
 
                 {filteredPayments.length === 0 ? (
                     <div className="text-center py-10 text-gray-500">

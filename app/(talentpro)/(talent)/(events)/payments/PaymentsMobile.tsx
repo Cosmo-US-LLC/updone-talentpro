@@ -4,7 +4,9 @@ import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import { useError } from "@/app/lib/context/ErrorProvider";
 import { Loader } from "@/app/_components/ui/dashboard-loader";
-import { MdDoneAll, MdFormatListBulleted } from "react-icons/md";
+import { MdDoneAll } from "react-icons/md";
+import { MdPendingActions, MdOutlineRequestPage, MdFormatListBulleted } from "react-icons/md";
+
 import { CiFilter } from "react-icons/ci";
 
 interface Payment {
@@ -22,7 +24,7 @@ interface EventPaymentGroup {
 export default function PaymentsMobile() {
   const [payments, setPayments] = useState<EventPaymentGroup[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<"all" | "completed">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "approved" | "pending" | "requested">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const { auth: storedData } = useAppSelector(selectAuth);
   const { handleError } = useError();
@@ -82,11 +84,12 @@ export default function PaymentsMobile() {
     .map((event) => ({
       ...event,
       payments: event.payments.filter((payment) => {
-        if (activeTab === "completed" && payment.status !== "release_approved") {
-          return false;
-        }
-        return true;
+        if (activeTab === "approved" && payment.status !== "release_approved") return false;
+        if (activeTab === "pending" && payment.status !== "release_pending") return false;
+        if (activeTab === "requested" && payment.status !== "release_requested") return false;
+        return true; // for "all"
       }),
+      
     }))
     .filter((event) => event.payments.length > 0);
 
@@ -95,30 +98,27 @@ export default function PaymentsMobile() {
   return (
     <div className="p-4">
       {/* Tabs */}
-      <div className="flex gap-3 mb-4 overflow-x-auto">
-        <button
-          onClick={() => setActiveTab("all")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${
-            activeTab === "all"
-              ? "bg-blue-600 text-white shadow"
-              : "bg-white border border-gray-300 text-gray-600"
-          }`}
-        >
-          <MdFormatListBulleted />
-          All Payments
-        </button>
-        <button
-          onClick={() => setActiveTab("completed")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${
-            activeTab === "completed"
-              ? "bg-blue-600 text-white shadow"
-              : "bg-white border border-gray-300 text-gray-600"
-          }`}
-        >
-          <MdDoneAll />
-          Completed
-        </button>
-      </div>
+      <div className="flex gap-2 mb-4 overflow-x-auto">
+  {[
+    { label: "All", value: "all", icon: <MdFormatListBulleted /> },
+    { label: "Approved", value: "approved", icon: <MdDoneAll /> },
+    { label: "Pending", value: "pending", icon: <MdPendingActions /> },
+    { label: "Requested", value: "requested", icon: <MdOutlineRequestPage /> },
+  ].map((tab) => (
+    <button
+      key={tab.value}
+      onClick={() => setActiveTab(tab.value as typeof activeTab)}
+      className={`flex items-center justify-center px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap ${
+        activeTab === tab.value
+          ? "bg-blue-600 text-white shadow"
+          : "bg-white border border-gray-300 text-gray-600"
+      }`}
+    >
+      
+      {tab.label}
+    </button>
+  ))}
+</div>
 
       {/* Search bar */}
       <div className="relative mb-4">

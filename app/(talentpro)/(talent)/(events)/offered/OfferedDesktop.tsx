@@ -44,7 +44,13 @@ const OfferedDesktop = () => {
                         page_size: 100,
                     },
                 });
-                setEvents(response?.jobs);
+                setEvents(
+                    (response?.jobs || []).sort((a: any, b: any) => {
+                      const dateA = new Date(a.working_time.date).getTime();
+                      const dateB = new Date(b.working_time.date).getTime();
+                      return dateB - dateA; // Most recent first
+                    })
+                  );
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {

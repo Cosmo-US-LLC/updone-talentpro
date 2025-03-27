@@ -55,7 +55,13 @@ const UpcomingEventsMobile = ( {setEventCount}:{setEventCount: (count: number) =
                     },
                 });
                 const eventsData = response?.jobs || [];
-                setEvents(eventsData);
+                setEvents(
+                    (eventsData || []).sort((a: any, b: any) => {
+                      const dateA = new Date(a.working_time.date).getTime();
+                      const dateB = new Date(b.working_time.date).getTime();
+                      return dateB - dateA; // Most recent first
+                    })
+                  );
                 setEventCount(eventsData.length);
             } catch (error) {
                 console.error("Error fetching data:", error);

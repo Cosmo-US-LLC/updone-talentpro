@@ -41,7 +41,13 @@ const InvitesDesktop = () => {
                     },
                 });
         
-                setEvents(response?.jobs);
+                setEvents(
+                    (response?.jobs || []).sort((a: any, b: any) => {
+                      const dateA = new Date(a.working_time.date).getTime();
+                      const dateB = new Date(b.working_time.date).getTime();
+                      return dateB - dateA; // Most recent first
+                    })
+                  );
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -179,20 +185,23 @@ const InvitesDesktop = () => {
                             <div className="flex flex-row items-center justify-end w-full">
                                
                                 <div className="flex flex-row items-start justify-end w-[20%]">
-                                    <div
+                                <div
                                         onClick={() => {
                                             setLoadingEventId(event.id);
                                             router.push(`/staff/job-detail/${event.id}`);
                                         }}
-                                        className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
+                                        className="w-full cursor-pointer py-4 self-center relative group"
                                     >
-                                        <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
+                                        <p className="flex items-center justify-center text-center text-[#350ABC] font-[500] text-[18px] leading-[24px]">
                                             {loadingEventId === event.id ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
                                             ) : (
                                                 event.has_offered ? "View Offer" : "Make an offer"
                                             )}
                                         </p>
+
+                                        {/* Underline hover animation */}
+                                        <span className="absolute bottom-0 left-1/2 w-0 group-hover:w-full transition-all duration-300 ease-in-out h-[2px] bg-[#350ABC] transform -translate-x-1/2"></span>
                                     </div>
                                 </div>
                             </div>

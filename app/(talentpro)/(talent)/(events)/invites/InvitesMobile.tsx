@@ -54,7 +54,13 @@ const handleButtonClick = (eventId: number, url: string) => {
                     },
                 });
                 const eventsData = response?.jobs || [];
-                setEvents(eventsData);
+                setEvents(
+                    (eventsData || []).sort((a: any, b: any) => {
+                      const dateA = new Date(a.working_time.date).getTime();
+                      const dateB = new Date(b.working_time.date).getTime();
+                      return dateB - dateA; // Most recent first
+                    })
+                  );
                 const openInvitesCount = eventsData.filter((event: any) => event.has_offered === false).length;
                 
                 setEventCount(openInvitesCount);
@@ -218,7 +224,7 @@ const handleButtonClick = (eventId: number, url: string) => {
     className={`flex items-center justify-center text-[14px] font-[500] leading-[24px] cursor-pointer ${
       event.has_offered
         ? "text-[#5d0abc] underline ml-4"
-        : "text-[white] bg-[#350ABC] py-[10px] px-[16px] rounded-sm mr-4"
+        : "underline text-[#5d0abc] ml-4 "
     }`}
   >
     {buttonLoadingState[event.id] ? (
