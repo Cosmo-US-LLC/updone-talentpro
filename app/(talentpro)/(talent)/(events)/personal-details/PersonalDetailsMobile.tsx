@@ -231,7 +231,7 @@ export default function PersonalDetails() {
         <input
             type="text"
             name="phone"
-            value={formData.phone ? `+1 (${formData.phone.slice(1,4)}) ${formData.phone.slice(4,7)}-${formData.phone.slice(7)}` : ''}
+            value={formData.phone ? `(${formData.phone.slice(1,4)}) ${formData.phone.slice(4,7)}-${formData.phone.slice(7)}` : ''}
             disabled
             className="border rounded-lg px-2 mt-1 bg-gray-100 text-gray-700 cursor-not-allowed"
         />
