@@ -224,7 +224,7 @@ const handleButtonClick = (eventId: number, url: string) => {
     className={`flex items-center justify-center text-[14px] font-[500] leading-[24px] cursor-pointer ${
       event.has_offered
         ? "text-[#5d0abc] underline ml-4"
-        : "underline text-[#5d0abc] ml-4 "
+        : "text-[white] bg-[#350ABC] py-[10px] px-[16px] rounded-sm mr-4"
     }`}
   >
     {buttonLoadingState[event.id] ? (

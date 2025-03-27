@@ -186,45 +186,64 @@ const UpcomingEventsDesktop = () => {
                             <div className="h-[1px] bg-[#EBE6FF] w-full my-4 self-center" />
                             <div className="flex flex-row items-center justify-end w-full">
 
-                                <div className={`flex flex-row items-start justify-end ${event.has_offered ? "w-[40%]" : "w-[20%]"}`}>
-                                    <div
-                                        onClick={() => {
-                                            setLoadingButton({ eventId: event.id, type: 'viewOffer' });
-                                            router.push(`/staff/job-detail/${event.id}`);
-                                        }}
-                                        className="w-full cursor-pointer py-4 self-center relative group"
-                                    >
-                                        <p className="flex items-center justify-center text-center text-[#350ABC] font-[500] text-[18px] leading-[24px]">
-                                            {loadingButton === event.id ? (
-                                                <Loader2 className="w-5 h-5 animate-spin" />
-                                            ) : (
-                                                event.has_offered ? "View Offer" : "Make an offer"
-                                            )}
-                                        </p>
+                            <div className={`flex flex-row items-start justify-end ${event.has_offered ? "w-[40%]" : "w-[20%]"}`}>
+  {event.has_offered ? (
+    // View Offer Button
+    <div
+      onClick={() => {
+        setLoadingButton({ eventId: event.id, type: 'viewOffer' });
+        router.push(`/staff/job-detail/${event.id}`);
+      }}
+      className="w-full cursor-pointer py-4 self-center relative group"
+    >
+      <p className="flex items-center justify-center text-center text-[#350ABC] font-[500] text-[18px] leading-[24px]">
+        {loadingButton.eventId === event.id && loadingButton.type === 'viewOffer' ? (
+          <Loader2 className="w-5 h-5 animate-spin" />
+        ) : (
+          "View Offer"
+        )}
+      </p>
+      <span className="absolute bottom-0 left-1/2 w-0 group-hover:w-full transition-all duration-300 ease-in-out h-[2px] bg-[#350ABC] transform -translate-x-1/2"></span>
+    </div>
+  ) : (
+    // Make an Offer Button in pill style
+    <div
+      onClick={() => {
+        setLoadingButton({ eventId: event.id, type: 'makeOffer' });
+        router.push(`/staff/job-detail/${event.id}`);
+      }}
+      className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
+    >
+      <p className="flex items-center justify-center text-center text-white font-[500] text-[18px] leading-[24px]">
+        {loadingButton.eventId === event.id && loadingButton.type === 'makeOffer' ? (
+          <Loader2 className="w-5 h-5 animate-spin" />
+        ) : (
+          "Make an Offer"
+        )}
+      </p>
+    </div>
+  )}
 
-                                        {/* Underline hover animation */}
-                                        <span className="absolute bottom-0 left-1/2 w-0 group-hover:w-full transition-all duration-300 ease-in-out h-[2px] bg-[#350ABC] transform -translate-x-1/2"></span>
-                                    </div>
+  {/* Talk to Client button only when has_offered is true */}
+  {event.has_offered && (
+    <div
+      onClick={() => {
+        setLoadingButton({ eventId: event.id, type: 'talkToClient' });
+        router.push(`/staff/job-detail/${event.invite_id}/chat`);
+      }}
+      className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center ml-1"
+    >
+      <p className="flex items-center justify-center text-center text-white font-[500] text-[18px] leading-[24px]">
+        {loadingButton.eventId === event.id && loadingButton.type === 'talkToClient' ? (
+          <Loader2 className="w-5 h-5 animate-spin" />
+        ) : (
+          "Talk to Client"
+        )}
+      </p>
+    </div>
+  )}
+</div>
 
-                                    {event.has_offered && (
-                                        <div
-                                            onClick={() => {
-                                                setLoadingButton({ eventId: event.id, type: 'talkToClient' });
-                                                router.push(`/staff/job-detail/${event.invite_id}/chat`);
-                                            }}
-                                            className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center ml-1"
-                                        >
-                                            <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
-                                                {loadingButton === event.id ? (
-                                                    <Loader2 className="w-5 h-5 animate-spin" />
-                                                ) : (
-                                                    "Talk to Client"
-                                                )}
-                                            </p>
-                                        </div>
-                                    )}
-
-                                </div>
                             </div>
                         </div>
                     );
