@@ -138,8 +138,8 @@ const Offered = ({
 
   return (
     <>
-      <div className="max-w-[1100px] flex flex-col  mx-auto mb-[300px]">
-        <div className="!bg-[#EBE6FF] min-h-[220px]">
+      <div className="lg:max-w-[700px] 2xl:max-w-[1100px] flex flex-col mx-auto  ">
+        <div className="!bg-[#EBE6FF] min-h-[220px] max-h-[300px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1100"
@@ -148,9 +148,9 @@ const Offered = ({
             fill="none"
           >
           </svg>
-          <div className="relative top-[-87px] pl-[] flex flex-row justify-start items-center gap-8">
+          <div className="relative top-[-87px] pl-[] flex flex-row justify-start items-center lg:gap-2 2xl:gap-8">
             <div className="flex flex-col pt-[30px] min-w-[200px]">
-              <div className="flex items-center pl-[32px]">
+              <div className="flex items-center lg:pl-[10px] 2xl:pl-[32px]">
                 <span className="flex justify-center items-center">
                   <PiCurrencyDollarSimpleThin color="#000" size={24} />
                 </span>
@@ -167,23 +167,24 @@ const Offered = ({
                 <span className="pl-2">/ hour</span>
               </div>
 
-              <label className="flex items-center pl-[32px] gap-2 mb-[px] text-[#6B6B6B] text-[16px] font-[400] leading-[18px] mt-[8px] tracking-[-0.32px] whitespace-nowrap">
+              <label className="flex items-center lg:pl-[10px] 2xl:pl-[32px] gap-2  text-[#6B6B6B] text-[16px] font-[400] leading-[18px] mt-[8px] tracking-[-0.32px] ">
                 <input
                   type="checkbox"
                   className="!bg-[#774DFD]"
                   checked={isDefaultRate}
                   onChange={handleCheckboxChange}
                 />
-                offer with your default rate
+                 <span className="lg:w-[150px] 2xl:w-full">offer with your default rate</span>
+
               </label>
               {state.inputValue && !isDefaultRate && !priceError && (
-                <div className={`text-sm w-[300px] pl-3  ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
+                <div className={`text-sm lg:w-[150px] 2xl:w-[300px] pl-3  ${getPriceValidationStatus(Number(state.inputValue)).color}`}>
                   {getPriceValidationStatus(Number(state.inputValue)).message}
                 </div>
               )}
             </div>
 
-            <div className="flex flex-col border-r-[2px] border-gray-300 pr-[80px] min-w-[450px]">
+            <div className="flex flex-col border-r-[2px] border-gray-300 lg:pr-[20px] 2xl:pr-[80px] lg:min-w-[250px] 2xl:min-w-[450px] ">
               <p className="text-sm font-[600] mb-[4px]">
                 Introduce yourself to the Client
                 <span className="text-[#C20000] ml-1">*</span>
@@ -203,8 +204,8 @@ const Offered = ({
                 </span>
               )}
             </div>
-            <div className="flex flex-col mt-[16px] min-w-[300px]">
-              <h6 className="text-3xl pl-[60px] pb-[4px] font-[400] flex items-center gap-2">
+            <div className="flex flex-col mt-[16px] mr-2">
+              <h6 className="lg:text-xl 2xl:text-3xl lg:pl-[10px] 2xl:pl-[60px] pb-[4px] font-[400] flex items-center gap-2">
                 <span className="flex items-center">
                   <Image
                     src="/icons/dollar-sign.svg"
@@ -213,25 +214,25 @@ const Offered = ({
                     width={20}
                     height={20}
                   />
-                  <span className="font-[600] text-3xl">{totalAmount}</span>
+                  <span className="font-[600] lg:text-xl 2xl:text-3xl">{totalAmount}</span>
                 </span>
                 <span className="text-sm text-gray-600 mt-2">Total amount</span>
               </h6>
 
               <button
                 onClick={!isButtonDisabled && !isLoading ? onSubmit : undefined}
-                className={`py-[16px] whitespace-nowrap ${
+                className={`lg:py-[8px] 2xl:py-[16px] whitespace-nowrap ${
                   isButtonDisabled || isLoading
                     ? "bg-[#330abc7a] cursor-not-allowed opacity-50"
                     : "bg-[#350ABC] cursor-pointer opacity-100"
-                } text-[#e0d9f8] !font-[400] leading-[26px] !text-[16px] tracking-[-0.32px] px-[80px] rounded-full ml-[20px]
+                } text-[#e0d9f8] !font-[400] leading-[26px] !text-[16px] tracking-[-0.32px] lg:px-[20px] 2xl:px-[80px] rounded-full ml-[10px]
                 transition-transform duration-150 ease-in-out grow_ellipse active:scale-95 active:shadow-inner`}
                 disabled={isButtonDisabled || isLoading}
               >
                 {isLoading ? "Submitting..." : "Submit Offer"}
               </button>
 
-              <h6 className="text-sm pl-[40px] mt-[4px]">
+              <h6 className="text-sm lg:pl-[10px] 2xl:pl-[40px] mt-[4px]">
                 * transaction charges will apply
               </h6>
             </div>
