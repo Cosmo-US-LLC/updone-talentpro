@@ -189,13 +189,13 @@ const MakeOffer = ({ jobData, setModalIsOpen }: any) => {
           <p className="font-semibold text-lg mb-2">How to make an impact?</p>
           <ul className="list-disc pl-5 text-sm text-gray-700">
             <li>Let the client know why you are the best choice for their event.</li>
-            <li>Feel free to share your social media account.</li>
+          
             <li>Do not share sensitive info like email, phone, or address.</li>
           </ul>
         </div>
       </div>
 
-      <div className=" max-w-md mt-6 mb-6">
+      <div className=" max-w-md mt-6 mb-2">
         <button
           disabled={loading || !state.inputValue}
           onClick={onSubmit}

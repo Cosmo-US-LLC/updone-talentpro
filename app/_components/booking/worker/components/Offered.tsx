@@ -250,7 +250,6 @@ const Offered = ({
           <ul className="pl-[40px] text-sm flex flex-col space-y-[8px] list-disc ">
             <p className="font-[500] text-[18px] leading-[8px] mb-2 mt-2">How to make an impact?</p>
             <li>Let the client know why you are the best choice for their event. </li>
-            <li>Feel free to share your social media account.</li>
             <li>Do not share sensitive information i.e. email, phone number, address.</li>
             <li>Open this page in cell phone to chat with client.</li>
           </ul>
