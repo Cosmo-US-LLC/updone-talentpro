@@ -5,7 +5,7 @@ import { selectAuth } from "@/app/lib/store/features/authSlice";
 import { useAppSelector } from "@/app/lib/store/hooks";
 import moment from "moment";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 type Message = {
@@ -28,6 +28,9 @@ const ChatPage = () => {
     const { handleError } = useError();
     const router = useRouter();
     const inviteId = params.id;
+    const searchParams = useSearchParams();
+const returnUrl = searchParams.get("returnUrl");
+
 
     function timeAgo(dateTimeString: string) {
         const inputDate: any = new Date(dateTimeString);
@@ -89,11 +92,13 @@ const ChatPage = () => {
     };
 
     const sendMessage = async () => {
+        if (!messageBody.trim()) return;
+
         const newMessage: Message = {
             id: Date.now(),
             sender_user_id: storedData?.user?.id,
             receiver_user_id: null,
-            message_body: messageBody,
+            message_body: messageBody.trim(),
             created_at: new Date().toISOString(),
         };
 
@@ -109,7 +114,7 @@ const ChatPage = () => {
                 method: "POST",
                 body: {
                     offer_id: inviteId,
-                    message_body: messageBody
+                    message_body: messageBody.trim()
                 },
                 headers: {
                     ...(storedData && { Authorization: `Bearer ${storedData.token}` }),
@@ -145,13 +150,18 @@ const ChatPage = () => {
     }, {});
 
     const handleClickBack = () => {
-        router.push(`/staff/job-detail/${jobId}`)
+        if (returnUrl) {
+            router.push(`/staff/job-detail/${jobId}?returnUrl=${returnUrl}`);
+        } else {
+            router.push(`/staff/job-detail/${jobId}`);
+        }
     };
+    
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-[100dvh]">
             {/* Header */}
-            <div className=" fixed top-0 md:top-3 p-2 flex cursor-pointer items-center space-x-2" onClick={() => {
+            <div className=" sticky top-0 md:top-3 p-2 flex cursor-pointer items-center space-x-2" onClick={() => {
                 handleClickBack();
             }}>
                 <Image
@@ -164,7 +174,7 @@ const ChatPage = () => {
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 md:mt-24">
+            <div className="flex-1 overflow-y-auto p-4  md:mt-24">
                 {Object.entries(groupedMessages).map(([date, msgs]: any) => (
                     <div key={date}>
                         {/* Date Timestamp */}
@@ -259,6 +269,11 @@ const ChatPage = () => {
                         type="text"
                         value={messageBody}
                         onChange={(e) => setMessageBody(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && messageBody.trim() !== "") {
+                                sendMessage();
+                            }
+                        }}
                         className="w-[73%] p-3 border border-gray-300 outline-none rounded-full !rounded-full"
                         placeholder="Add your comment here..."
                     />

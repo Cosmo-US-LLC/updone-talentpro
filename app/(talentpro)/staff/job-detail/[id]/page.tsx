@@ -35,7 +35,8 @@ const page = () => {
     const { handleError } = useError();
     const isMobile = useIsMobile();
     const searchParams = useSearchParams();
-    const activeTab = searchParams.get("tab") || "upcoming";
+    const returnUrl = searchParams.get("returnUrl");
+ 
 
     useEffect(() => {
         if (storedData?.user) {
@@ -92,7 +93,7 @@ const page = () => {
     useEffect(() => {
         if (storedData?.user) {
             if (isWorker) {
-                router.push(`/staff/job-detail/${params.id}?tab=${activeTab}`)
+                router.push(`/staff/job-detail/${params.id}${returnUrl ? `?returnUrl=${returnUrl}` : ''}`);
             }
         }
     }, [storedData, router, isWorker]);

@@ -221,8 +221,8 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
       <div className="relative">
         {/* Blurred overlay */}
        
-        <div className={`relative`}>
-          <section className={`max-w-[1100px]  mx-auto !bg-[#FFF] flex-col bg-[#FFF] flex gap-[32px] !p-4`}>
+        <div className={` relative overflow-x-hidden`}>
+          <section className={`lg:max-w-[700px] 2xl:max-w-[1100px]  mx-auto !bg-[#FFF] flex-col bg-[#FFF] flex gap-[32px] !p-4`}>
             <div className="w-full flex justify-start items-center">
               <div className="w-[100%] flex justify-between border-b border-[#86868626] ">
                 <div className=" flex flex-col pb-[16px]">
@@ -309,7 +309,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                         {jobDetailData?.event_location && (
                           <>
                             {/* First part of the location */}
-                            <div className=" text-[#161616] text-[16px] leading-normal font-[600]">
+                            <div className=" text-[#161616] lg:text-[14px] 2xl:text-[16px] leading-normal font-[600]">
                               {loadingJobDetail ? (
                                 <>
                                   <div className="h-2 animate-pulse !bg-gray-200 rounded-full mt-4 w-20"></div>
@@ -318,7 +318,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                                 <>Requested Service</>
                               )}
                             </div>
-                            <p className="text-[14px] font-[400] leading-[28px] text-[#6B6B6B]">
+                            <p className="lg:text-[12px] 2xl:text-[14px] font-[400] leading-[28px] text-[#6B6B6B]">
                               {loadingJobDetail ? (
                                 <>
                                   <div className="h-2 animate-pulse !bg-gray-200 rounded-full mt-2 w-40"></div>
@@ -332,7 +332,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                       </div>
                     </div>
                   </div>
-                  <div className=" flex flex-row items-start gap-[14px] ml-[52px]">
+                  <div className=" flex flex-row items-start gap-[14px] lg:ml-[22px] 2xl:ml-[52px]">
                     {loadingJobDetail ? (
                       <>
                         <div className="h-10 animate-pulse !bg-gray-200 rounded-md mt-1.5 w-60"></div>
@@ -355,7 +355,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                       {jobDetailData?.event_location && (
                         <>
                           {/* First part of the location */}
-                          <div className="  text-[#161616] !text-[16px] leading-[28px] font-[400]">
+                          <div className="  text-[#161616] lg:text-[14px] 2xl:text-[16px] leading-[28px] font-[400]">
                             {jobDetailData?.working_times &&
                               formatWorkingTimes(
                                 jobDetailData?.working_times
@@ -365,7 +365,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                       )}
                     </div>
                   </div>
-                  <div className="flex flex-row gap-[14px] items-start mr-[52px]
+                  <div className="flex flex-row gap-[14px] items-start mr-[22px]
                      ">
                     {loadingJobDetail ? (
                       <>
@@ -388,7 +388,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                     >
                       {jobDetailData?.event_location && (
                         <>
-                          <div className=" text-[#161616] text-[16px] leading-normal font-[600]">
+                          <div className=" text-[#161616] lg:text-[14px] 2xl:text-[16px] leading-normal font-[600]">
                             {loadingJobDetail ? (
                               <>
                                 <div className="h-2 animate-pulse !bg-gray-200 rounded-full  w-20"></div>
@@ -399,7 +399,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                             )}
                           </div>
 
-                          <div className="text-[16px] font-[400] leading-[28px] text-[#6B6B6B]">
+                          <div className="lg:text-[14px] 2xl:text-[16px] font-[400] leading-[28px] text-[#6B6B6B]">
                             {loadingJobDetail ? (
                               <>
                                 <div className="h-2 animate-pulse !bg-gray-200 rounded-full mt-2 w-40"></div>
@@ -479,7 +479,7 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
 
           {storedData?.token && (
             
-            <div>
+            <div className="">
               {datas?.is_completed ? (
                 <Completed
                   hourRate={

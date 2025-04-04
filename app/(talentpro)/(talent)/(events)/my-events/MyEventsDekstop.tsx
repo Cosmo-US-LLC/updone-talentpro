@@ -7,6 +7,7 @@ import { Loader2 } from 'lucide-react';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IoTimeOutline } from "react-icons/io5";
 
 const MyEventsDesktop = () => {
     const [loadingButton, setLoadingButton] = useState<{ eventId: string | null; type: string | null }>({
@@ -43,7 +44,15 @@ const MyEventsDesktop = () => {
                         page_size: 100,
                     },
                 });
-                setEvents(response?.jobs);
+               
+                setEvents(
+                    (response?.jobs || []).sort((a: any, b: any) => {
+                      const dateA = new Date(a.working_time.date).getTime();
+                      const dateB = new Date(b.working_time.date).getTime();
+                      return dateB - dateA; // Most recent first
+                    })
+                  );
+                  
                 console.log(response.jobs)
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -104,10 +113,10 @@ const MyEventsDesktop = () => {
                                 />
                                
                             <div className="flex flex-col  ">
-                            <p className="text-start text-[14px] font-semibold ">
+                            <p className="text-start text-[14px] font-medium text-gray-400 ">
                                 Requested Service
                                 </p>
-                                <p className="text-start text-[14px] font-medium text-gray-400">
+                                <p className="text-start text-[14px] font-semibold">
                                     {event.service_name}
                                 </p>
                             </div>
@@ -122,10 +131,10 @@ const MyEventsDesktop = () => {
                                     objectFit="fill"
                                 />
                                <div className="flex flex-col    ">
-                            <p className="text-start text-[14px] font-semibold ">
+                            <p className="text-start text-[14px] font-medium text-gray-400">
                                 Location
                                 </p>
-                                <p className="text-start text-[14px] font-medium text-gray-400">
+                                <p className="text-start text-[14px] font-semibold">
                                     {event.event_location}
                                 </p>
                             </div>
@@ -140,10 +149,10 @@ const MyEventsDesktop = () => {
                                         objectFit="fill"
                                     />
                                     <div className="flex flex-col items-start justify-center ">
-                                        <p className="text-start text-[14px] font-semibold">
+                                        <p className="text-start text-[14px] font-medium text-gray-400">
                                             Date 
                                         </p>
-                                        <p className="text-start text-[14px] font-medium text-gray-400">
+                                        <p className="text-start text-[14px] font-semibold">
                                             {event.working_time.date} 
                                             
                                         </p>
@@ -151,19 +160,13 @@ const MyEventsDesktop = () => {
                                     
                                 </div>
                                 <div className="flex flex-row pt-4 gap-4">
-                                    <Image
-                                        src="/icons/time-icon.svg"
-                                        alt="event-date"
-                                        width={24}
-                                        height={24}
-                                        quality={100}
-                                        objectFit="fill"
-                                    />
+                                                                    <IoTimeOutline className="h-[28px] w-[28px] p-1 text-green-500 bg-green-100 border border-green-300 rounded-sm"/>
+                                    
                                     <div className="flex flex-col items-start justify-center ">
-                                        <p className="text-start text-[14px] font-semibold">
+                                        <p className="text-start text-[14px] font-medium text-gray-400">
                                          Time
                                         </p>
-                                        <p className="text-start text-[14px] font-medium text-gray-400">
+                                        <p className="text-start text-[14px] font-semibold">
                                         {event.working_time.time} <span className="">  ({event.working_time.number_of_hours}) </span>
                                         </p>
                                     </div>
@@ -178,15 +181,17 @@ const MyEventsDesktop = () => {
                                                setLoadingButton({ eventId: event.id, type: 'viewOffer' });
                                                router.push(`/staff/job-detail/${event.id}`);
                                            }}
-                                           className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
-                                       >
-                                           <p className="flex items-center justify-center text-center text-[white] font-[500] text-[18px] leading-[24px]">
+                                           className="w-full cursor-pointer py-4 self-center relative group"
+                                           >
+                                           <p className="flex items-center justify-center text-center text-[#350ABC] font-[500] text-[18px] leading-[24px]">
                                                {loadingButton === event.id ? (
                                                    <Loader2 className="w-5 h-5 animate-spin" />
                                                ) : (
                                                    "View Details"
                                                )}
                                            </p>
+                                           <span className="absolute bottom-0 left-1/2 w-0 group-hover:w-full transition-all duration-300 ease-in-out h-[2px] bg-[#350ABC] transform -translate-x-1/2"></span>
+
                                        </div>
                                        {event.status==="assigned" && (
                                            <div

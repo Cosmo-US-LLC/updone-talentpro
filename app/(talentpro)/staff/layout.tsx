@@ -13,7 +13,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         )
     } else if (isMobile === false) {
         return (
-            <div className='overflow-y-hidden'>
+            <div className=''>
                 {children}
             </div>
         )

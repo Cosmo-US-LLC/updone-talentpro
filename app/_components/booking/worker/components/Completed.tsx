@@ -7,8 +7,8 @@ const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
     const router = useRouter();
     
     return (
-        <div className='max-w-[1100px] mx-auto flex mb-[300px]'>
-            <div className="bg-[#FFE9E9] w-full h-[130px] flex items-center border-2 border-[#FFB8B8] px-6">
+        <div className='lg:max-w-[700px] 2xl:max-w-[1100px] mx-auto flex mb-[300px]'>
+            <div className="bg-[#FFE9E9] w-full h-[130px] flex items-center border-2 border-[#FFB8B8] lg:px-2 2xl:px-6">
                 
                 {/* Left Section (Icon + Event Complete Message) */}
                 <div className="flex items-center">
@@ -39,7 +39,7 @@ const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
                 {/* Right Section - View Upcoming Events */}
                 {isAssignedToMe && (
                     <div 
-                        className=" bg-[#350ABC] text-white px-4 py-2 rounded-sm cursor-pointer ml-auto"
+                        className=" bg-[#350ABC] text-white  px-6 py-2 rounded-sm cursor-pointer ml-auto lg:text-[14px] 2xl:text-[18px]"
                         onClick={() => router.push(`/`)}
                     >
                         View Upcoming Events
