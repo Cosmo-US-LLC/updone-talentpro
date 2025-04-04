@@ -159,7 +159,7 @@ const page: React.FC = () => {
       </div>
 
       {/* Scrollable Content */}
-      <div className="  overflow-y-auto pb-4 overflow-x-hidden">
+      <div className="  overflow-y-auto  overflow-x-hidden">
         {!showReceipt ? (
           <>
             <div className="flex justify-center mt-[120px]  ">
@@ -364,11 +364,11 @@ const page: React.FC = () => {
         )}
 
         {/* Button now part of the page content */}
-        <div className="w-[300px] flex items-center mx-auto justify-center py-6 px-4">
+        <div className="w-[300px] mt-16 flex items-center mx-auto justify-center py-6 px-4">
           {jobData?.payment_status === "release_requested" ? (
             <button
               disabled={isButtonLoading}
-              className="text-[#FFF] py-[16px] w-full max-w-[350px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
+              className="text-[#FFF] py-[16px]  w-full max-w-[350px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
               onClick={handleBackToJobDetails}
             >
               {isButtonLoading ? (

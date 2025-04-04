@@ -336,7 +336,7 @@ const returnUrl = searchParams.get("returnUrl");
             {
               modalIsOpen === false && (
                 <div
-                  className={`fixed bottom-2 ${jobData?.job?.status === "completed" ? "left-6" : "left-16"} flex flex-row w-fullrounded-t-2xl items-center justify-center border-[black] mt-8`}>                  {
+                  className={`${isAssignedToMe === true && isCompleted === false ?"":"fixed bottom-2"} ${jobData?.job?.status === "completed" ? "left-6" : "left-16"} flex flex-row w-fullrounded-t-2xl items-center justify-center border-[black] mt-8`}>                  {
                     jobData?.unread_message_count > 0 &&
                     <div className="p-2 flex flex-row justify-center items-center absolute bg-[#C70101] h-[24px] w-[24px] rounded-full bottom-[60%] right-[25%] z-[99]">
                       <p className="text-[white] text-[12px]">{jobData?.unread_message_count > 10 ? "10+" : jobData?.unread_message_count}</p>
