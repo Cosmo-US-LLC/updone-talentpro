@@ -14,11 +14,11 @@ const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientN
   });
   return (
 
-    <div className='max-w-[1100px] mx-auto flex mb-[300px]'>
+    <div className='lg:max-w-[700px] 2xl:max-w-[1100px]  mx-auto flex mb-[300px]'>
 
       <div className="bg-[#fce6c9] w-full h-[330px] flex justify-between items-center  border-2 border-[#F9E2B6]">
         {/* Left Box with Image */}
-        <div className="w-[50%] h-full flex justify-center items-center mr-[100px] mb-[0px] ">
+        <div className="w-[50%] h-full flex justify-center items-center lg:mr-[20px] 2xl:mr-[100px] mb-[0px] ">
           <div className='flex flex-col pl-4'>
             <Image
               src={myWorkingDetails?.profile_pic}
@@ -27,35 +27,35 @@ const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientN
               height={100}
               alt=""
             />
-            <h2 className='text-3xl mt-2'> Congratulations {myWorkingDetails?.full_name}</h2>
-            <h3 className='text-xl mt-2'> You have been hired</h3>
+            <h2 className='lg:text-xl 2xl:text-3xl mt-2'> Congratulations {myWorkingDetails?.full_name}</h2>
+            <h3 className='xl:text-lg 2xl:text-xl 2xl:mt-2'> You have been hired</h3>
           </div>
         </div>
 
         {/* Right Box with Lighter Yellow Background */}
-        <div className="bg-[#fef7e3] w-[80%] h-[280px] flex flex-col justify-center items-center border-l border-[#F9E2B6] rounded-lg mr-[70px] overflow-hidden">
-          <div className="bg-white relative h-[30%] w-full flex justify-center items-center">
-            <div className="absolute w-full px-6">
+        <div className="bg-[#fef7e3] w-[80%] min-w-[400px] h-[280px] flex flex-col justify-center items-center border-l border-[#F9E2B6] rounded-lg lg:mr-[20px] 2xl:mr-[70px] overflow-hidden">
+          <div className="bg-white relative h-[40%] w-full flex justify-center items-center">
+            <div className="absolute w-full lg:px-2 2xl:px-6">
               <div className="flex flex-row justify-between items-center">
                 {/* My Offer */}
-                <div className="flex flex-col items-center pr-2">
+                <div className="flex flex-col items-center 2xl:pr-2">
                   <p className="font-bold text-">My Offer</p>
                 </div>
 
                 {/* Per Hour Rate */}
-                <div className="flex flex-col items-center border-r-2 border-gray-200 px-4">
+                <div className="flex flex-col items-center border-r-2 border-gray-200 lg:px-1 2xl:px-4">
                   <p className="text-sm font-normal">Per hour rate</p>
                   <h2 className="font-bold">${hourRate}</h2>
                 </div>
 
                 {/* Total Hours */}
-                <div className="flex flex-col items-center border-r-2 border-gray-200 px-4">
+                <div className="flex flex-col items-center border-r-2 border-gray-200 lg:px-1 2xl:px-4">
                   <p className="text-sm font-normal">Total hours</p>
                   <h2 className="font-bold">{totalHours} hrs</h2>
                 </div>
 
                 {/* Total Income */}
-                <div className="flex flex-col items-center px-4">
+                <div className="flex flex-col items-center lg:px-1 2xl:px-4">
                   <p className="text-sm font-normal">Total Income</p>
                   <h2 className="font-bold">${totalIncome}</h2>
                 </div>
@@ -65,8 +65,8 @@ const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientN
 
 
           {/* Bottom Yellow Section */}
-          <div className="bg-[#fef7e3] h-[80%] w-full flex justify-center items-center">
-            <div className=" relative w-[28%] pl-[18px]  pr-[px]">
+          <div className="bg-[#fef7e3] h-[70%] w-full flex justify-center items-center">
+            <div className=" relative w-[28%] pl-[18px] lg:mr-1 xl:mr-0">
               {/* Transparent Mobile Image */}
               <Image
                 className="relative h-[100px] w-[52px]"
@@ -77,7 +77,7 @@ const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientN
               />
 
               {/* Message Icon Positioned Inside Mobile */}
-              <div className="absolute inset-0 pr-[15px] flex items-center justify-center">
+              <div className="absolute inset-0 lg:pl-[15px] 2xl:pr-[45px] 2xl:pl-[0px] flex items-center justify-center">
                 <Image
                   className="h-[24px] w-[24px]" /* Adjust size to fit inside the mobile */
                   width={24}
@@ -88,10 +88,12 @@ const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientN
               </div>
             </div>
 
+            <div className="h-[80%] w-[2px] bg-[#F9E2B6]"></div>
+
             {/* Right Section with Image */}
-            <div className=" flex items-center justify-end pl-[32px] pr-[16px] border-l-2 border-[#F9E2B6] relative">
+            <div className=" flex items-center justify-end pl-[32px] pr-[16px]  relative">
               <ul className="text-sm flex flex-col p-4  space-y-[8px] list-disc">
-                <li>We have shared your contact information with the {clientName}. Expect a call anytime soon!</li>
+                <li>We have shared your contact information with the {clientName}.</li>
                 <li>Discuss all the requirement with the Client in detail.</li>
                 <li>Contact us at info@updone.com in case you have any queries.</li>
                 {/* <li>In case {clientName} doesn't contact you, message them within the platform.
