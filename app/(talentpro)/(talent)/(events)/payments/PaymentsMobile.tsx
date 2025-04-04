@@ -51,6 +51,18 @@ export default function PaymentsMobile() {
     fetchPayments();
   }, []);
 
+  const parseAmount = (amount: string) => {
+    return parseFloat(amount.replace('$', '').trim()); // Remove $ and convert to float
+};
+
+const getTotalAmount = (event: EventPaymentGroup) => {
+    // Sum the amounts of the different payment types (initial payment, additional hours, and tip)
+    return event.payments.reduce((total, payment) => {
+        const amount = parseAmount(payment.amount);
+        return total + amount;
+    }, 0); // Return the total amount formatted to 2 decimal places
+};
+
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case "release_approved":
@@ -101,9 +113,10 @@ export default function PaymentsMobile() {
       <div className="flex gap-2 mb-4 overflow-x-auto">
   {[
     { label: "All", value: "all", icon: <MdFormatListBulleted /> },
-    { label: "Approved", value: "approved", icon: <MdDoneAll /> },
     { label: "Pending", value: "pending", icon: <MdPendingActions /> },
     { label: "Requested", value: "requested", icon: <MdOutlineRequestPage /> },
+    { label: "Approved", value: "approved", icon: <MdDoneAll /> },
+  
   ].map((tab) => (
     <button
       key={tab.value}
@@ -169,6 +182,10 @@ export default function PaymentsMobile() {
             </div>
           </div>
         ))}
+        <div className=" flex justify-end mr-1 mt-2 ">
+        <span className="font-semibold text-sm">Total: ${getTotalAmount(event)}</span>
+
+        </div>
       </div>
     </div>
   ))

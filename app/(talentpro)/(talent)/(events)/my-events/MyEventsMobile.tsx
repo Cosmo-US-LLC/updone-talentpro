@@ -7,6 +7,7 @@ import { Loader2 } from 'lucide-react';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IoTimeOutline } from "react-icons/io5";
 
 const MAX_TITLE_LENGTH = 25;
 
@@ -179,15 +180,8 @@ const MyEventsMobile = ({ setEventCount }: {  setEventCount: (count: number) => 
                             <div className="mt-3">
                                 <div className="flex flex-row">
                                     <div className="flex items-center mr-2 flex-shrink-0">
-                                        <Image
-                                            src="/icons/time-icon.svg"
-                                            alt="np-events"
-                                            width={29}
-                                            height={28}
-                                            quality={100}
-                                            objectFit="fill"
-                                            className="rounded-sm"
-                                        />
+                                                                      <IoTimeOutline className="h-[28px] w-[28px] p-1 text-green-500 bg-green-100 border border-green-300 rounded-sm"/>
+                                      
                                     </div>
 
                                     <div className="flex flex-col flex-grow">

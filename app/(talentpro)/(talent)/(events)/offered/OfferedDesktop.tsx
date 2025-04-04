@@ -9,6 +9,7 @@ import {  LuSparkles } from "react-icons/lu";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IoTimeOutline } from "react-icons/io5";
 
 const OfferedDesktop = () => {
     const { auth: storedData } = useAppSelector(selectAuth);
@@ -118,10 +119,10 @@ const OfferedDesktop = () => {
                                 />
                                
                             <div className="flex flex-col  ">
-                            <p className="text-start text-[14px] font-semibold ">
+                            <p className="text-start text-[14px] font-medium text-gray-400 ">
                                 Requested Service
                                 </p>
-                                <p className="text-start text-[14px] font-medium text-gray-400">
+                                <p className="text-start text-[14px] font-semibold">
                                     {event.service_name}
                                 </p>
                             </div>
@@ -136,10 +137,10 @@ const OfferedDesktop = () => {
                                     objectFit="fill"
                                 />
                                <div className="flex flex-col    ">
-                            <p className="text-start text-[14px] font-semibold ">
+                            <p className="text-start text-[14px] font-medium text-gray-400 ">
                                 Location
                                 </p>
-                                <p className="text-start text-[14px] font-medium text-gray-400">
+                                <p className="text-start text-[14px] font-semibold">
                                     {event.event_location}
                                 </p>
                             </div>
@@ -154,10 +155,10 @@ const OfferedDesktop = () => {
                                         objectFit="fill"
                                     />
                                     <div className="flex flex-col items-start justify-center ">
-                                        <p className="text-start text-[14px] font-semibold">
+                                        <p className="text-start text-[14px] font-medium text-gray-400">
                                             Date 
                                         </p>
-                                        <p className="text-start text-[14px] font-medium text-gray-400">
+                                        <p className="text-start text-[14px] font-semibold">
                                             {event.working_time.date} 
                                             
                                         </p>
@@ -165,19 +166,13 @@ const OfferedDesktop = () => {
                                     
                                 </div>
                                 <div className="flex flex-row pt-4 gap-4">
-                                    <Image
-                                        src="/icons/time-icon.svg"
-                                        alt="event-date"
-                                        width={24}
-                                        height={24}
-                                        quality={100}
-                                        objectFit="fill"
-                                    />
+                                                                   <IoTimeOutline className="h-[28px] w-[28px] p-1 text-green-500 bg-green-100 border border-green-300 rounded-sm"/>
+                                   
                                     <div className="flex flex-col items-start justify-center ">
-                                        <p className="text-start text-[14px] font-semibold">
+                                        <p className="text-start text-[14px] font-medium text-gray-400">
                                          Time
                                         </p>
-                                        <p className="text-start text-[14px] font-medium text-gray-400">
+                                        <p className="text-start text-[14px] font-semibold">
                                         {event.working_time.time} <span className="">  ({event.working_time.number_of_hours}) </span>
                                         </p>
                                     </div>

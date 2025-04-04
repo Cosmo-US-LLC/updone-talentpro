@@ -84,6 +84,18 @@ export default function PaymentsDesktop() {
       }
     };
 
+    const parseAmount = (amount: string) => {
+        return parseFloat(amount.replace('$', '').trim()); // Remove $ and convert to float
+    };
+
+    const getTotalAmount = (event: EventPaymentGroup) => {
+        // Sum the amounts of the different payment types (initial payment, additional hours, and tip)
+        return event.payments.reduce((total, payment) => {
+            const amount = parseAmount(payment.amount);
+            return total + amount;
+        }, 0); // Return the total amount formatted to 2 decimal places
+    };
+
     const filteredPayments = payments
     .filter(event =>
       event.event_title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -140,9 +152,10 @@ export default function PaymentsDesktop() {
                 <div className="flex">
   {[
     { label: "All", value: "all", icon: <MdFormatListBulleted className="w-4 h-4" /> },
-    { label: "Approved", value: "approved", icon: <MdDoneAll className="w-4 h-4" /> },
-    { label: "Pending", value: "pending", icon: <MdPendingActions className="w-4 h-4" /> },
+     { label: "Pending", value: "pending", icon: <MdPendingActions className="w-4 h-4" /> },
     { label: "Requested", value: "requested", icon: <MdOutlineRequestPage className="w-4 h-4" /> },
+    { label: "Approved", value: "approved", icon: <MdDoneAll className="w-4 h-4" /> },
+   
   ].map((tab, idx) => (
     <div
       key={tab.value}
@@ -209,6 +222,9 @@ export default function PaymentsDesktop() {
                                         ))}
                                     </tbody>
                                 </table>
+                            </div>
+                            <div className="flex justify-end mt-4 mr-4 xl:mr-[68px]">
+                                <span className="font-semibold text-lg">Total: ${getTotalAmount(event)}</span>
                             </div>
                         </div>
                     ))
