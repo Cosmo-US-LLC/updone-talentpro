@@ -407,7 +407,7 @@ const returnUrl = searchParams.get("returnUrl");
                     </div>
                     {
                       jobData?.unread_message_count > 0 && (
-                        <div className="absolute bottom-9 right-7 p-2 flex flex-row justify-center items-center bg-[#C70101] h-[24px] w-[24px] rounded-full z-[99]">
+                        <div className="absolute bottom-9 right-7 p-2 flex flex-row justify-center items-center bg-[#C70101] h-[24px] w-[24px] rounded-full z-[10]">
                           <p className="text-[white] text-[12px]">
                             {jobData?.unread_message_count > 10 ? "10+" : jobData?.unread_message_count}
                           </p>
