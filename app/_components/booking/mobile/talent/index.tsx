@@ -336,12 +336,8 @@ const returnUrl = searchParams.get("returnUrl");
             {
               modalIsOpen === false && (
                 <div
-                  className={`${isAssignedToMe === true && isCompleted === false ?"":"fixed bottom-2"} ${jobData?.job?.status === "completed" ? "left-6" : "left-16"} flex flex-row w-fullrounded-t-2xl items-center justify-center border-[black] mt-8`}>                  {
-                    jobData?.unread_message_count > 0 &&
-                    <div className="p-2 flex flex-row justify-center items-center absolute bg-[#C70101] h-[24px] w-[24px] rounded-full bottom-[60%] right-[25%] z-[99]">
-                      <p className="text-[white] text-[12px]">{jobData?.unread_message_count > 10 ? "10+" : jobData?.unread_message_count}</p>
-                    </div>
-                  }
+                  className={`${isAssignedToMe === true && isCompleted === false ?"":"fixed bottom-2"} ${jobData?.job?.status === "completed" ? "left-6" : "left-16"} flex flex-row w-fullrounded-t-2xl items-center justify-center border-[black] mt-8`}>                  
+                 
                   {
                     shouldRenderButton() &&
                     <>
@@ -350,19 +346,26 @@ const returnUrl = searchParams.get("returnUrl");
                         jobData?.job?.status === "completed" ? (
                           <>
                             <div className="flex pt-16 flex-row">
-                              <div className="pb-4 mr-4 flex justify-center">
-                                <Image
-                                  alt="unread-icon"
-                                  height={48}
-                                  quality={100}
-                                  width={48}
-                                  className="cursor-pointer"
-                                  src="/images/client-portal/all-events/Badge.svg"
-                                  onClick={() => {
-                                    handleButtonClick();
-                                  }}
-                                />
-                              </div>
+                            <div className="pb-4 mr-4 flex justify-center relative">
+                    <Image
+                      alt="unread-icon"
+                      height={48}
+                      quality={100}
+                      width={48}
+                      className="cursor-pointer"
+                      src="/images/client-portal/all-events/Badge.svg"
+                      onClick={() => { handleButtonClick(); }}
+                    />
+                    {
+                      jobData?.unread_message_count > 0 && (
+                        <div className="absolute top-0 right-0 p-2 flex flex-row justify-center items-center bg-[#C70101] h-[18px] w-[18px] rounded-full z-[99]">
+                          <p className="text-[white] text-[12px]">
+                            {jobData?.unread_message_count > 10 ? "10+" : jobData?.unread_message_count}
+                          </p>
+                        </div>
+                      )
+                    }
+                  </div>
                               <button
                                 className={`bg-[#350ABC] min-w-[270px] py-[12px] text-[16px] font-[400] leading-[26px] text-white mb-4 rounded-full ${jobData.payment_status !== "release_pending" ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 onClick={handleClickRequestReleaseButton}
@@ -384,26 +387,36 @@ const returnUrl = searchParams.get("returnUrl");
                           </>
                         ) : (
                           <>
-                            <div className="flex flex-col">
-                              <div className="mr-8">
-                                <div className={`pl-8 ${ buttonLabel === "Submit an Offer" ? "mt-16" : ""} `}>
-                                  <button
-                                    disabled={isButtonLoading}
-                                    onClick={() => {
-                                      setIsButtonLoading(true);
-                                      handleButtonClick();
-                                    }}
-                                    className="min-w-[200px] flex items-center justify-center bg-[#350ABC] py-[12px] text-[16px] font-[400] leading-[26px] text-[#e0d9f8] rounded-full"
-                                  >
-                                    {isButtonLoading ? (
-                                      <Loader2 className="w-5 h-5 animate-spin" />
-                                    ) : (
-                                      bottomButtonText()
-                                    )}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
+                                            <div className="flex flex-col relative">
+                  <div className="mr-8">
+                    <div className={`pl-8 ${buttonLabel === "Submit an Offer" ? "mt-16" : ""}`}>
+                      <button
+                        disabled={isButtonLoading}
+                        onClick={() => {
+                          setIsButtonLoading(true);
+                          handleButtonClick();
+                        }}
+                        className="min-w-[200px] flex items-center justify-center bg-[#350ABC] py-[12px] text-[16px] font-[400] leading-[26px] text-[#e0d9f8] rounded-full"
+                      >
+                        {isButtonLoading ? (
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                        ) : (
+                          bottomButtonText()
+                        )}
+                      </button>
+                    </div>
+                    {
+                      jobData?.unread_message_count > 0 && (
+                        <div className="absolute bottom-9 right-7 p-2 flex flex-row justify-center items-center bg-[#C70101] h-[24px] w-[24px] rounded-full z-[99]">
+                          <p className="text-[white] text-[12px]">
+                            {jobData?.unread_message_count > 10 ? "10+" : jobData?.unread_message_count}
+                          </p>
+                        </div>
+                      )
+                    }
+                  </div>
+                </div>
+              
                           </>
                         )
                       }
