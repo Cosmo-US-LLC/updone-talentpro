@@ -364,11 +364,11 @@ const page: React.FC = () => {
         )}
 
         {/* Button now part of the page content */}
-        <div className="w-[300px] mt-16 flex items-center mx-auto justify-center py-6 px-4">
+        <div className={`w-[300px] ${isChecked || showNewDiv ===true ? "":"mt-24"} flex items-center mx-auto justify-center py-6 px-4`}>
           {jobData?.payment_status === "release_requested" ? (
             <button
               disabled={isButtonLoading}
-              className="text-[#FFF] py-[16px]  w-full max-w-[350px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
+              className="text-[#FFF] py-[16px] fixed bottom-2 w-full max-w-[300px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
               onClick={handleBackToJobDetails}
             >
               {isButtonLoading ? (
