@@ -12,6 +12,9 @@ interface WorkingTimes {
 const formatDate = (inputDate: any): any => {
   // Check if the input is already a Date object
   let date = inputDate instanceof Date ? inputDate : new Date(inputDate);
+  
+  // Convert the date to UTC
+  date = new Date(date.toISOString());
 
   // Validate if the date is valid
   if (isNaN(date.getTime())) {
@@ -35,9 +38,12 @@ const formatDate = (inputDate: any): any => {
   ];
 
   // Extract date components
-  const day = date.getDate();
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear();
+  // const day = date.getDate();
+  // const month = monthNames[date.getMonth()];
+  // const year = date.getFullYear();
+  const day = date.getUTCDate(); // Use UTC methods to avoid local timezone changes
+  const month = monthNames[date.getUTCMonth()]; // Use UTC methods
+  const year = date.getUTCFullYear(); // Use UTC methods
 
   // Format and return the date string
   return `${month} ${day}, ${year}`;
