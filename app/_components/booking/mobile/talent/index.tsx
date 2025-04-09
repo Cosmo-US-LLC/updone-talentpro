@@ -273,14 +273,7 @@ const returnUrl = searchParams.get("returnUrl");
                           <li>We have shared your contact information with {jobData?.job?.user?.name}. Expect a call anytime soon!</li>
                           <li>Discuss all the requirement with the Client in detail.</li>
                           <li>In case {jobData?.job?.user?.name} doesn't contact you, message them within the platform.
-                             <ul className="list-disc pl-5 mt-2">
-                             <li>
-                                Available on Cellphone.
-                              </li>
-                              <li>
-                                Coming soon on Desktop.
-                              </li>
-                             </ul>
+                           
                           </li>
                           <li>Contact us at info@updone.com in case you have any queries.</li>
                         </ul>
@@ -336,7 +329,7 @@ const returnUrl = searchParams.get("returnUrl");
             {
               modalIsOpen === false && (
                 <div
-                  className={`${isAssignedToMe === true && isCompleted === false ?"":"fixed bottom-2"} ${jobData?.job?.status === "completed" ? "left-6" : "left-16"} flex flex-row w-fullrounded-t-2xl items-center justify-center border-[black] mt-8`}>                  
+                  className={`${isAssignedToMe === true && isCompleted === false || alreadyOffered === true && isAssignedToMe === false ?"":"fixed bottom-2"} ${jobData?.job?.status === "completed" ? "left-6" : "left-16"} flex flex-row w-fullrounded-t-2xl items-center justify-center border-[black] mt-8`}>                  
                  
                   {
                     shouldRenderButton() &&
