@@ -107,11 +107,11 @@ const items = [
     url: "/services",
     icon: PiCallBell,
   },
-  {
-    title: "How it works",
-    url: "/how-it-works",
-    icon: PiBookOpenText,
-  },
+  // {
+  //   title: "How it works",
+  //   url: "/how-it-works",
+  //   icon: PiBookOpenText,
+  // },
   {
     title: "Payments",
     url: "/payments",
@@ -161,10 +161,10 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
         setActiveIndex(5);
       } else if (pathname.includes("/services")) {
         setActiveIndex(6);
-      } else if (pathname.includes("/how-it-works")) {
-        setActiveIndex(7);
+      // } else if (pathname.includes("/how-it-works")) {
+      //   setActiveIndex(7);
       }else if (pathname.includes("/payments")) {
-        setActiveIndex(8);
+        setActiveIndex(7);
       }
       // Check which link matches the current pathname
       // const activeLinkIndex = [...links, ...bottomLinks].findIndex((link) =>

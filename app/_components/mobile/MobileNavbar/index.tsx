@@ -401,7 +401,7 @@ const MobileNavbar = ({ ...props }) => {
                         </div>
                       </div>
                     </div>
-                    <div>
+                    {/* <div>
                           <button
                         onClick={toggleGuideAccordion}
                         className="w-full flex  items-center justify-between bg-[#d7cefc] px-4 py-2 rounded-full text-left font-medium text-[#5d0abc]"
@@ -436,7 +436,7 @@ const MobileNavbar = ({ ...props }) => {
                           </SheetClose>
                           </div>
                             </div>
-                          </div>
+                          </div> */}
                     
                     <div>
                       <button
