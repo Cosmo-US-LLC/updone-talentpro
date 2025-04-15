@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useState } from "react";
 import { MapPin, Settings2 } from "lucide-react";
 import { IoIosStarOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -8,6 +9,8 @@ import { LuLogOut } from "react-icons/lu";
 import { PiCallBell, PiCurrencyDollar, PiUsersThree } from "react-icons/pi";
 import { SlLocationPin } from "react-icons/sl";
 import { PiBookOpenText } from "react-icons/pi";
+import { ChevronRight } from "lucide-react";
+
 
 import {
   Sidebar,
@@ -70,54 +73,54 @@ const coinIcon = () => {
   )
 };
 
-const items = [
-  {
-    title: "Upcoming",
-    url: "/",
-    icon: TbCalendarUp,
-  },
-  {
-    title: "Open Invites",
-    url: "/invites",
-    icon: BsEnvelopePaper,
-  },
-  {
-    title: "My Offers",
-    url: "/offered",
-    icon: PiHandCoins,
-    // icon: PiUsersThree,
-  },
-  {
-    title: "My Events",
-    url: "/my-events",
-    icon: FaRegCalendarCheck,
-  },
-  {
-    title: "Personal Details",
-    url: "/personal-details",
-    icon: CgProfile,
-  },
-  {
-    title: "Login Details",
-    url: "/login-details",
-    icon: TbLogin2,
-  },
-  {
-    title: "Services",
-    url: "/services",
-    icon: PiCallBell,
-  },
-  // {
-  //   title: "How it works",
-  //   url: "/how-it-works",
-  //   icon: PiBookOpenText,
-  // },
-  {
-    title: "Payments",
-    url: "/payments",
-    icon: CreditCard,
-  },
-];
+// const items = [
+//   {
+//     title: eventCount !== null ? `Upcoming (${eventCount})` : "Upcoming",
+//     url: "/",
+//     icon: TbCalendarUp,
+//   },
+//   {
+//     title: "Open Invites",
+//     url: "/invites",
+//     icon: BsEnvelopePaper,
+//   },
+//   {
+//     title: "My Offers",
+//     url: "/offered",
+//     icon: PiHandCoins,
+//     // icon: PiUsersThree,
+//   },
+//   {
+//     title: "My Events",
+//     url: "/my-events",
+//     icon: FaRegCalendarCheck,
+//   },
+//   {
+//     title: "Personal Details",
+//     url: "/personal-details",
+//     icon: CgProfile,
+//   },
+//   {
+//     title: "Login Details",
+//     url: "/login-details",
+//     icon: TbLogin2,
+//   },
+//   {
+//     title: "Services",
+//     url: "/services",
+//     icon: PiCallBell,
+//   },
+//   // {
+//   //   title: "How it works",
+//   //   url: "/how-it-works",
+//   //   icon: PiBookOpenText,
+//   // },
+//   {
+//     title: "Payments",
+//     url: "/payments",
+//     icon: CreditCard,
+//   },
+// ];
 const items2 = [
   {
     title: "Reviews",
@@ -142,6 +145,144 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
   const dispatch = useDispatch();
   const [logoutPath, setLogoutPath] = React.useState("/"); // New loading state
   const [isClient, setIsClient] = React.useState(false);
+  const [eventCount, setEventCount] = React.useState<number | null>(null);
+  const [offeredCount, setOfferedCount] = React.useState<number | null>(null);
+ const [inviteCount, setInviteCount] = React.useState<number | null>(null);
+ const [myEventCount, setMyEventCount] = React.useState<number | null>(null);
+ const [isEventsOpen, setIsEventsOpen] = useState(true);
+ const [isProfileOpen, setIsProfileOpen] = useState(true);
+ const toggleEvents = () => setIsEventsOpen(prev => !prev);
+ const toggleProfile = () => setIsProfileOpen(prev => !prev);
+ 
+
+
+
+  const eventItems = [
+    {
+      title: eventCount !== null ? `Upcoming Events (${eventCount})` : "Upcoming Events",
+      url: "/",
+      icon: TbCalendarUp,
+    },
+    {
+      title: inviteCount !== null ? `Open Invites (${inviteCount})` : "Open Invites",
+      url: "/invites",
+      icon: BsEnvelopePaper,
+    },
+    {
+      title: offeredCount !== null ? `My Offers (${offeredCount})` : "My Offers",
+      url: "/offered",
+      icon: PiHandCoins,
+    },
+    {
+      title: myEventCount !== null ? `My Events (${myEventCount})` : "My Events",
+      url: "/my-events",
+      icon: FaRegCalendarCheck,
+    },
+ 
+    // {
+    //   title: "How it works",
+    //   url: "/how-it-works",
+    //   icon: PiBookOpenText,
+    // },
+  
+  ];
+
+  const profileItems = [
+    {
+      title: "Personal Details",
+      url: "/personal-details",
+      icon: CgProfile,
+    },
+    {
+      title: "Login Details",
+      url: "/login-details",
+      icon: TbLogin2,
+    },
+    {
+      title: "Services",
+      url: "/services",
+      icon: PiCallBell,
+    },
+    {
+      title: "Payments",
+      url: "/payments",
+      icon: CreditCard,
+    },
+  ];
+  
+
+  React.useEffect(() => {
+    const fetchEventCount = async () => {
+      try {
+        const response = await apiRequest("/talentpro/upcoming-events", {
+          method: "POST",
+          headers: {
+            ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+          },
+          body: {
+            page_number: 1,
+            page_size: 100, // Just need count, so small payload
+          },
+        });
+  
+        const jobs = response?.jobs || [];
+        setEventCount(jobs.length);
+        setOfferedCount(jobs.filter((job: any) => job.has_offered).length);
+  
+        // 2️⃣ Fetch Invites
+        const invitesResponse = await apiRequest("/talentpro/invites", {
+          method: "POST",
+          headers: {
+            ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+          },
+          body: {
+            page_number: 1,
+            page_size: 100,
+          },
+        });
+  
+        const inviteJobs = invitesResponse?.jobs || [];
+        const openInvitesCount = inviteJobs.filter((event: any) => event.has_offered === false).length;
+        setInviteCount(openInvitesCount);
+      } catch (err) {
+        console.error("Failed to fetch upcoming event count", err);
+      }
+    };
+
+    
+  
+    if (storedData?.token) {
+      fetchEventCount();
+    }
+  }, [storedData]);
+
+   React.useEffect(() => {
+          const fetchMyEvents = async () => {
+              try {
+                  const response = await apiRequest("/talentpro/my-events", {
+                      method: "POST",
+                      headers: {
+                          revalidate: true,
+                          ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+                      },
+                      body: {
+                          page_number: 1,
+                          page_size: 100,
+                      },
+                  });
+                  const jobs = response?.jobs || [];
+                  setMyEventCount(jobs.length);
+                
+                } catch (error) {
+                  console.error("Error fetching data:", error);
+              }
+          };
+  
+          if (storedData?.token) {
+              fetchMyEvents();
+          }
+      }, [storedData]);
+  
 
   // Set active link based on current pathname
   React.useEffect(() => {
@@ -253,47 +394,113 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
         </div>
       </SidebarHeader>
       <SidebarContent className="group-data-[collapsible=icon]:!items-center">
+      <SidebarGroup>
+  <SidebarGroupLabel
+    className="cursor-pointer flex justify-between items-center text-[16px]"
+    onClick={ toggleEvents}
+  >
+    All Events
+    <ChevronRight
+    className={`transition-transform duration-300 ${
+      isEventsOpen  ? "rotate-90" : "rotate-0"
+    }`}
+  />
+  </SidebarGroupLabel>
+
+  <div
+  className={cn(
+    "transition-all duration-500 ease-in-out overflow-hidden",
+    isEventsOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+  )}
+>
+  <SidebarGroupContent className="pl-0">
+    <SidebarMenu>
+      {eventItems.map((item) => (
+        <SidebarMenuItem key={item.title}>
+          <SidebarMenuButton asChild>
+            <Link
+              href={item.url}
+              className={cn(
+                "group-data-[collapsible=icon]:!ml-[10px] !text-[15px] !transition-all !h-fit !py-3 px-3",
+                pathname === item.url
+                  ? "bg-[#F8F6FF] border-l-4 border-[#350ABC] font-semibold text-[#350ABC]"
+                  : "hover:!bg-[#F8F6FF] text-[#2C2240]"
+              )}
+              title={item.title}
+            >
+              <item.icon
+                className={cn(
+                  "!w-5 !h-5 mr-2",
+                  pathname === item.url
+                    ? "text-[#350ABC]"
+                    : "text-[#2C2240]"
+                )}
+              />
+              <span>{item.title}</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      ))}
+    </SidebarMenu>
+  </SidebarGroupContent>
+</div>
+
+</SidebarGroup>
+
+<SidebarGroup>
+  <SidebarGroupLabel
+    className="cursor-pointer flex justify-between items-center text-[16px]"
+    onClick={toggleProfile}
+  >
+    Profile
+    <ChevronRight
+    className={`transition-transform duration-300 ${
+      isProfileOpen ? "rotate-90" : "rotate-0"
+    }`}
+  />
+  </SidebarGroupLabel>
+
+  <div
+    className={cn(
+      "transition-all duration-500 ease-in-out overflow-hidden",
+      isProfileOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+    )}
+  >
+    <SidebarGroupContent className="pl-0">
+      <SidebarMenu>
+        {profileItems.map((item) => (
+          <SidebarMenuItem key={item.title}>
+            <SidebarMenuButton asChild>
+              <Link
+                href={item.url}
+                className={cn(
+                  "group-data-[collapsible=icon]:!ml-[10px] !text-[15px] !transition-all !h-fit !py-3 px-3",
+                  pathname === item.url
+                    ? "bg-[#F8F6FF] border-l-4 border-[#350ABC] font-semibold text-[#350ABC]"
+                    : "hover:!bg-[#F8F6FF] text-[#2C2240]"
+                )}
+                title={item.title}
+              >
+                <item.icon
+                  className={cn(
+                    "!w-5 !h-5 mr-2",
+                    pathname === item.url
+                      ? "text-[#350ABC]"
+                      : "text-[#2C2240]"
+                  )}
+                />
+                <span>{item.title}</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        ))}
+      </SidebarMenu>
+    </SidebarGroupContent>
+  </div>
+</SidebarGroup>
+
         <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item, index) => (
-                <SidebarMenuItem key={item.title} className="">
-                  <SidebarMenuButton asChild>
-                    <Link
-                      href={item.url}
-                      //   className={`group-data-[collapsible=icon]:!ml-[14px] group-data-[collapsible=icon]:!scale-125 !transition-all ${
-                      className={`group-data-[collapsible=icon]:!ml-[10px] !text-[15px] !transition-all !h-fit !py-3 ${
-                        activeIndex === index
-                          ? "bg-[#F8F6FF]"
-                          : "hover:!bg-[#F8F6FF]"
-                      }`}
-                      title={item.title}
-                    >
-                      <item.icon
-                        className={`!w-5 !h-5 ${
-                          activeIndex === index
-                            ? "text-[#350ABC]"
-                            : "text-[#2C2240]"
-                        }`}
-                      />
-                      <span
-                        className={`${
-                          activeIndex === index
-                            ? "text-[#350ABC]"
-                            : "text-[#2C2240]"
-                        }`}
-                      >
-                        {item.title}
-                      </span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-[14px]">
+          <SidebarGroupLabel className="text-[16px]">
             Coming Soon
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -301,32 +508,22 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
               {items2.map((item, index) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link
-                      href={item.url}
-                      className={`group-data-[collapsible=icon]:!ml-[10px] !text-[15px] !transition-all !h-fit !py-3 ${
-                        pathname.includes(item.url)
-                          ? "bg-[#F8F6FF]"
-                          : "hover:!bg-[#F8F6FF]"
-                      } ${item.disabled ? 'opacity-50 pointer-events-none cursor-not-allowed' : ''}`}
-                      title={item.title}
-                    >
-                      <item.icon
-                        className={`!w-5 !h-5 ${
-                          pathname.includes(item.url)
-                            ? "text-[#350ABC]"
-                            : "text-[#2C2240]"
-                        }`}
-                      />
-                      <span
-                        className={`${
-                          pathname.includes(item.url)
-                            ? "text-[#350ABC]"
-                            : "text-[#2C2240]"
-                        }`}
-                      >
-                        {item.title}
-                      </span>
-                    </Link>
+                  <Link
+  href={item.url}
+  className={`group-data-[collapsible=icon]:!ml-[10px] !text-[15px] !transition-all !h-fit !py-3 px-3
+    ${pathname === item.url
+      ? "bg-[#F8F6FF] border-l-4 border-[#350ABC] font-semibold text-[#350ABC]"
+      : "hover:!bg-[#F8F6FF] text-[#2C2240]"
+    }`}
+  title={item.title}
+>
+  <item.icon
+    className={`!w-5 !h-5 mr-2 ${
+      pathname === item.url ? "text-[#350ABC]" : "text-[#2C2240]"
+    }`}
+  />
+  <span>{item.title}</span>
+</Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
