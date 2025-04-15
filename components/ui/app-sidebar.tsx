@@ -159,7 +159,7 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
 
   const eventItems = [
     {
-      title: eventCount !== null ? `Upcoming Events (${eventCount})` : "Upcoming Events",
+      title: eventCount !== null ? `Upcoming Events(${eventCount})` : "Upcoming Events",
       url: "/",
       icon: TbCalendarUp,
     },
@@ -422,8 +422,8 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
               href={item.url}
               className={cn(
                 "group-data-[collapsible=icon]:!ml-[10px] !text-[15px] !transition-all !h-fit !py-3 px-3",
-                pathname === item.url
-                  ? "bg-[#F8F6FF] border-l-4 border-[#350ABC] font-semibold text-[#350ABC]"
+                pathname === item.url || (item.url === "/" && pathname.includes("/upcoming-events"))
+                ? "bg-[#F8F6FF] border-l-4 border-[#350ABC] font-semibold text-[#350ABC]"
                   : "hover:!bg-[#F8F6FF] text-[#2C2240]"
               )}
               title={item.title}
@@ -431,8 +431,8 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
               <item.icon
                 className={cn(
                   "!w-5 !h-5 mr-2",
-                  pathname === item.url
-                    ? "text-[#350ABC]"
+                  pathname === item.url || (item.url === "/" && pathname.includes("/upcoming-events"))
+                  ? "text-[#350ABC]"
                     : "text-[#2C2240]"
                 )}
               />
