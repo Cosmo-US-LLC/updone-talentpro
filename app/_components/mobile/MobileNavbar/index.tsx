@@ -47,6 +47,10 @@ const MobileNavbar = ({ ...props }) => {
   const [isComingAccordionOpen, setIsComingAccordionOpen] = useState(true);
   const [isProfileAccordionOpen, setIsProfileAccordionOpen] = useState(true);
   const [isGuideAccordionOpen, setIsGuideAccordionOpen] = useState(true);
+    const [eventCount, setEventCount] = useState<number | null>(null);
+    const [offeredCount, setOfferedCount] = useState<number | null>(null);
+   const [inviteCount, setInviteCount] = useState<number | null>(null);
+   const [myEventCount, setMyEventCount] = useState<number | null>(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleEventAccordion = () =>
@@ -71,6 +75,78 @@ const MobileNavbar = ({ ...props }) => {
 
   const userName = storedData?.user?.name || "";
   const userInitials = userName.substring(0, 2).toUpperCase();
+
+    useEffect(() => {
+      const fetchEventCount = async () => {
+        try {
+          const response = await apiRequest("/talentpro/upcoming-events", {
+            method: "POST",
+            headers: {
+              ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+            },
+            body: {
+              page_number: 1,
+              page_size: 100, // Just need count, so small payload
+            },
+          });
+    
+          const jobs = response?.jobs || [];
+          setEventCount(jobs.length);
+          setOfferedCount(jobs.filter((job: any) => job.has_offered).length);
+    
+          // 2️⃣ Fetch Invites
+          const invitesResponse = await apiRequest("/talentpro/invites", {
+            method: "POST",
+            headers: {
+              ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+            },
+            body: {
+              page_number: 1,
+              page_size: 100,
+            },
+          });
+    
+          const inviteJobs = invitesResponse?.jobs || [];
+          const openInvitesCount = inviteJobs.filter((event: any) => event.has_offered === false).length;
+          setInviteCount(openInvitesCount);
+        } catch (err) {
+          console.error("Failed to fetch upcoming event count", err);
+        }
+      };
+  
+      
+    
+      if (storedData?.token) {
+        fetchEventCount();
+      }
+    }, [storedData]);
+  
+     useEffect(() => {
+            const fetchMyEvents = async () => {
+                try {
+                    const response = await apiRequest("/talentpro/my-events", {
+                        method: "POST",
+                        headers: {
+                            revalidate: true,
+                            ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
+                        },
+                        body: {
+                            page_number: 1,
+                            page_size: 100,
+                        },
+                    });
+                    const jobs = response?.jobs || [];
+                    setMyEventCount(jobs.length);
+                  
+                  } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            };
+    
+            if (storedData?.token) {
+                fetchMyEvents();
+            }
+        }, [storedData]);
  
 
   const logout = async () => {
@@ -203,6 +279,9 @@ const MobileNavbar = ({ ...props }) => {
     setIsOpen(false);
   }, [pathname])
 
+  const isActive = (slug: string) => pathname?.includes(`/${slug}`);
+
+
   return (
     <div className="flex items-center justify-between z-[10000] bg-[#fff] fixed w-full px-[24px] h-[76px]">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -264,10 +343,10 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("upcoming-events")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes ("/talent/events/upcoming-events") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("upcoming-events") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
-  Upcoming Events
+  Upcoming Events({eventCount})
 </button>
                             </div>
                           </SheetClose>
@@ -278,10 +357,10 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("invites")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/invites") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("invites") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
-  Open Invites
+  Open Invites ({inviteCount})
 </button>
                             </div>
                           </SheetClose>
@@ -290,10 +369,10 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("offered")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/offered") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("offered") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
-  My Offers
+  My Offers ({offeredCount})
 </button>
                             </div>
                           </SheetClose>
@@ -304,10 +383,10 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("my-events")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/my-events") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("my-events")? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
-  My Events
+  My Events ({myEventCount})
 </button>
                             </div>
                           </SheetClose>

@@ -172,7 +172,7 @@ export default function PersonalDetails() {
         }
 
     return (
-        <div className="flex gap-8 mt-6">
+        <div className="flex gap-4 mt-6">
             {successMessage && (
         <div
             className={`fixed top-20 left-1/2 transform -translate-x-1/2 flex justify-center w-fit px-4 md:px-8 py-3 z-10

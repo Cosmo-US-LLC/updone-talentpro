@@ -29,7 +29,7 @@ const Page = () => {
     }
     if (isMobile === false) {
         return (
-            <div className="mt-2 mx-auto lg:w-[730px] xl:w-[980px]">
+            <div className="mt-2 mx-auto lg:w-[700px] xl:w-[970px]">
                 <div className="flex flex-col gap-2">
                     <h2 className="text-[24px] text-[#350ABC] underline font-medium">
                         Upcoming Events

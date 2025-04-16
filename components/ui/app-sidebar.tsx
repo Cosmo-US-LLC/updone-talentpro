@@ -430,7 +430,7 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
             >
               <item.icon
                 className={cn(
-                  "!w-5 !h-5 mr-2",
+                  "!w-5 !h-5 mr-1",
                   pathname === item.url || (item.url === "/" && pathname.includes("/upcoming-events"))
                   ? "text-[#350ABC]"
                     : "text-[#2C2240]"

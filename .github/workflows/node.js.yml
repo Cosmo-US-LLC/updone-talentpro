@@ -44,7 +44,7 @@ jobs:
           git pull 2>&1 &&
 
           echo "Removing old node_modules and .next directory..." 2>&1 &&
-          rm -rf node_modules .next package-lock.json 2>&1 &&
+          rm -rf .next 2>&1 &&
 
           echo "Stopping all applications with PM2..." 2>&1 &&
           pm2 stop 0 2>&1

@@ -129,7 +129,7 @@ export default function LoginDetails() {
     }
 
     return (
-        <div className=" lg:w-[730px] xl:w-[980px] xl:mx-auto bg-white rounded-lg shadow-lg p-8 mt-8">
+        <div className=" lg:w-[700px] xl:w-[980px] xl:mx-auto bg-white rounded-lg shadow-lg p-8 mt-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Login Details</h2>
             <div className="space-y-6">
                 {/* Email Display */}

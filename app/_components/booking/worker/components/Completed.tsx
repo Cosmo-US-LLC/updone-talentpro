@@ -2,12 +2,13 @@ import { montserrat } from '@/app/lib/Fonts'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { PiWarningCircle } from 'react-icons/pi'
 
 const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
     const router = useRouter();
     
     return (
-        <div className='lg:max-w-[700px] 2xl:max-w-[1100px] mx-auto flex mb-[300px]'>
+        <div className='lg:max-w-[700px] 2xl:max-w-[1100px] mx-auto flex flex-col mb-[300px]'>
             <div className="bg-[#FFE9E9] w-full h-[130px] flex items-center border-2 border-[#FFB8B8] lg:px-2 2xl:px-6">
                 
                 {/* Left Section (Icon + Event Complete Message) */}
@@ -45,6 +46,10 @@ const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
                         View Upcoming Events
                     </div>
                 )}
+            </div>
+            <div className='bg-[#FFF7EC] border border-[#f7e4c1] w-full px-2 py-2 mt-4 font-semibold flex'>
+            <PiWarningCircle className='w-5 h-5 mr-2 text-[#fcb42f] mt-0.5' /> 
+             Note : To request release of payment go to&nbsp;<span className='text-[#350ABC]'>Updone.com</span> &nbsp;on your cellphone.
             </div>
         </div>
     )
