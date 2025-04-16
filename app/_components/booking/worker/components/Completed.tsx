@@ -47,9 +47,9 @@ const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
                     </div>
                 )}
             </div>
-            <div className='bg-[#FFF7EC] border border-[#f7e4c1] w-full px-2 py-2 mt-4 font-semibold flex'>
-            <PiWarningCircle className='w-5 h-5 mr-2 text-[#fcb42f] mt-0.5' /> 
-             Note : To request release of payment go to&nbsp;<span className='text-[#350ABC]'>Updone.com</span> &nbsp;on your cellphone.
+            <div className='bg-[#eeebfb] border border-[#ac9cf4] border-dotted w-full px-2 py-2 mt-4 font-semibold flex'>
+            <PiWarningCircle className='w-5 h-5 mr-2 text-[#6343f4] mt-0.5' /> 
+             Note : Open this page on your cellphone to request a payment release. We'll be adding this feature on desktop soon!
             </div>
         </div>
     )
