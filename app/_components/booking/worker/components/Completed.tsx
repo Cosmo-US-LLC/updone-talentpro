@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { PiWarningCircle } from 'react-icons/pi'
 
-const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
+const Completed = ({ myWorkingDetails, isAssignedToMe, payment_status, jobId }: any) => {
     const router = useRouter();
     
     return (
@@ -39,13 +39,30 @@ const Completed = ({ myWorkingDetails, isAssignedToMe }: any) => {
 
                 {/* Right Section - View Upcoming Events */}
                 {isAssignedToMe && (
+                    <>
+                    {payment_status ==='release_pending' ?( 
+                        <div 
+                        className={` bg-[#350ABC] text-white  px-6 py-2 rounded-sm cursor-pointer ml-auto lg:text-[14px] 2xl:text-[18px]`}
+                        onClick={() => router.push(`/staff/job-detail/${jobId}/release-payment`)}
+                    >
+                        Request Payment Release
+                    </div>
+                    ):(
+                        <div 
+                        className={` bg-[#350ABC] text-white  px-6 py-2 rounded-sm  ml-auto lg:text-[14px] 2xl:text-[18px]  ${payment_status !== "release_pending" ? 'opacity-50 cursor-not-allowed' : ''} `}
+                       
+                    >
+                        Request Submitted!
+                    </div>
+                    )} 
                     <div 
                         className=" bg-[#350ABC] text-white  px-6 py-2 rounded-sm cursor-pointer ml-auto lg:text-[14px] 2xl:text-[18px]"
                         onClick={() => router.push(`/`)}
                     >
                         View Upcoming Events
                     </div>
-                )}
+                    </>
+              )}
             </div>
             <div className='bg-[#eeebfb] border border-[#ac9cf4] border-dotted w-full px-2 py-2 mt-4 font-semibold flex'>
             <PiWarningCircle className='w-5 h-5 mr-2 text-[#6343f4] mt-0.5' /> 

@@ -153,8 +153,8 @@ const page: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col ">
-      <div>
+    <div className=" flex flex-col ">
+      <div className="lg:hidden">
         <MobileNavbar />
       </div>
 
@@ -308,14 +308,14 @@ const page: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <div className=" w-[349px] m-6">
+                    <div className=" w-[349px] m-6 mx-auto ">
                       <h6 className="text-[20px] font-[400] mb-2">Did you work extra hours?</h6>
-                      <button
+                      <div
                         onClick={handleTextLink}
-                        className="text-[#350ABC] text-[16px] font-[500] underline hover:text-[#2C2240] transition-all duration-200"
+                        className="text-[#350ABC] text-[16px] font-[500] cursor-pointer underline transition-all duration-200"
                       >
                         Tap to request additional payment
-                      </button>
+                      </div>
                     </div>
                   </>
                 )}
@@ -368,7 +368,7 @@ const page: React.FC = () => {
           {jobData?.payment_status === "release_requested" ? (
             <button
               disabled={isButtonLoading}
-              className="text-[#FFF] py-[16px] fixed bottom-2 w-full max-w-[300px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
+              className="text-[#FFF] py-[16px] fixed bottom-2 md:bottom-64 w-full max-w-[300px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
               onClick={handleBackToJobDetails}
             >
               {isButtonLoading ? (

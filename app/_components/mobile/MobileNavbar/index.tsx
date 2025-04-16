@@ -283,7 +283,7 @@ const MobileNavbar = ({ ...props }) => {
 
 
   return (
-    <div className="flex items-center justify-between z-[10000] bg-[#fff] fixed w-full px-[24px] h-[76px]">
+    <div className="max-lg:hidden flex items-center justify-between z-[10000] bg-[#fff] fixed w-full px-[24px] h-[76px]">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           

@@ -158,7 +158,7 @@ const JobDetailWorker = ({ jobId }: JobDetailWorkerProps) => {
       }
     };
     fetchDataIfNeeded();
-  }, [jobId, storedData]);
+  }, [jobId, storedData, datas?.payment_status]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -489,6 +489,9 @@ else if (loadingJobDetail===false && loadingDataDetail===false){
                   }
                   myWorkingDetails={datas?.myWorkingDetails}
                   isAssignedToMe={datas?.is_assigned_to_me}
+                  payment_status={datas?.payment_status}
+                  jobId={datas?.job?.id}
+
                 />
               ) : datas?.is_assigned && datas?.is_assigned_to_me ? (
                 <Assigned
