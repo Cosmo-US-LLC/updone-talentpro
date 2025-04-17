@@ -162,9 +162,9 @@ const page: React.FC = () => {
       <div className="  overflow-y-auto  overflow-x-hidden">
         {!showReceipt ? (
           <>
-            <div className="flex justify-center mt-[120px]  ">
+            <div className="flex justify-center sm:mt-[120px] md:mt-2  ">
               <div className="flex flex-col items-center w-[349px] border-2 border-gray-200 rounded-xl bg-[#e0daf9] px-[11.831px] py-[15.774px]">
-                <div className="mb-6">
+                <div className="sm:mb-6 md:mb-2">
                   <Image
                     src={jobData?.myWorkingDetails?.profile_pic}
                     className="rounded-[50%] border-2 border-white bg-[#F3F0FF]"
@@ -178,7 +178,7 @@ const page: React.FC = () => {
                     Good Work, {jobData?.myWorkingDetails?.full_name}
                   </h6>
                 </div>
-                <div className="mb-2 pb-8 border-b-2 w-full">
+                <div className="mb-2 sm:pb-8 md:pb-2 border-b-2 w-full">
                   {
                     jobData.payment_status === "release_pending" &&
                     <div className="flex flex-row items-center justify-center w-full pl-8">
@@ -364,11 +364,11 @@ const page: React.FC = () => {
         )}
 
         {/* Button now part of the page content */}
-        <div className={`w-[300px] ${isChecked || showNewDiv ===true ? "":"mt-24"} flex items-center mx-auto justify-center py-6 px-4`}>
+        <div className={`w-[300px] ${isChecked || showNewDiv ===true ? "":"sm:mt-8"} flex items-center mx-auto justify-center py-6 px-4`}>
           {jobData?.payment_status === "release_requested" ? (
             <button
               disabled={isButtonLoading}
-              className="text-[#FFF] py-[16px] fixed bottom-2 md:bottom-64 w-full max-w-[300px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
+              className="text-[#FFF] py-[16px] fixed sm:bottom-2 md:bottom-24 w-full max-w-[300px] rounded-full leading-[16px] font-[400] text-[16px] bg-[#350ABC]"
               onClick={handleBackToJobDetails}
             >
               {isButtonLoading ? (
