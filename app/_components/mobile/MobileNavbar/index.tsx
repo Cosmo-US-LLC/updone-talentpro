@@ -283,7 +283,7 @@ const MobileNavbar = ({ ...props }) => {
 
 
   return (
-    <div className="max-lg:hidden flex items-center justify-between z-[10000] bg-[#fff] fixed w-full px-[24px] h-[76px]">
+    <div className=" flex items-center justify-between z-[10000] bg-[#fff] fixed w-full px-[24px] h-[76px]">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           
@@ -428,7 +428,7 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("personal-details")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/personal-details") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("personal-details") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   Personal Details
@@ -442,7 +442,7 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("login-details")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/login-details") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("login-details")? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   Login Details
@@ -455,7 +455,7 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("services")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/services") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("services")? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   Services
@@ -468,7 +468,7 @@ const MobileNavbar = ({ ...props }) => {
                             <button
   onClick={() => handleNavigate("payments")}
   className={`w-full p-2 ml-9 rounded-full text-left text-[14px] ${
-    pathname?.includes( "/talent/events/payments") ? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
+    isActive("payments")? "text-[#5d0abc] font-semibold" : "text-gray-500 hover:text-gray-700"
   }`}
 >
   Payments
