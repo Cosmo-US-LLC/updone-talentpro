@@ -21,13 +21,13 @@ const Completed = ({ myWorkingDetails, isAssignedToMe, payment_status, jobId }: 
 
                     {/* Event Message in Column Format */}
                     <div className="ml-4 flex flex-col">
-                        <h2 className='text-3xl font-medium'>This event is complete!</h2>
+                        <h2 className='lg:text-2xl 2xl:text-3xl font-medium'>This event is complete!</h2>
                         {isAssignedToMe ? (
-                            <h3 className="text-xl mt-2">
+                            <h3 className="lg:text-lg 2xl:text-xl mt-2">
                                 We hope you had a great experience.
                             </h3>
                         ) : (
-                            <h3 className="text-xl mt-2">
+                            <h3 className="lg:text-lg 2xl:text-xl mt-2">
                                 Make sure to check your email for more opportunities. Better Luck Next Time, 
                                 <span className="pl-1 pr-1 font-semibold">
                                     {myWorkingDetails?.full_name}
@@ -55,12 +55,7 @@ const Completed = ({ myWorkingDetails, isAssignedToMe, payment_status, jobId }: 
                         Request Submitted!
                     </div>
                     )} 
-                    <div 
-                        className=" bg-[#350ABC] text-white  px-6 py-2 rounded-sm cursor-pointer ml-auto lg:text-[14px] 2xl:text-[18px]"
-                        onClick={() => router.push(`/`)}
-                    >
-                        View Upcoming Events
-                    </div>
+                   
                     </>
               )}
             </div>
