@@ -38,18 +38,19 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" &&
           nvm use node &&
 
-          cd updone/updone-talentpro &&
+          # cd updone/updone-talentpro &&
+          cd ../var/www/updone-talentpro &&
           echo "Pulling latest code..." 2>&1 &&
           git stash
           git pull 2>&1 &&
 
-          echo "Removing old node_modules and .next directory..." 2>&1 &&
-          rm -rf .next 2>&1 &&
+          # echo "Removing old node_modules and .next directory..." 2>&1 &&
+          # rm -rf .next 2>&1 &&
 
-          echo "Stopping all applications with PM2..." 2>&1 &&
-          pm2 stop 0 2>&1
-          pm2 stop 1 2>&1
-          pm2 stop 2 2>&1
+          # echo "Stopping all applications with PM2..." 2>&1 &&
+          # pm2 stop 0 2>&1
+          # pm2 stop 1 2>&1
+          # pm2 stop 2 2>&1
 
           echo "Installing dependencies..." 2>&1 &&
           # NODE_OPTIONS="--max-old-space-size=4096" npm install --verbose 2>&1 &&
@@ -59,7 +60,7 @@ jobs:
           npm run build 2>&1 &&
           
           echo "Restarting application with PM2..." 2>&1 &&
-          pm2 restart 0 2>&1
-          pm2 restart 1 2>&1
-          pm2 restart 2 2>&1
+          pm2 restart 4 2>&1
+          # pm2 restart 1 2>&1
+          # pm2 restart 2 2>&1
         '
