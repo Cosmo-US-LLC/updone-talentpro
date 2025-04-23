@@ -57,7 +57,7 @@ const MyEventsMobile = ({ setEventCount }: {  setEventCount: (count: number) => 
                     (eventsData || []).sort((a: any, b: any) => {
                       const dateA = new Date(a.working_time.date).getTime();
                       const dateB = new Date(b.working_time.date).getTime();
-                      return dateA - dateB; // Most recent first
+                      return dateB - dateA; // Most recent first
                     })
                   );
                 setEventCount(eventsData.length);
