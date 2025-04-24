@@ -55,9 +55,20 @@ const MyEventsMobile = ({ setEventCount }: {  setEventCount: (count: number) => 
                 const eventsData = response?.jobs || [];
                 setEvents(
                     (eventsData || []).sort((a: any, b: any) => {
-                      const dateA = new Date(a.working_time.date).getTime();
-                      const dateB = new Date(b.working_time.date).getTime();
-                      return dateB - dateA; // Most recent first
+                        if (a.status === "assigned" && b.status !== "assigned") return -1;
+                        if (a.status !== "assigned" && b.status === "assigned") return 1;
+
+                          // Now, sort the assigned events by the earliest upcoming date
+                    if (a.status === "assigned" && b.status === "assigned") {
+                        const dateA = new Date(a.working_time.date).getTime();
+                        const dateB = new Date(b.working_time.date).getTime();
+                        return dateA - dateB; // Earliest first
+                    }
+                        
+                        // Then, for the assigned events and completed events, sort by date (most recent first)
+                        const dateA = new Date(a.working_time.date).getTime();
+                        const dateB = new Date(b.working_time.date).getTime();
+                        return dateB - dateA;
                     })
                   );
                 setEventCount(eventsData.length);
