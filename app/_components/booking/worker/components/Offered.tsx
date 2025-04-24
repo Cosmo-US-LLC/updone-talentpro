@@ -252,7 +252,6 @@ const Offered = ({
             <p className="font-[500] text-[18px] leading-[8px] mb-2 mt-2">How to make an impact?</p>
             <li>Let the client know why you are the best choice for their event. </li>
             <li>Do not share sensitive information i.e. email, phone number, address.</li>
-            <li>Open this page in cell phone to chat with client.</li>
           </ul>
         </div>
       </div>

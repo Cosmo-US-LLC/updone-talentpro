@@ -59,7 +59,7 @@ const OfferMobile = ({  setEventCount }: { setEventCount: (count: number) => voi
                     (eventsData || []).sort((a: any, b: any) => {
                       const dateA = new Date(a.working_time.date).getTime();
                       const dateB = new Date(b.working_time.date).getTime();
-                      return dateB - dateA; // Most recent first
+                      return dateA - dateB; // Most recent first
                     })
                   );
                 setEventCount(eventsData.filter((event: any) => event.has_offered === true).length);
