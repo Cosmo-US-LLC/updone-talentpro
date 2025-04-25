@@ -509,8 +509,10 @@ export function AppSidebar({ setLoggingOut, ...props }: AppSidebarProps & React.
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                   <Link
-  href={item.url}
+  href={item.disabled ? "#" : item.url}
   className={`group-data-[collapsible=icon]:!ml-[10px] !text-[15px] !transition-all !h-fit !py-3 px-3
+    ${item.disabled ? "pointer-events-none text-gray-400" : ""} 
+
     ${pathname === item.url
       ? "bg-[#F8F6FF] border-l-4 border-[#350ABC] font-semibold text-[#350ABC]"
       : "hover:!bg-[#F8F6FF] text-[#2C2240]"
