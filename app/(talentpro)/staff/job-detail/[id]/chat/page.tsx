@@ -32,28 +32,33 @@ const ChatPage = () => {
 const returnUrl = searchParams.get("returnUrl");
 
 
-    function timeAgo(dateTimeString: string) {
-        const inputDate: any = new Date(dateTimeString);
-        const now: any = new Date();
-        const diffMs = now - inputDate;
-        
-        const minutes = Math.floor(diffMs / (1000 * 60));
-        const hours = Math.floor(diffMs / (1000 * 60 * 60));
-        const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-        
-        if (minutes < 60) {
-          return `${minutes} minutes ago`;
-        } else if (hours < 24) {
-          return `${hours} hours ago`;
-        } else if (days < 7) {
-          return `${days} days ago`;
-        } else if (days < 14) {
-          return `1 week ago`;
-        } else {
-          const weeks = Math.floor(days / 7);
-          return `${weeks} weeks ago`;
-        }
-      }  
+function timeAgo(dateTimeString:string) {
+    const inputDate: any = new Date(dateTimeString);
+    const now:any = new Date();
+    const diffMs = now - inputDate;
+  
+    const seconds = Math.floor(diffMs / 1000);
+    const minutes = Math.floor(diffMs / (1000 * 60));
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  
+    if (seconds < 60) {
+      return 'just now';
+    } else if (minutes < 60) {
+      return `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
+    } else if (hours === 1) {
+      return '1 hour ago';
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else if (days < 7) {
+      return `${days} days ago`;
+    } else if (days < 14) {
+      return '1 week ago';
+    } else {
+      const weeks = Math.floor(days / 7);
+      return `${weeks} weeks ago`;
+    }
+  } 
 
     useEffect(() => {
         const getMessages = async () => {
