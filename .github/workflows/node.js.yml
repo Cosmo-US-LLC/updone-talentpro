@@ -30,6 +30,10 @@ jobs:
     - name: Deploy application via SSH
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} 
+
+          # Install PM2 globally
+          npm install pm2 -g &&
+          
           # Verify Node.js version
           # node --version 2>&1
           
