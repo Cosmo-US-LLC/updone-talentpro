@@ -238,18 +238,19 @@ function timeAgo(dateTimeString:string) {
                                     )}
 
                                     <div className="flex flex-col">
-                                    {msg.sender_user_id !== storedData?.user?.id && (
-    <div className="flex flex-col mb-2">
-        <div className="bg-[#FFC56E] px-4 w-fit rounded-full">
-            <p className="text-[14px] font-[500] leading-[24px]">{msg.sender.name}</p>
-        </div>
-        {msg.sender.last_active && (
-            <p className="text-[12px] font-[400] text-gray-500 mt-1">
-                Last seen {timeAgo(msg.sender.last_active)}
-            </p>
-        )}
+                                    {msg.sender_user_id !== storedData?.user?.id && msg.sender && (
+  <div className="flex flex-col mb-2">
+    <div className="bg-[#FFC56E] px-4 w-fit rounded-full">
+      <p className="text-[14px] font-[500] leading-[24px]">{msg.sender?.name ?? "Unknown User"}</p>
     </div>
+    {msg.sender?.last_active && (
+      <p className="text-[12px] font-[400] text-gray-500 mt-1">
+        Last seen {timeAgo(msg.sender.last_active)}
+      </p>
+    )}
+  </div>
 )}
+
 
                                         <p className="text-[14px] font-[400] leading-[28px]">
                                             {msg.message_body}
