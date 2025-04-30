@@ -173,8 +173,8 @@ function timeAgo(dateTimeString:string) {
             }}>
                 <Image
                     alt="Back"
-                    height={25}
-                    width={25}
+                    height={20}
+                    width={20}
                     src="/images/mobile/talent/arrowLeft.svg"
                 />
                 <p className="text-[14px] font-[400] leading-[24px]">Back</p>

@@ -185,7 +185,7 @@ const OfferedDesktop = () => {
                             <div
                                         onClick={() => {
                                             setLoadingButton({ eventId: event.id, type: 'viewOffer' });
-                                            router.push(`/staff/job-detail/${event.id}`);
+                                            router.push(`/staff/job-detail/${event.id}?returnUrl=/offered`);
                                         }}
                                         className="w-full cursor-pointer py-4 self-center relative group"
                                     >

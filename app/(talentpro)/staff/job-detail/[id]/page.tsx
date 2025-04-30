@@ -98,6 +98,14 @@ const page = () => {
         }
     }, [storedData, router, isWorker]);
 
+    const handleClickBack = () => {
+        if (returnUrl) {
+          router.push(returnUrl);
+        } else {
+          router.push("/upcoming-events"); // fallback
+        }
+      };
+
     if (isMobile === true) {
         return (
             <TalentMobile jobId={params.id} />
@@ -105,6 +113,21 @@ const page = () => {
     } else if (isMobile === false) {
         return (
             <div>
+                {
+                    returnUrl && (
+                         <div className=" sticky top-0 md:top-3 p-2 flex cursor-pointer items-center space-x-2 mb-4" onClick={() => {
+                                        handleClickBack();
+                                    }}>
+                                        <Image
+                                            alt="Back"
+                                            height={20}
+                                            width={20}
+                                            src="/images/mobile/talent/arrowLeft.svg"
+                                        />
+                                        <p className="text-[14px] font-[400] leading-[24px]">Back</p>
+                                    </div>
+                    )
+                }
                 <JobDetailWorker jobId={params.id} />
                 {/* <BookingStyles /> */}
             </div>
