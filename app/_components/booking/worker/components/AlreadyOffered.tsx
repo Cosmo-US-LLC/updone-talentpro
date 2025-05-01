@@ -2,9 +2,10 @@
 import { montserrat } from '@/app/lib/Fonts'
 import React from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
+
 
 
 const AlreadyOffered = ({ hourRate, totalHours, totalIncome, jobId }: {
@@ -12,6 +13,8 @@ const AlreadyOffered = ({ hourRate, totalHours, totalIncome, jobId }: {
   totalIncome?: number; jobId?: number;
 }) => {
   const router = useRouter();
+  const params= useSearchParams();
+  const returnUrl = params.get("returnUrl");
   const [loadingButton, setLoadingButton] = useState<{ jobId: string | null; type: string | null }>({
     jobId: null,
     type: null,
@@ -56,7 +59,7 @@ const AlreadyOffered = ({ hourRate, totalHours, totalIncome, jobId }: {
               <div
                     onClick={() => {
                       setLoadingButton({ jobId: String(jobId), type: 'talkToClient' });
-                      router.push(`/staff/job-detail/${jobId}/chat`);
+                      router.push(`/staff/job-detail/${jobId}/chat?returnUrl=${returnUrl}`);
                     }}
                     className="w-fit cursor-pointer bg-[#350ABC] rounded-full py-2 lg:px-6 2xl:px-10 self-center mx-auto"
                   >
