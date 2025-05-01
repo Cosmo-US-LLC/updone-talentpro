@@ -183,7 +183,7 @@ const InvitesDesktop = () => {
                                     <div
                                         onClick={() => {
                                             setLoadingEventId(event.id);
-                                            router.push(`/staff/job-detail/${event.id}`);
+                                            router.push(`/staff/job-detail/${event.id}?returnUrl=/invites`);
                                         }}
                                         className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
                                     >

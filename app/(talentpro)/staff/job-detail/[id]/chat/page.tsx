@@ -30,6 +30,8 @@ const ChatPage = () => {
     const inviteId = params.id;
     const searchParams = useSearchParams();
 const returnUrl = searchParams.get("returnUrl");
+const currentUserId = storedData?.user?.id;
+
 
 
 function timeAgo(dateTimeString:string) {
@@ -101,7 +103,7 @@ function timeAgo(dateTimeString:string) {
 
         const newMessage: Message = {
             id: Date.now(),
-            sender_user_id: storedData?.user?.id,
+            sender_user_id: currentUserId,
             receiver_user_id: null,
             message_body: messageBody.trim(),
             created_at: new Date().toISOString(),
@@ -171,8 +173,8 @@ function timeAgo(dateTimeString:string) {
             }}>
                 <Image
                     alt="Back"
-                    height={25}
-                    width={25}
+                    height={20}
+                    width={20}
                     src="/images/mobile/talent/arrowLeft.svg"
                 />
                 <p className="text-[14px] font-[400] leading-[24px]">Back</p>
@@ -193,20 +195,20 @@ function timeAgo(dateTimeString:string) {
                         {msgs.map((msg: any) => (
                             <div
                                 key={msg.id}
-                                className={`flex mb-2 ${msg?.sender_user_id === storedData?.user?.id
+                                className={`flex mb-2 ${msg?.sender_user_id === currentUserId
                                     ? "justify-end" // Sender's messages on the right
                                     : "justify-start" // Receiver's messages on the left
                                     }`}
                             >
                                 <div
                                     style={{ wordBreak: "break-word", overflowWrap: "break-word", position: "relative" }}
-                                    className={`max-w-[85%] py-3 px-4 ${msg?.sender_user_id === storedData?.user?.id
+                                    className={`max-w-[85%] py-3 px-4 ${msg?.sender_user_id === currentUserId
                                         ? "bg-[#774DFD] text-white rounded-bl-[24px] rounded-t-[24px]" // Sender's style
                                         : "bg-[#FFF6EA] text-black rounded-t-[24px] rounded-br-[24px]" // Receiver's style
                                         }`}
                                 >
                                     {/* Elliptical Tail for Sender */}
-                                    {msg?.sender_user_id === storedData?.user?.id && (
+                                    {msg?.sender_user_id === currentUserId && (
                                         <div
                                             style={{
                                                 position: "absolute",
@@ -222,7 +224,7 @@ function timeAgo(dateTimeString:string) {
                                     )}
 
                                     {/* Elliptical Tail for Receiver */}
-                                    {msg.sender_user_id !== storedData?.user?.id && (
+                                    {msg.sender_user_id !== currentUserId && (
                                         <div
                                             style={{
                                                 position: "absolute",
@@ -238,18 +240,19 @@ function timeAgo(dateTimeString:string) {
                                     )}
 
                                     <div className="flex flex-col">
-                                    {msg.sender_user_id !== storedData?.user?.id && (
-    <div className="flex flex-col mb-2">
-        <div className="bg-[#FFC56E] px-4 w-fit rounded-full">
-            <p className="text-[14px] font-[500] leading-[24px]">{msg.sender.name}</p>
-        </div>
-        {msg.sender.last_active && (
-            <p className="text-[12px] font-[400] text-gray-500 mt-1">
-                Last seen {timeAgo(msg.sender.last_active)}
-            </p>
-        )}
+                                    {msg.sender_user_id !== currentUserId && msg.sender && (
+  <div className="flex flex-col mb-2">
+    <div className="bg-[#FFC56E] px-4 w-fit rounded-full">
+      <p className="text-[14px] font-[500] leading-[24px]">{msg.sender?.name ?? "Unknown User"}</p>
     </div>
+    {msg.sender?.last_active && (
+      <p className="text-[12px] font-[400] text-gray-500 mt-1">
+        Last seen {timeAgo(msg.sender.last_active)}
+      </p>
+    )}
+  </div>
 )}
+
 
                                         <p className="text-[14px] font-[400] leading-[28px]">
                                             {msg.message_body}

@@ -4,8 +4,12 @@ import OfferedDesktop from "./OfferedDesktop";
 import { useState } from "react";
 import MobileNavbar from "@/app/_components/mobile/MobileNavbar";
 import OfferMobile from "./OfferedMobile";
+import { useSearchParams } from "next/navigation";
+
 
 const Page = () => {
+    const searchParams= useSearchParams()
+    const returnUrl = searchParams.get("returnUrl");
 
     const isMobile = useIsMobile();
         const [eventCount, setEventCount] = useState(0);

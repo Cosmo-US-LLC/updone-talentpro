@@ -192,7 +192,7 @@ const UpcomingEventsDesktop = () => {
     <div
       onClick={() => {
         setLoadingButton({ eventId: event.id, type: 'viewOffer' });
-        router.push(`/staff/job-detail/${event.id}`);
+        router.push(`/staff/job-detail/${event.id}?returnUrl=/upcoming-events`);
       }}
       className="w-full cursor-pointer py-4 self-center relative group"
     >
@@ -210,7 +210,7 @@ const UpcomingEventsDesktop = () => {
     <div
       onClick={() => {
         setLoadingButton({ eventId: event.id, type: 'makeOffer' });
-        router.push(`/staff/job-detail/${event.id}`);
+        router.push(`/staff/job-detail/${event.id}?returnUrl=/upcoming-events`);
       }}
       className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center"
     >
@@ -229,7 +229,7 @@ const UpcomingEventsDesktop = () => {
     <div
       onClick={() => {
         setLoadingButton({ eventId: event.id, type: 'talkToClient' });
-        router.push(`/staff/job-detail/${event.invite_id}/chat`);
+        router.push(`/staff/job-detail/${event.invite_id}/chat?returnUrl=/upcoming-events`);
       }}
       className="w-full cursor-pointer bg-[#350ABC] rounded-full py-4 self-center ml-1"
     >

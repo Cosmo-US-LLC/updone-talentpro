@@ -2,12 +2,14 @@
 import { montserrat } from '@/app/lib/Fonts'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
 
 const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientName, jobId }: any) => {
   const router = useRouter();
+  const params=useSearchParams();
+  const returnUrl= params.get("returnUrl");
   const [loadingButton, setLoadingButton] = useState<{ jobId: string | null; type: string | null }>({
     jobId: null,
     type: null,
@@ -102,7 +104,7 @@ const Assigned = ({ myWorkingDetails, hourRate, totalHours, totalIncome, clientN
               <div
                     onClick={() => {
                       setLoadingButton({ jobId: String(jobId), type: 'talkToClient' });
-                      router.push(`/staff/job-detail/${jobId}/chat`);
+                      router.push(`/staff/job-detail/${jobId}/chat?returnUrl=${returnUrl}`);
                     }}
                     className="w-fit cursor-pointer bg-[#350ABC] rounded-full py-2 px-10 self-center mx-auto"
                   >
