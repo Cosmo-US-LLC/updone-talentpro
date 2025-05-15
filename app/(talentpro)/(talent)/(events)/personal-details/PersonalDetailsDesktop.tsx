@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../index.css";
 import { apiRequest } from "@/app/lib/services";
 import { selectAuth } from "@/app/lib/store/features/authSlice";
@@ -8,6 +8,8 @@ import { FaEdit } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Loader } from "@/app/_components/ui/dashboard-loader";
+import { IoCameraOutline } from "react-icons/io5";
+
 
 export default function PersonalDetails() {
     const [personalDetails, setPersonalDetails] = useState({
@@ -15,6 +17,7 @@ export default function PersonalDetails() {
         phone: "",
         location: "",
     });
+    const [profilePic, setProfilePic] = useState('https://via.placeholder.com/150'); // Default image
 
     const { auth: storedData } = useAppSelector(selectAuth);
     const { handleError } = useError();
@@ -28,6 +31,61 @@ export default function PersonalDetails() {
     const [successMessage, setSuccessMessage] = useState("");
     const [showMessage, setShowMessage] = useState(false);
     const [hasChanges, setHasChanges] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+    
+        try {
+            setIsLoading(true);
+            const formDataToSend = new FormData();
+            formDataToSend.append("profile_pic", file);
+           // ✅ Debug FormData
+           console.log("FormData Contents:");
+           for (let pair of formDataToSend.entries()) {
+               console.log(pair[0], pair[1]);
+           }
+            const response = await apiRequest("/talentpro/update-details", {
+                method: "POST",
+                headers: {
+                    ...(storedData && { Authorization: `Bearer ${storedData.token}` }),
+                    // Don't set Content-Type - let the browser set it with boundary
+                },
+                body: formDataToSend,
+            }, handleError);
+    
+            if (response && response.profile_pic) {
+                setProfilePic(response.profile_pic);
+                setIsEditing(false)
+                setSuccessMessage("Profile picture updated successfully!");
+                setShowMessage(true);
+                
+                // Update personal details if they're included in response
+                if (response.name || response.phone || response.location) {
+                    setPersonalDetails(prev => ({
+                        ...prev,
+                        ...response
+                    }));
+                }
+            }
+        } catch (error) {
+            handleError("Failed to update profile picture");
+            console.error("Error uploading profile picture:", error);
+        } finally {
+            setIsLoading(false);
+            setTimeout(() => {
+                setShowMessage(false);
+            }, 3000);
+        }
+    };
+    
+
+    const triggerFileUpload = () => {
+
+        fileInputRef.current?.click();
+    };
+
 
     useEffect(() => {
         const fetchPersonalDetails = async () => {
@@ -46,6 +104,8 @@ export default function PersonalDetails() {
                         phone: data.phone || "",
                         location: data.location || "",
                     });
+                    setProfilePic(data.profile_pic || 'https://via.placeholder.com/150'); // Set profile pic
+
                     setSelectedCity(data.location || "");
                     setDisplayName(generateDisplayName(data.name));
                 }
@@ -108,20 +168,25 @@ export default function PersonalDetails() {
         }
 
         try {
+            const formData = new FormData();
+            formData.append("name", formData.get("name") || "");
+            formData.append("phone", formData.get("phone") || "");
+            formData.append("location", selectedCity || "");
+            
+            if (fileInputRef.current?.files?.[0]) {
+                formData.append("profile_pic", fileInputRef.current.files[0]);
+            }
             const response = await apiRequest("/talentpro/update-details", {
                 method: "POST",
                 headers: {
                     ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
                 },
-                body: {
-                    name: formData.name,
-                    phone: formData.phone,
-                    location: selectedCity,
-                },
+                body: formData,
             }, handleError);
 
             if (response) {
                 setPersonalDetails(response);
+                setProfilePic(response.profile_pic || profilePic);
                 setIsEditing(false);
                 setSuccessMessage("Personal details updated successfully!");
                 setShowMessage(true);
@@ -172,7 +237,7 @@ export default function PersonalDetails() {
         }
 
     return (
-        <div className="flex gap-4 mt-6">
+        <div className="flex flex-col gap-4 mt-6">
             {successMessage && (
         <div
             className={`fixed top-20 left-1/2 transform -translate-x-1/2 flex justify-center w-fit px-4 md:px-8 py-3 z-10
@@ -184,9 +249,11 @@ export default function PersonalDetails() {
         </div>
     )}
             {/* Left Panel: Personal Details Form */}
-            <div className="lg:w-[440px] xl:w-[640px] 2xl:w-[800px] bg-white rounded-lg shadow-lg p-8">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800">Personal Details</h2>
+
+            <div className="lg:w-[440px] xl:w-[640px] 2xl:w-full bg-white rounded-lg  border-2 ">
+                
+                <div className="flex justify-between items-center mb-6 p-6 bg-[#F8F6FF]">
+                    <h2 className="text-2xl font-semibold text-gray-800">Basic Information</h2>
                     {!isEditing && (
                         <div
                             onClick={() => setIsEditing(true)}
@@ -197,6 +264,40 @@ export default function PersonalDetails() {
                         </div>
                     )}
                 </div>
+                <div className="pb-8 px-8">
+                <div className="flex items-center justify-start gap-x-10">
+                <div className="relative w-28 h-28 flex justify-start rounded-full gap-x-3  shadow-lg group mb-8">
+    <img
+        src={profilePic}
+        alt="Profile"
+        className="w-full h-full object-contain rounded-full"
+    />
+       {isEditing && (
+            <div
+                className="absolute bottom-0 right-0 bg-[#350ABC] text-white p-2 rounded-full cursor-pointer shadow-lg transform transition duration-200 hover:scale-105 flex items-center justify-center z-20"
+                onClick={isEditing ? triggerFileUpload : undefined}
+            >
+                <IoCameraOutline className="w-5 h-5" />
+            </div>
+        )}
+    <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+    />
+   
+</div>
+<div className="flex flex-col ">
+      <h4 className="flex items-center justify-start text-[18px] font-semibold">
+        Profile Photo
+      </h4>
+      <p className="flex items-center justify-start text-[14px]">
+        This will be displayed on your profile
+      </p>
+    </div>
+    </div>
 
                 <div className="grid grid-cols-2 gap-6">
                     <div className="flex flex-col">
@@ -207,7 +308,7 @@ export default function PersonalDetails() {
                             value={formData.name}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className={`border rounded-lg px-4 py-2 mt-1 focus:ring-2 focus:ring-[#5d0abc] ${isEditing ? "border-gray-300" : "bg-gray-100 text-gray-500"}`}
+                            className={` rounded-lg px-4 py-2 mt-1 focus:ring-2 focus:ring-[#5d0abc] ${isEditing ? "border border-gray-300" : "bg-[#F8F6FF] text-gray-500"}`}
                         />
                     </div>
 
@@ -218,7 +319,7 @@ export default function PersonalDetails() {
                             name="displayName"
                             value={displayName}
                             readOnly
-                            className="border rounded-lg px-4 py-2 mt-1 bg-gray-100 text-gray-700 cursor-not-allowed"
+                            className=" rounded-lg px-4 py-2 mt-1 bg-[#F8F6FF] text-gray-700 cursor-not-allowed"
                         />
                     </div>
 
@@ -243,7 +344,7 @@ export default function PersonalDetails() {
             name="phone"
             value={formData.phone ? ` (${formData.phone.slice(1,4)}) ${formData.phone.slice(4,7)}-${formData.phone.slice(7)}` : ''}
             disabled
-            className="border rounded-lg px-2 mt-1 bg-gray-100 text-gray-700 cursor-not-allowed"
+            className=" rounded-lg px-2 mt-1 bg-[#F8F6FF] text-gray-700 cursor-not-allowed"
         />
     )}
 </div>
@@ -269,7 +370,7 @@ export default function PersonalDetails() {
                                 name="location"
                                 value={selectedCity}
                                 disabled
-                                className="border rounded-lg px-4 py-2 mt-1 bg-gray-100 text-gray-500 cursor-not-allowed"
+                                className=" rounded-lg px-4 py-2 mt-1 bg-[#F8F6FF] text-gray-500 cursor-not-allowed"
                             />
                         )}
                     </div>
@@ -292,8 +393,9 @@ export default function PersonalDetails() {
                     </div>
                 )}
             </div>
+            </div>
 
-            <div className="lg:w-[260px] xl:w-[320px] 2xl:w-[400px] bg-white rounded-lg shadow-lg p-8">
+            {/* <div className="lg:w-[260px] xl:w-[320px] 2xl:w-[400px] bg-white rounded-lg shadow-lg p-8">
                 <h3 className="text-xl font-semibold mb-4">Profile Summary</h3>
                 <p className="text-gray-600 mb-2"><strong>Name:</strong> {formData.name}</p>
                 <p className="text-gray-600 mb-2"><strong>Display Name:</strong> {displayName}</p>
@@ -303,7 +405,7 @@ export default function PersonalDetails() {
                         : ''}
                 </p>
                 <p className="text-gray-600"><strong>Location:</strong> {selectedCity}</p>
-            </div>
+            </div> */}
         </div>
     );
 }
