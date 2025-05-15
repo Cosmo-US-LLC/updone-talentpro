@@ -290,7 +290,7 @@ export default function PaymentsDesktop() {
                                             Date
 
                                         </p>
-                                        {event.working_times.map((time, index) => (
+                                        {event?.working_times?.map((time, index) => (
     <p key={index} className="text-[12px] font-semibold">
         {time.date} ( {time.time})
     </p>
