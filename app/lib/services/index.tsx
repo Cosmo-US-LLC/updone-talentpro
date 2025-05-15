@@ -6,9 +6,9 @@ import { setEmpty as setJobEmpty } from "@/app/lib/store/features/jobCreateSlice
 import { setEmpty as setStaffEmpty } from "@/app/lib/store/features/staffSlice";
 import Cookies from "js-cookie";
 
-interface RequestOptions<T> {
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE'; // Adjust as per your API needs
-    body?: T; // Generic type for request body
+interface RequestOptions<BodyType extends BodyInit | Record<string, unknown>> {
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    body?: BodyType;
     headers?: Record<string, string>;
 }
 
@@ -18,25 +18,35 @@ interface ApiResponse<T> {
     message?: string;
 }
 
-export async function apiRequest<T>(
+export async function apiRequest<T, BodyType extends BodyInit | Record<string, unknown>>(
     url: string, 
-    options: RequestOptions<T>, 
+    options: RequestOptions<BodyType>, 
     handleError?: (message: string,statusCodeMessage?:number) => void, // Pass the error handler function as an argument
     getResetMessage?: (message: string|undefined) => void // Pass the error handler function as an argument
 ): Promise<any> {
+    const isFormData = options.body instanceof FormData;
+    const isURLSearchParams = options.body instanceof URLSearchParams;
+    const isBodyInit = isFormData || isURLSearchParams;
+
+    // Prepare headers
     const defaultHeaders = {
-        "Content-Type": "application/json",
+        ...(!isBodyInit && { "Content-Type": "application/json" }),
         "Access-Control-Allow-Origin": "*",
-        ...options.headers, // Merge additional headers if provided
+        ...options.headers,
     };
+
+
 
     try {
         const response = await fetch(`${BASE_URL}${url}`, {
             ...options,
             headers: defaultHeaders,
             cache: 'no-cache',
-            body: options.body ? JSON.stringify(options.body) : undefined // Serialize body if present
-        });
+            body: isBodyInit 
+            ? options.body as BodyInit 
+            : options.body 
+                ? JSON.stringify(options.body) 
+                : undefined        });
 
         const data: ApiResponse<T> = await response.json();
         if (!response?.ok) {
