@@ -290,11 +290,15 @@ export default function PaymentsDesktop() {
                                             Date
 
                                         </p>
-                                        {event?.working_times?.map((time, index) => (
+                                        {event?.working_times && Array.isArray(event.working_times) && event.working_times.length > 0 ? (
+  event.working_times.map((time, index) => (
     <p key={index} className="text-[12px] font-semibold">
-        {time.date} ( {time.time})
+      {time.date} ( {time.time})
     </p>
-))}
+  ))
+) : (
+  <p className="text-[12px] font-semibold">No working times available</p>
+)}
                                     </div>
                                 </div>
                             </div>
