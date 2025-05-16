@@ -58,7 +58,7 @@ export async function apiRequest<T, BodyType extends BodyInit | Record<string, u
             getResetMessage?.(data.message)
         }
 
-        if (data?.message == "Unauthenticated." && !window.location.pathname.includes("/staff/job-detail/")) {
+        if (response.status === 401 || data?.message == "Unauthenticated." && !window.location.pathname.includes("/staff/job-detail/")) {
             console.log("Error here")
             console.log(data)
             store.dispatch(clearAuth());
