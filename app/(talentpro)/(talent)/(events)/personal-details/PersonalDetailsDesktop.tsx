@@ -32,6 +32,82 @@ export default function PersonalDetails() {
     const [showMessage, setShowMessage] = useState(false);
     const [hasChanges, setHasChanges] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [languages, setLanguages] = useState<string[]>([]);
+    const [newLanguage, setNewLanguage] = useState("");
+    const [isEditingAboutMe, setIsEditingAboutMe] = useState(false);
+    const [aboutMe, setAboutMe] = useState("");
+
+    useEffect(() => {
+        const fetchLanguages = async () => {
+            try {
+                const response = await apiRequest("/talentpro/languages", {
+                    method: "GET",
+                    headers: {
+                        ...(storedData && { Authorization: `Bearer ${storedData.token}` }),
+                    },
+                }, handleError);
+
+                if (response) {
+                    console.log(response)
+                    setLanguages(response.languages || []);
+                    setAboutMe(response.about_me || "");
+
+                }
+            } catch (error) {
+                console.error("Error fetching languages:", error);
+            }
+        };
+
+        fetchLanguages();
+    }, []);
+
+    // Add a new language to the list
+    const handleLanguageAdd = () => {
+        if (newLanguage.trim() !== "" && !languages.includes(newLanguage.trim())) {
+            setLanguages([...languages, newLanguage.trim()]);
+            setNewLanguage("");
+        }
+    };
+
+    // Remove a language from the list
+    const handleLanguageRemove = (languageToRemove: string) => {
+        setLanguages(languages.filter(lang => lang !== languageToRemove));
+    };
+
+    // Save languages to the backend
+    const handleAboutMeSave = async () => {
+        try {
+            const response = await apiRequest("/talentpro/languages", {
+                method: "POST",
+                headers: {
+                    ...(storedData && { Authorization: `Bearer ${storedData.token}` }),
+                },
+                body: {
+                    about_me: aboutMe,
+                    languages: languages,
+                },
+            }, handleError);
+    
+            if (response) {
+                setLanguages(response.languages || []);
+                setAboutMe(response.about_me || "");
+                setIsEditingAboutMe(false);
+                setNewLanguage("");  // Clear input
+    
+                setSuccessMessage("About Me and Languages updated successfully!");
+                setShowMessage(true);
+    
+                setTimeout(() => {
+                    setShowMessage(false);
+                    setSuccessMessage("");
+                }, 3000);
+            }
+        } catch (error) {
+            console.error("Error saving about me and languages:", error);
+        }
+    };
+    
+    
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -108,6 +184,7 @@ export default function PersonalDetails() {
 
                     setSelectedCity(data.location || "");
                     setDisplayName(generateDisplayName(data.name));
+
                 }
             } catch (error) {
                 console.error("Error fetching personal details:", error);
@@ -117,6 +194,12 @@ export default function PersonalDetails() {
         };
         fetchPersonalDetails();
     }, []);
+
+    const handleAboutMeCancel = () => {
+        setIsEditingAboutMe(false);
+        setNewLanguage(""); // Clear new language input
+    };
+    
 
     useEffect(() => {
         const fetchCities = async () => {
@@ -250,7 +333,7 @@ export default function PersonalDetails() {
     )}
             {/* Left Panel: Personal Details Form */}
 
-            <div className="lg:w-[440px] xl:w-[640px] 2xl:w-full bg-white rounded-lg  border-2 ">
+            <div className="w-full bg-white rounded-lg  border-2 ">
                 
                 <div className="flex justify-between items-center mb-6 p-6 bg-[#F8F6FF]">
                     <h2 className="text-2xl font-semibold text-gray-800">Basic Information</h2>
@@ -394,7 +477,99 @@ export default function PersonalDetails() {
                 )}
             </div>
             </div>
+           
+        {/* About Me Section */}
+        <div className="w-full bg-white rounded-lg border-2">
+            <div className="flex justify-between items-center mb-6 p-6 bg-[#F8F6FF]">
+                <h2 className="text-2xl font-semibold text-gray-800">About Me</h2>
+                
+                {!isEditingAboutMe && (
+                    <div
+                        onClick={() => setIsEditingAboutMe(true)}
+                        className="flex items-center space-x-1 text-[#5d0abc] cursor-pointer"
+                    >
+                        <FaEdit />
+                        <span>Edit</span>
+                    </div>
+                )}
+            </div>
 
+            <div className="flex flex-col px-8 pb-8">
+                {/* About Me Text */}
+                {!isEditingAboutMe ? (
+                    <p className="text-gray-700">
+                        {aboutMe || "Welcome to my portfolio! Share a little bit about yourself."}
+                    </p>
+                ) : (
+                    <textarea
+                        value={aboutMe}
+                        onChange={(e) => setAboutMe(e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-[#5d0abc] mt-2"
+                        rows={5}
+                    />
+                )}
+            </div>
+
+            {/* Languages Section */}
+            <div className="flex flex-col px-8 pb-8">
+                <h4 className="text-xl font-semibold mb-4">Languages</h4>
+                
+                <div className="flex flex-wrap gap-4 mb-4">
+                    {languages.map((lang, index) => (
+                        <div key={index} className="flex items-center">
+                            <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-medium">
+                                {lang}
+                            </span>
+                            {isEditingAboutMe && (
+                                <button
+                                    onClick={() => handleLanguageRemove(lang)}
+                                    className="ml-2 text-red-600 font-bold"
+                                >
+                                    ×
+                                </button>
+                            )}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Add Language Input */}
+                {isEditingAboutMe && (
+                    <div className="flex gap-2 mb-4">
+                        <input
+                            type="text"
+                            value={newLanguage}
+                            onChange={(e) => setNewLanguage(e.target.value)}
+                            placeholder="Add a language"
+                            className="flex-grow rounded-lg px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-[#5d0abc]"
+                        />
+                        <button
+                            onClick={handleLanguageAdd}
+                            className="px-4 py-2 bg-[#5d0abc] text-white rounded-lg"
+                        >
+                            Add
+                        </button>
+                    </div>
+                )}
+
+                {/* Save and Cancel Buttons */}
+                {isEditingAboutMe && (
+                    <div className="flex justify-end">
+                        <button
+                            onClick={handleAboutMeSave}
+                            className="px-6 py-2 bg-[#5d0abc] text-white rounded-lg mr-4"
+                        >
+                            Save
+                        </button>
+                        <button
+                            onClick={handleAboutMeCancel}
+                            className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
             {/* <div className="lg:w-[260px] xl:w-[320px] 2xl:w-[400px] bg-white rounded-lg shadow-lg p-8">
                 <h3 className="text-xl font-semibold mb-4">Profile Summary</h3>
                 <p className="text-gray-600 mb-2"><strong>Name:</strong> {formData.name}</p>
