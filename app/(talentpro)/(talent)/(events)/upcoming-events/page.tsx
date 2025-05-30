@@ -16,6 +16,7 @@ import { MapPin } from "lucide-react";
 const Page = () => {
   const isMobile = useIsMobile();
   const [eventCount, setEventCount] = useState(0);
+  const [cityId, setCityId] = useState("0");
 
   if (isMobile === true) {
     return (
@@ -28,7 +29,7 @@ const Page = () => {
             </div>
 
             <div className="flex items-center justify-start">
-              <Select>
+              <Select defaultValue={cityId} value={cityId} onValueChange={setCityId}>
                 <div className="h-full flex items-center gap-3 text-sm text-neutral-800">
                   {/* Showing events in: */}
                   <SelectTrigger className="w-[150px] text-left">
@@ -36,6 +37,7 @@ const Page = () => {
                     <SelectValue placeholder="Los Angeles" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="0">All Cities</SelectItem>
                     <SelectItem value="1">Los Angeles</SelectItem>
                     <SelectItem value="2">New York City</SelectItem>
                   </SelectContent>
@@ -43,7 +45,7 @@ const Page = () => {
               </Select>
             </div>
 
-            <UpcomingEventsMobile setEventCount={setEventCount} />
+            <UpcomingEventsMobile setEventCount={setEventCount} cityId={cityId} />
           </div>
         </div>
       </div>
@@ -62,7 +64,7 @@ const Page = () => {
             </p>
           </div>
 
-          <Select>
+          <Select defaultValue={cityId} value={cityId} onValueChange={setCityId}>
             <div className="h-full flex items-center gap-3 text-sm text-neutral-800">
               Showing events in:
               <SelectTrigger className="w-[180px] text-left">
@@ -70,13 +72,14 @@ const Page = () => {
                 <SelectValue placeholder="Los Angeles" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="0">All Cities</SelectItem>
                 <SelectItem value="1">Los Angeles</SelectItem>
                 <SelectItem value="2">New York City</SelectItem>
               </SelectContent>
             </div>
           </Select>
         </div>
-        <UpcomingEventsDesktop />
+        <UpcomingEventsDesktop cityId={cityId} />
       </div>
     );
   }

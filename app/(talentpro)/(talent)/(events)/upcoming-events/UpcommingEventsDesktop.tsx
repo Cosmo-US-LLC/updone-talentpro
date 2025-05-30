@@ -11,7 +11,7 @@ import { LuSparkle, LuSparkles } from "react-icons/lu";
 import { IoMdTime } from "react-icons/io";
 import { IoTimeOutline } from "react-icons/io5";
 
-const UpcomingEventsDesktop = () => {
+const UpcomingEventsDesktop = ({ cityId }: any) => {
   const { auth: storedData } = useAppSelector(selectAuth);
   const [isLoading, setIsLoading] = useState(false);
   const [events, setEvents] = useState([]);
@@ -36,6 +36,13 @@ const UpcomingEventsDesktop = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        let payload: any = {
+          page_number: 1,
+          page_size: 100,
+        };
+        if (cityId != "0") {
+          payload.city_id = cityId;
+        }
         setIsLoading(true);
         const response = await apiRequest("/talentpro/upcoming-events", {
           method: "POST",
@@ -43,10 +50,7 @@ const UpcomingEventsDesktop = () => {
             revalidate: true,
             ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
           },
-          body: {
-            page_number: 1,
-            page_size: 100,
-          },
+          body: payload,
         });
         setEvents(
           (response?.jobs || []).sort((a: any, b: any) => {
@@ -65,7 +69,7 @@ const UpcomingEventsDesktop = () => {
     if (storedData?.token) {
       fetchEvents();
     }
-  }, [storedData]);
+  }, [storedData, cityId]);
 
   useEffect(() => {
     console.log("Fetched events:", events);
