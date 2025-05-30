@@ -28,10 +28,9 @@ const Page = () => {
               <h3>Upcoming Events ({eventCount})</h3>
             </div>
 
-            <div className="flex items-center justify-start">
+            {/* <div className="flex items-center justify-start">
               <Select defaultValue={cityId} value={cityId} onValueChange={setCityId}>
                 <div className="h-full flex items-center gap-3 text-sm text-neutral-800">
-                  {/* Showing events in: */}
                   <SelectTrigger className="w-[150px] text-left">
                     <MapPin className="w-4 h-4" />
                     <SelectValue placeholder="Los Angeles" />
@@ -43,9 +42,9 @@ const Page = () => {
                   </SelectContent>
                 </div>
               </Select>
-            </div>
+            </div> */}
 
-            <UpcomingEventsMobile setEventCount={setEventCount} cityId={cityId} />
+            <UpcomingEventsMobile setEventCount={setEventCount} />
           </div>
         </div>
       </div>
@@ -64,7 +63,7 @@ const Page = () => {
             </p>
           </div>
 
-          <Select defaultValue={cityId} value={cityId} onValueChange={setCityId}>
+          {/* <Select defaultValue={cityId} value={cityId} onValueChange={setCityId}>
             <div className="h-full flex items-center gap-3 text-sm text-neutral-800">
               Showing events in:
               <SelectTrigger className="w-[180px] text-left">
@@ -77,9 +76,9 @@ const Page = () => {
                 <SelectItem value="2">New York City</SelectItem>
               </SelectContent>
             </div>
-          </Select>
+          </Select> */}
         </div>
-        <UpcomingEventsDesktop cityId={cityId} />
+        <UpcomingEventsDesktop />
       </div>
     );
   }

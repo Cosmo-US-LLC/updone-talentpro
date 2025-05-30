@@ -24,10 +24,8 @@ const serviceIcons = {
 
 const UpcomingEventsMobile = ({
   setEventCount,
-  cityId,
 }: {
   setEventCount: (count: number) => void;
-  cityId: any;
 }) => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const { auth: storedData } = useAppSelector(selectAuth);
@@ -53,9 +51,9 @@ const UpcomingEventsMobile = ({
           page_number: 1,
           page_size: 100,
         };
-        if (cityId != "0") {
-          payload.city_id = cityId;
-        }
+        // if (cityId != "0") {
+        //   payload.city_id = cityId;
+        // }
         setIsLoading(true);
         const response = await apiRequest("/talentpro/upcoming-events", {
           method: "POST",
@@ -84,7 +82,7 @@ const UpcomingEventsMobile = ({
     if (storedData?.token) {
       fetchEvents();
     }
-  }, [storedData, cityId]);
+  }, [storedData]);
 
   if (isLoading) {
     return <Loader />;
