@@ -24,6 +24,7 @@ const UpcomingEventsDesktop = () => {
   });
   const router = useRouter();
 
+  // console.log(storedData)
   const serviceImages: { [key: string]: string } = {
     Bartender: "/images/mobile/service-icons/bartender.svg",
     Barback: "/images/mobile/service-icons/bar-back.svg",
@@ -39,6 +40,7 @@ const UpcomingEventsDesktop = () => {
         let payload: any = {
           page_number: 1,
           page_size: 100,
+          city_id: storedData?.user?.city_id
         };
         // if (cityId != "0") {
         //   payload.city_id = cityId;

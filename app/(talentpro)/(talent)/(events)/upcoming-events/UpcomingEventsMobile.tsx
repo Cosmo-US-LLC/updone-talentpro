@@ -44,12 +44,14 @@ const UpcomingEventsMobile = ({
     router.push(url);
   };
 
+  // console.log(storedData)
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         let payload: any = {
           page_number: 1,
           page_size: 100,
+          city_id: storedData?.user?.city_id
         };
         // if (cityId != "0") {
         //   payload.city_id = cityId;

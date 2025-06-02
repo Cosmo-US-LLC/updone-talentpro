@@ -50,6 +50,7 @@ const MyEventsMobile = ({ setEventCount }: {  setEventCount: (count: number) => 
                     body: {
                         page_number: 1,
                         page_size: 100,
+                        city_id: storedData?.user?.city_id
                     },
                 });
                 const eventsData = response?.jobs || [];
