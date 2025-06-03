@@ -9,6 +9,13 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Loader } from "@/app/_components/ui/dashboard-loader";
 import { IoCameraOutline } from "react-icons/io5";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function PersonalDetails() {
   const [personalDetails, setPersonalDetails] = useState({
@@ -253,11 +260,12 @@ export default function PersonalDetails() {
   useEffect(() => {
     // Check if any field has changed from original values AND phone number is valid
     const hasFieldChanges =
-      formData.name !== personalDetails.name ||
-      formData.phone !== personalDetails.phone ||
-      selectedCity !== personalDetails.location;
-
-    const isPhoneValid = formData.phone && formData.phone.length === 11;
+    formData.name !== personalDetails.name ||
+    formData.phone !== personalDetails.phone ||
+    selectedCity !== personalDetails.location;
+    
+    const isPhoneValid = formData.phone && (formData.phone.length === 17 || formData.phone.length === 11);
+    console.log("Change 2", hasFieldChanges, isPhoneValid, formData.phone, formData.phone.length)
 
     setHasChanges(Boolean(hasFieldChanges && isPhoneValid));
   }, [formData, selectedCity, personalDetails]);
@@ -266,20 +274,45 @@ export default function PersonalDetails() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const formatPhoneNumber = (phone: string) => {
+    if (!phone) return "";
+    if (phone.length === 17) return phone;
+    if (phone.length === 11) {
+      console.log("Change 1", phone)
+      let part1 = phone.slice(0, 1); // Country code
+      let part2 = phone.slice(1, 4); // Area code
+      let part3 = phone.slice(4, 7); // First 3 digits
+      let part4 = phone.slice(7); // Last 4 digits
+      return `+${part1} (${part2}) ${part3}-${part4}`;
+    }
+  }
+
   const handleSave = async () => {
     if (!hasChanges) {
       return; // Don't proceed if no changes were made
     }
 
     try {
-      const formData = new FormData();
-      formData.append("name", formData.get("name") || "");
-      formData.append("phone", formData.get("phone") || "");
-      formData.append("location", selectedCity || "");
-
-      if (fileInputRef.current?.files?.[0]) {
-        formData.append("profile_pic", fileInputRef.current.files[0]);
+      let payload: any = {};
+      if (formData.name !== personalDetails.name) {
+        payload.name = formData.name;
       }
+      if (formData.phone !== personalDetails.phone) {
+        payload.phone = formatPhoneNumber(formData.phone);
+      }
+      if (selectedCity !== personalDetails.location) {
+        payload.location = selectedCity;
+      }
+
+      // @ts-ignore
+      if (fileInputRef?.current?.files[0]) {
+        // @ts-ignore
+        payload.profile_pic = fileInputRef?.current?.files[0];
+      }
+
+      console.log("Payload to send:", payload);
+      // return
+      
       const response = await apiRequest(
         "/talentpro/update-details",
         {
@@ -287,7 +320,7 @@ export default function PersonalDetails() {
           headers: {
             ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
           },
-          body: formData,
+          body: payload,
         },
         handleError
       );
@@ -313,9 +346,9 @@ export default function PersonalDetails() {
     }
   };
 
-  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(e.target.value);
-    setFormData((prev) => ({ ...prev, location: e.target.value }));
+  const handleCityChange = (e: any) => {
+    setSelectedCity(e);
+    setFormData((prev) => ({ ...prev, location: e }));
   };
 
   const checkIfModified = () => {
@@ -365,7 +398,7 @@ export default function PersonalDetails() {
           <h2 className="text-2xl font-semibold text-gray-800">
             Basic Information
           </h2>
-          {/* {!isEditing && (
+          {!isEditing && (
             <div
               onClick={() => setIsEditing(true)}
               className="flex items-center space-x-1 text-[#5d0abc] cursor-pointer"
@@ -373,7 +406,7 @@ export default function PersonalDetails() {
               <FaEdit />
               <span>Edit</span>
             </div>
-          )} */}
+          )}
         </div>
         <div className="pb-8 px-8">
           <div className="flex items-center justify-start gap-x-10">
@@ -381,23 +414,23 @@ export default function PersonalDetails() {
               <img
                 src={profilePic}
                 alt="Profile"
-                className="w-full h-full object-contain rounded-full"
+                className="w-full h-full object-cover rounded-full"
               />
-              {isEditing && (
+              {/* {isEditing && (
                 <div
                   className="absolute bottom-0 right-0 bg-[#350ABC] text-white p-2 rounded-full cursor-pointer shadow-lg transform transition duration-200 hover:scale-105 flex items-center justify-center z-20"
                   onClick={isEditing ? triggerFileUpload : undefined}
                 >
                   <IoCameraOutline className="w-5 h-5" />
                 </div>
-              )}
-              <input
+              )} */}
+              {/* <input
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 style={{ display: "none" }}
-              />
+              /> */}
             </div>
             <div className="flex flex-col ">
               <h4 className="flex items-center justify-start text-[18px] font-semibold">
@@ -460,17 +493,13 @@ export default function PersonalDetails() {
                   name="phone"
                   value={
                     formData.phone
-                      ? ` (${formData.phone.slice(
-                          1,
-                          4
-                        )}) ${formData.phone.slice(
-                          4,
-                          7
-                        )}-${formData.phone.slice(7)}`
+                      ? `${formData.phone.split(" ")[1]} ${
+                          formData.phone.split(" ")[2]
+                        }`
                       : ""
                   }
                   disabled
-                  className=" rounded-lg px-2 mt-1 bg-[#F8F6FF] text-gray-700 cursor-not-allowed"
+                  className=" rounded-lg px-4 mt-1 bg-[#F8F6FF] text-gray-700 cursor-not-allowed"
                 />
               )}
             </div>
@@ -478,20 +507,18 @@ export default function PersonalDetails() {
             <div className="flex flex-col">
               <label className="font-medium text-gray-700">Location</label>
               {isEditing ? (
-                <select
-                  value={selectedCity}
-                  onChange={handleCityChange}
-                  className="border border-gray-300 rounded-sm px-4 py-[14px] mt-1 focus:ring-2 focus:ring-[#5d0abc]"
-                >
-                  <option value="" disabled>
-                    Select a city
-                  </option>
-                  {cities.map((city) => (
-                    <option key={city.id} value={city.name}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
+                <Select value={selectedCity} onValueChange={handleCityChange}>
+                  <SelectTrigger className="border border-gray-300 rounded-sm px-4 py-[16px] h-[55px] focus:ring-2 focus:ring-[#5d0abc]">
+                    <SelectValue placeholder="Select a city" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cities.map((city) => (
+                      <SelectItem key={city.id} value={city.name}>
+                        {city.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               ) : (
                 <input
                   type="text"
@@ -504,7 +531,7 @@ export default function PersonalDetails() {
             </div>
           </div>
 
-          {/* {isEditing && (
+          {isEditing && (
             <div className="flex justify-end mt-8 space-x-4">
               <div
                 onClick={handleCancel}
@@ -524,7 +551,7 @@ export default function PersonalDetails() {
                 Save
               </button>
             </div>
-          )} */}
+          )}
         </div>
       </div>
 
