@@ -33,8 +33,8 @@ export default function PersonalDetails() {
   const generateDisplayName = (fullName: string) => {
     const nameParts = fullName.split(" ");
     const firstName = nameParts[0] || "";
-    const lastNameInitial = nameParts.length > 1 ? `${nameParts[1][0]}.` : "";
-    return `${firstName} ${lastNameInitial}`.trim();
+    const lastNameInitial = (nameParts.length > 1 && nameParts[1]?.length > 0) ? `${nameParts[1][0]}.` : "";
+    return `${firstName} ${lastNameInitial || " "}`.trim();
   };
 
   useEffect(() => {
@@ -111,23 +111,60 @@ export default function PersonalDetails() {
 
   useEffect(() => {
     setDisplayName(generateDisplayName(formData.name));
-    checkIfModified();
+    // checkIfModified();
   }, [formData]);
+
+    useEffect(() => {
+    // Check if any field has changed from original values AND phone number is valid
+    const hasFieldChanges =
+    formData.name !== personalDetails.name ||
+    formData.phone !== personalDetails.phone ||
+    selectedCity !== personalDetails.location;
+    
+    const isPhoneValid = formData.phone && (formData.phone.length === 17 || formData.phone.length === 11);
+    console.log("Change 2", Boolean(hasFieldChanges && isPhoneValid));
+
+    setIsModified(Boolean(hasFieldChanges && isPhoneValid));
+  }, [formData, selectedCity, personalDetails]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const checkIfModified = () => {
-    // Check if phone number is complete (should be 11 digits including country code)
-    const isPhoneValid = formData.phone && formData.phone.length === 11;
-    const hasChanges =
-      JSON.stringify(formData) !== JSON.stringify(personalDetails);
-    setIsModified(hasChanges && isPhoneValid ? true : false);
+  const formatPhoneNumber = (phone: string) => {
+    if (!phone) return "";
+    if (phone.length === 17) return phone;
+    if (phone.length === 11) {
+      console.log("Change 1", phone);
+      let part1 = phone.slice(0, 1); // Country code
+      let part2 = phone.slice(1, 4); // Area code
+      let part3 = phone.slice(4, 7); // First 3 digits
+      let part4 = phone.slice(7); // Last 4 digits
+      return `+${part1} (${part2}) ${part3}-${part4}`;
+    }
   };
+
+  // const checkIfModified = () => {
+  //   // Check if phone number is complete (should be 11 digits including country code)
+  //   const isPhoneValid = formData.phone && (formData.phone.length === 11 || formData.phone.length === 17);
+  //   const hasChanges =
+  //     JSON.stringify(formData) !== JSON.stringify(personalDetails);
+  //   setIsModified(hasChanges && isPhoneValid ? true : false);
+  // };
 
   const handleSave = async () => {
     try {
+      let payload: any = {};
+      if (formData.name !== personalDetails.name) {
+        payload.name = formData.name;
+      }
+      if (formData.phone !== personalDetails.phone) {
+        payload.phone = formatPhoneNumber(formData.phone);
+      }
+      if (selectedCity !== personalDetails.location) {
+        payload.location = selectedCity;
+      }
+
       // Send API request to update details
       const response = await apiRequest(
         "/talentpro/update-details",
@@ -136,11 +173,7 @@ export default function PersonalDetails() {
           headers: {
             ...(storedData && { Authorization: `Bearer ${storedData?.token}` }),
           },
-          body: {
-            name: formData.name,
-            phone: formData.phone,
-            location: selectedCity,
-          },
+          body: payload,
         },
         handleError
       );
@@ -186,11 +219,11 @@ export default function PersonalDetails() {
       {successMessage && (
         <div
           className={`fixed bottom-12 left-1/2 transform -translate-x-1/2 flex justify-center w-[280px] px-4 py-3 z-10
-                    bg-green-400 text-white font-semibold text-center text-[14px] 
-                    shadow-lg shadow-green-200 rounded-sm transition-opacity 
-                    duration-1000 ease-in-out ${
-                      showMessage ? "opacity-100" : "opacity-0"
-                    }`}
+          bg-green-400 text-white font-semibold text-center text-[14px] 
+          shadow-lg shadow-green-200 rounded-sm transition-opacity 
+          duration-1000 ease-in-out ${
+            showMessage ? "opacity-100" : "opacity-0"
+          }`}
         >
           {successMessage}
         </div>
@@ -243,10 +276,9 @@ export default function PersonalDetails() {
               name="phone"
               value={
                 formData.phone
-                  ? `(${formData.phone.slice(1, 4)}) ${formData.phone.slice(
-                      4,
-                      7
-                    )}-${formData.phone.slice(7)}`
+                  ? `${formData.phone.split(" ")[1]} ${
+                      formData.phone.split(" ")[2]
+                    }`
                   : ""
               }
               disabled
@@ -286,7 +318,7 @@ export default function PersonalDetails() {
           )}
         </div>
       </div>
-      {/* <div className="flex justify-start mt-6">
+      <div className="flex justify-start mt-6">
         {isEditing ? (
           <div className="flex w-full mb-4 space-x-2">
             <button
@@ -297,9 +329,9 @@ export default function PersonalDetails() {
             </button>
             <button
               onClick={handleSave}
-              disabled={!isModified || formData.phone.length !== 11}
+              disabled={!isModified}
               className={`w-[50%] py-2 rounded-sm transition-colors ${
-                isModified && formData.phone.length === 11
+                isModified
                   ? "bg-[#5d0abc] text-white hover:bg-[#4a078f]"
                   : "bg-[#5d0abc] text-white cursor-not-allowed opacity-70"
               }`}
@@ -314,7 +346,7 @@ export default function PersonalDetails() {
             </button>
           </div>
         )}
-      </div> */}
+      </div>
     </div>
   );
 }
