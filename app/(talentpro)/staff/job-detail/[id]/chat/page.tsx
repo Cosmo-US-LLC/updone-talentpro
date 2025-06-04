@@ -247,7 +247,7 @@ function timeAgo(dateTimeString:string) {
     </div>
     {msg.sender?.last_active && (
       <p className="text-[12px] font-[400] text-gray-500 mt-1">
-        Last seen {timeAgo(msg.sender.last_active)}
+        Last active {timeAgo(msg.sender.last_active)}
       </p>
     )}
   </div>
