@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Plus, X } from "lucide-react";
 
 export default function PersonalDetails() {
   const [personalDetails, setPersonalDetails] = useState({
@@ -40,37 +41,124 @@ export default function PersonalDetails() {
   const [showMessage, setShowMessage] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [allLanguages, setAllLanguages] = useState<string[]>([]);
   const [languages, setLanguages] = useState<string[]>([]);
   const [newLanguage, setNewLanguage] = useState("");
   const [isEditingAboutMe, setIsEditingAboutMe] = useState(false);
   const [aboutMe, setAboutMe] = useState("");
 
-  useEffect(() => {
-    const fetchLanguages = async () => {
-      try {
-        const response = await apiRequest(
-          "/talentpro/languages",
-          {
-            method: "GET",
-            headers: {
-              ...(storedData && {
-                Authorization: `Bearer ${storedData.token}`,
-              }),
-            },
-          },
-          handleError
-        );
+  const fetchAllLanguages = async () => {
+    try {
+      const response = await apiRequest(
+        "/languages",
+        {
+          method: "GET",
+        },
+        handleError
+      );
 
-        if (response) {
-          console.log(response);
-          setLanguages(response.languages || []);
-          setAboutMe(response.about_me || "");
-        }
-      } catch (error) {
-        console.error("Error fetching languages:", error);
+      console.log("response ", response);
+      if (response) {
+        console.log("response ", response);
+        setAllLanguages(response || []);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching all languages:", error);
+    }
+  };
+  const fetchLanguages = async () => {
+    try {
+      const response = await apiRequest(
+        "/worker-languages",
+        {
+          method: "GET",
+          headers: {
+            ...(storedData && {
+              Authorization: `Bearer ${storedData.token}`,
+            }),
+          },
+        },
+        handleError
+      );
 
+      if (response) {
+        console.log(response);
+        setLanguages(response || []);
+        // setAboutMe(response.about_me || "");
+      }
+    } catch (error) {
+      console.error("Error fetching languages:", error);
+    }
+  };
+  const addLanguage = async (id: any) => {
+    try {
+      setUpdateLoading(true);
+      const response = await apiRequest(
+        "/assign-language",
+        {
+          method: "POST",
+          headers: {
+            ...(storedData && {
+              Authorization: `Bearer ${storedData.token}`,
+            }),
+          },
+          body: {
+            language_id: id,
+          },
+        },
+        handleError
+      );
+
+      console.log("response ", response);
+      if (response) {
+        console.log("response ", response);
+        fetchLanguages();
+        // setAllLanguages(response || []);
+      }
+    } catch (error) {
+      console.error("Error fetching all languages:", error);
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+  const removeLanguage = async (id: any) => {
+    try {
+      setUpdateLoading(true);
+      const response = await apiRequest(
+        "/unassign-language",
+        {
+          method: "POST",
+          headers: {
+            ...(storedData && {
+              Authorization: `Bearer ${storedData.token}`,
+            }),
+          },
+          body: {
+            language_id: id,
+          },
+        },
+        handleError
+      );
+
+      console.log("response ", response);
+      if (response) {
+        console.log("response ", response);
+        setLanguages(response || []);
+        // fetchLanguages();
+      }
+    } catch (error) {
+      console.error("Error fetching all languages:", error);
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllLanguages();
+  }, []);
+
+  useEffect(() => {
     fetchLanguages();
   }, []);
 
@@ -260,12 +348,14 @@ export default function PersonalDetails() {
   useEffect(() => {
     // Check if any field has changed from original values AND phone number is valid
     const hasFieldChanges =
-    formData.name !== personalDetails.name ||
-    formData.phone !== personalDetails.phone ||
-    selectedCity !== personalDetails.location;
-    
-    const isPhoneValid = formData.phone && (formData.phone.length === 17 || formData.phone.length === 11);
-    console.log("Change 2", hasFieldChanges, isPhoneValid, formData.phone, formData.phone.length)
+      formData.name !== personalDetails.name ||
+      formData.phone !== personalDetails.phone ||
+      selectedCity !== personalDetails.location;
+
+    const isPhoneValid =
+      formData.phone &&
+      (formData.phone.length === 17 || formData.phone.length === 11);
+    // console.log("Change 2", hasFieldChanges, isPhoneValid, formData.phone, formData.phone.length)
 
     setHasChanges(Boolean(hasFieldChanges && isPhoneValid));
   }, [formData, selectedCity, personalDetails]);
@@ -278,14 +368,14 @@ export default function PersonalDetails() {
     if (!phone) return "";
     if (phone.length === 17) return phone;
     if (phone.length === 11) {
-      console.log("Change 1", phone)
+      console.log("Change 1", phone);
       let part1 = phone.slice(0, 1); // Country code
       let part2 = phone.slice(1, 4); // Area code
       let part3 = phone.slice(4, 7); // First 3 digits
       let part4 = phone.slice(7); // Last 4 digits
       return `+${part1} (${part2}) ${part3}-${part4}`;
     }
-  }
+  };
 
   const handleSave = async () => {
     if (!hasChanges) {
@@ -312,7 +402,7 @@ export default function PersonalDetails() {
 
       console.log("Payload to send:", payload);
       // return
-      
+
       const response = await apiRequest(
         "/talentpro/update-details",
         {
@@ -556,7 +646,7 @@ export default function PersonalDetails() {
       </div>
 
       {/* About Me Section */}
-      {/* <div className="w-full bg-white rounded-lg border-2">
+      <div className="w-full bg-white rounded-lg border-2">
         <div className="flex justify-between items-center mb-6 p-6 bg-[#F8F6FF]">
           <h2 className="text-2xl font-semibold text-gray-800">About Me</h2>
 
@@ -571,7 +661,7 @@ export default function PersonalDetails() {
           )}
         </div>
 
-        <div className="flex flex-col px-8 pb-8">
+        {/* <div className="flex flex-col px-8 pb-8">
           {!isEditingAboutMe ? (
             <p className="text-gray-700">
               {aboutMe ||
@@ -585,55 +675,79 @@ export default function PersonalDetails() {
               rows={5}
             />
           )}
-        </div>
+          <p className="text-gray-700">
+            {aboutMe ||
+              "Welcome to my portfolio! Share a little bit about yourself."}
+          </p>
+        </div> */}
 
         <div className="flex flex-col px-8 pb-8">
           <h4 className="text-xl font-semibold mb-4">Languages</h4>
 
           <div className="flex flex-wrap gap-4 mb-4">
-            {languages.map((lang, index) => (
-              <div key={index} className="flex items-center">
-                <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-medium">
-                  {lang}
-                </span>
+            {languages.map((lang: any, index: any) => (
+              <div
+                key={index}
+                onClick={() => {
+                  isEditingAboutMe && removeLanguage(lang?.language_id);
+                }}
+                className="cursor-pointer flex items-center gap-2 aria-disabled:cursor-default aria-disabled:opacity-70 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                aria-disabled={updateLoading}
+              >
+                <span className="">{lang?.language?.name}</span>
                 {isEditingAboutMe && (
-                  <button
-                    onClick={() => handleLanguageRemove(lang)}
-                    className="ml-2 text-red-600 font-bold"
-                  >
-                    ×
-                  </button>
+                  <span>
+                    <X className="w-4 h-4 text-red-500" />
+                  </span>
                 )}
               </div>
             ))}
+            {languages.length === 0 && (
+              <span className="text-gray-500">No languages added yet.</span>
+            )}
           </div>
 
+          {/* {true && ( */}
           {isEditingAboutMe && (
-            <div className="flex gap-2 mb-4">
-              <input
-                type="text"
-                value={newLanguage}
-                onChange={(e) => setNewLanguage(e.target.value)}
-                placeholder="Add a language"
-                className="flex-grow rounded-lg px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-[#5d0abc]"
-              />
-              <button
-                onClick={handleLanguageAdd}
-                className="px-4 py-2 bg-[#5d0abc] text-white rounded-lg"
-              >
-                Add
-              </button>
-            </div>
+            <>
+              <h4 className="text-lg font-semibold mb-3">Add Languages:</h4>
+              <div className="flex gap-2 mb-4 flex-wrap">
+                {/* -- {allLanguages?.length} */}
+                {allLanguages.map(
+                  (lang: any, index: any) =>
+                    !languages?.find((l: any) => l?.language_id == lang?.id) && (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          addLanguage(lang.id);
+                        }}
+                        title={`Add ${lang?.name}`}
+                        aria-disabled={updateLoading}
+                        className="cursor-pointer aria-disabled:cursor-default aria-disabled:opacity-70 flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                      >
+                        <span className="">
+                          {/* {console.log(!!languages?.find((l: any) => l?.language_id == lang?.id))}
+                          {!languages?.find((l: any) => l?.language_id == lang?.id) ? "+" : "-"} */}
+                          {lang?.name}
+                        </span>
+                        <span>
+                          <Plus className="w-4 h-4" />
+                        </span>
+                      </div>
+                    )
+                )}
+              </div>
+            </>
           )}
 
           {isEditingAboutMe && (
             <div className="flex justify-end">
-              <button
+              {/* <button
                 onClick={handleAboutMeSave}
                 className="px-6 py-2 bg-[#5d0abc] text-white rounded-lg mr-4"
               >
                 Save
-              </button>
+              </button> */}
               <button
                 onClick={handleAboutMeCancel}
                 className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg"
@@ -643,7 +757,7 @@ export default function PersonalDetails() {
             </div>
           )}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
