@@ -742,18 +742,18 @@ export default function PersonalDetails() {
 
           {isEditingAboutMe && (
             <div className="flex justify-end">
-              {/* <button
-                onClick={handleAboutMeSave}
+              <button
+                // onClick={handleAboutMeSave}
+                onClick={handleAboutMeCancel}
                 className="px-6 py-2 bg-[#5d0abc] text-white rounded-lg mr-4"
               >
-                Save
-              </button> */}
-              <button
-                onClick={handleAboutMeCancel}
+                Done
+              </button>
+              {/* <button
                 className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg"
               >
                 Cancel
-              </button>
+              </button> */}
             </div>
           )}
         </div>
