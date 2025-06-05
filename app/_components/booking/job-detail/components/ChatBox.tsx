@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setOffersId } from "@/app/lib/store/features/bookingSlice";
+import { Info } from "lucide-react";
 
 type Message = {
   id: number;
@@ -23,7 +24,7 @@ const ChatBox = ({
   setMessagesRefreshed,
   messagesRefreshed,
   onChatVisibilityChange,
-  onChatClose
+  onChatClose,
 }: any) => {
   const { auth: storedData } = useAppSelector(selectAuth);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -46,7 +47,7 @@ const ChatBox = ({
     if (selectedOffer !== null) {
       setIsChatBodyVisible(true);
     }
-  }, [selectedOffer])
+  }, [selectedOffer]);
 
   const toggleChatVisibility = () => {
     const newVisibility = !isChatBodyVisible;
@@ -158,10 +159,15 @@ const ChatBox = ({
   }, {});
 
   return (
-    <div className={`w-full ${isChatBodyVisible ? "h-full" : "h-[0px]"} bg-[#FDF7ED] pb-20 relative flex flex-col gap-4 border border-1 border-[#F7DDB7] rounded-xl`}>
+    <div
+      className={`w-full ${
+        isChatBodyVisible ? "h-full" : "h-[0px]"
+      } bg-[#FDF7ED] pb-20 relative flex flex-col gap-4 border border-1 border-[#F7DDB7] rounded-xl`}
+    >
       <div
         onClick={toggleChatVisibility}
-        className={`absolute top-0 h-[60px] bg-[#FFEFD7] w-full rounded-t-xl p-2 cursor-pointer border border-red-300`}>
+        className={`absolute top-0 h-[60px] bg-[#FFEFD7] w-full rounded-t-xl p-2 cursor-pointer border border-red-300`}
+      >
         <div className="flex flex-row justify-between">
           <div className="flex flex-row items-center justify-between gap-2">
             <Image
@@ -198,7 +204,14 @@ const ChatBox = ({
 
       {isChatBodyVisible && (
         <>
-          <div className={`relative flex-1 overflow-y-auto p-4 mt-[84px] max-h-[88%]  `}>
+          <div
+            className={`relative flex-1 overflow-y-auto p-4 mt-[84px] max-h-[88%]  `}
+          >
+            <div className="max-w-[270px] bg-yellow-50 px-2 py-2 my-4 rounded-lg border border-yellow-400 mx-auto text-xs flex items-center justify-center gap-3">
+              {/* <TriangleAlert className="w-6 h-6" />  */}
+              <Info className="w-4 h-4" />
+              Do not share your contact details.
+            </div>
             {Object.entries(groupedMessages).map(([date, msgs]: any) => (
               <div key={date}>
                 {/* Date Timestamp */}
@@ -210,10 +223,11 @@ const ChatBox = ({
                 {msgs.map((msg: any) => (
                   <div
                     key={msg.id}
-                    className={`flex mb-2 ${msg?.sender_user_id === storedData?.user?.id
+                    className={`flex mb-2 ${
+                      msg?.sender_user_id === storedData?.user?.id
                         ? "justify-end" // Sender's messages on the right
                         : "justify-start" // Receiver's messages on the left
-                      }`}
+                    }`}
                   >
                     {msg?.sender_user_id === storedData?.user?.id ? (
                       // Sender's div
@@ -293,13 +307,11 @@ const ChatBox = ({
                     </div>
                   )}
                 </div> */}
-
               </div>
             ))}
             {/* Ref for Auto-Scroll */}
             <div ref={messagesEndRef} />
           </div>
-
 
           {/* Message Input */}
           {job?.status === "completed" ? (
@@ -337,8 +349,6 @@ const ChatBox = ({
           )}
         </>
       )}
-
-
     </div>
   );
 };
